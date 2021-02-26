@@ -13,6 +13,19 @@ creneau initCours(){
     return c;
 }
 
+creneau fillCours(creneau c,char* nom_matiere,char* type_cours, char* jour_semaine, char* heure_debut, char* heure_fin, int frequence, char* mode_cours, char* salle){
+    c= initCours();
+    c.nom_matiere = nom_matiere;
+    c.type_cours = type_cours;
+    c.jour_semaine = jour_semaine;
+    c.heure_debut = heure_debut;
+    c.heure_fin = heure_fin;
+    c.frequence = frequence;
+    c.mode_cours = mode_cours;
+    c.salles = salle;
+    return c;
+}
+
 int menu(char* titre_menu, char** tableau_proposition){
     if(tableau_proposition[0] != NULL){
         int i;
@@ -41,7 +54,6 @@ char* afficher_repertoire(char* repertoire){
     char* buffer_fichier;
     // opendir() renvoie un pointeur de type DIR. 
     DIR *d = opendir(repertoire);
-    perror("Erreur");
     if (d != NULL){
         while ((dir = readdir(d)) != NULL){
             buffer_fichier =(char*) malloc(sizeof(char)*strlen(dir->d_name));
@@ -57,12 +69,16 @@ char* afficher_repertoire(char* repertoire){
             free(buffer_fichier);
         }
         closedir(d);
-
+        tableau_fichiers[iteration] = NULL;
         index_fichier = menu("Quel fichier voulez-vous choisir ?", tableau_fichiers);
         return tableau_fichiers[index_fichier];    
     }
-    perror("Erreur");
     return NULL;
+}
+
+creneau* readFile(char* file_name){
+    FILE* f = fopen(file_name,"r");
+
 }
 
 time_t getTime(){

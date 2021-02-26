@@ -1,0 +1,14 @@
+LP2A		CM 1	lundi	8:00	9:45	1	Distanciel	
+CC04		CM 1	lundi	10:15	11:45	1	Distanciel	
+CC04		TD 1	lundi	14:30	16:15	1	Distanciel	
+LP2A		TP 2	lundi	16:45	19:30	2	Hybride	P 001, P 334
+PS28		CM 1	mardi	8:00	9:45	1	Distanciel	
+LP2A		TD 2	mardi	10:15	12:00	1	Distanciel	
+LP25		CM 1	mardi	14:30	16:15	1	Distanciel	
+SQ20		TP 1	mardi	16:45	18:30	2	Distanciel	P 334
+LP25		TD 2	mercredi	10:15	12:00	1	Distanciel	P 334
+LP25		TP 2	mercredi	16:45	18:30	1	Distanciel	P 334
+SQ20		TD 2	jeudi	8:00	9:45	1	Distanciel	
+SQ20		CM 1	jeudi	10:15	12:00	1	Présentiel	P 108b
+PS28		TP 1	vendredi	10:15	12:00	2	Distanciel	P 335
+PS28		TD 1	vendredi	14:30	16:15	1	Présentiel	P 325

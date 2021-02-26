@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 #include <dirent.h>
 
 /**
@@ -21,6 +22,8 @@ typedef struct{
     char* salles; /** \brief salles : nom de la salle du cours ( s'il y en a une) */
 } creneau;
 
+
+
 /**
  * \fn creneau initCours()
  * \brief initialiser à NULL un cours d'une matière
@@ -28,8 +31,12 @@ typedef struct{
  */
 creneau initCours();
 
-
-
+/**
+ * 
+ * 
+ * 
+ */
+creneau fillCours(creneau c,char* nom_matiere,char* type_cours, char* jour_semaine, char* heure_debut, char* heure_fin, int frequence, char* mode_cours, char* salle);
 
 /** 
  * \fn int menu(char* titre_menu, char** tableau_proposition)
@@ -48,6 +55,13 @@ int menu(char* titre_menu, char** tableau_proposition);
  * \return une chaîne de caractères, le nom du fichier choisi par l'utilisateur
  */
 char* afficher_repertoire(char* repertoire);
+
+/**
+ * 
+ * 
+ * 
+ */
+creneau* readFile(char* file_name);
 
 /**
  * \fn time_t getTime()
