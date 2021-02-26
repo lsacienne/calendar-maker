@@ -1,3 +1,12 @@
+/**
+ * \file calendar.c
+ * \brief fichier c de la bibliothèque calendar
+ * 
+ * \author Alexandre "L'Sacienne" V. 
+ * \version 1.0
+ * \date février 2021
+ */
+
 #include "calendar.h"
 
 creneau initCours(){

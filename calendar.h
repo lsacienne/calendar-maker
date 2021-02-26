@@ -1,3 +1,12 @@
+/**
+ * \file calendar.h
+ * \brief header file de la bibliothèque calendar.c
+ * 
+ * \author Alexandre "L'Sacienne" V. 
+ * \version 1.0
+ * \date février 2021
+ */
+
 #ifndef CALENDAR_HEADER
 #define CALENDAR_HEADER
 
@@ -16,7 +25,7 @@ typedef struct{
     char* type_cours; /** \brief type_cours : le type du cours ( CM, TD, TP) */
     char* jour_semaine; /** \brief jour_semaine : le jour dans la semaine */
     char* heure_debut; /** \brief heure_debut : heure du début du cours */
-    char* heure_fin; /** \brief heure_fin : heure dde fin du cours */
+    char* heure_fin; /** \brief heure_fin : heure de fin du cours */
     int frequence; /** \brief frequence : frequence du cours ( 1 : toutes les semaines; 2 : 1 semaine sur deux) */
     char* mode_cours; /** \brief mode_cours : mode du cours pendant l'épidémie du Covid-19*/
     char* salles; /** \brief salles : nom de la salle du cours ( s'il y en a une) */
@@ -32,9 +41,17 @@ typedef struct{
 creneau initCours();
 
 /**
- * 
- * 
- * 
+ * \fn creneau fillCours(creneau c,char* nom_matiere,char* type_cours, char* jour_semaine, char* heure_debut, char* heure_fin, int frequence, char* mode_cours, char* salle)
+ * \brief une fonction permattant de remplir un cours avec les informations qu'il contient
+ * \param nom_matiere - nom de la matière
+ * \param type_cours - chaîne de caractères, le type du cours ( CM, TD, TP)
+ * \param jour_semaine - chaîne de caractères, le jour dans la semaine
+ * \param heure_debut - chaîne de caractères, heure du début du cours
+ * \param heure_fin - chaîne de caractères, heure de fin du cours
+ * \param frequence - entier, frequence du cours ( 1 : toutes les semaines; 2 : 1 semaine sur deux)
+ * \param mode_cours - chaîne de caractères, mode du cours pendant l'épidémie du Covid-19
+ * \param salles - chaîne de caractères, nom de la salle du cours ( s'il y en a une)
+ * \return un creneau complété avec les données rentrées
  */
 creneau fillCours(creneau c,char* nom_matiere,char* type_cours, char* jour_semaine, char* heure_debut, char* heure_fin, int frequence, char* mode_cours, char* salle);
 
@@ -57,9 +74,10 @@ int menu(char* titre_menu, char** tableau_proposition);
 char* afficher_repertoire(char* repertoire);
 
 /**
- * 
- * 
- * 
+ * \fn creneau* readFile(char* file_name)
+ * \brief une fonction permettant de lire le fichier avec l'emploi du temps au format de l'utbm
+ * \param file_name - une chaîne de caractères avec le nom du fichier avec le bon dossier
+ * \return un tableau de creneaux - tous les creneaux de l'emploi du temps dasn le fichier
  */
 creneau* readFile(char* file_name);
 

@@ -1,3 +1,12 @@
+/**
+ * \file main.c
+ * \brief fichier main du projet de générateur d'emplois du temps sous forme de .ics. 
+ * 
+ * \author Alexandre "L'Sacienne" V. 
+ * \version 1.0
+ * \date février 2021
+ */
+
 #include "calendar.h"
 
 int main( int argc, char* argv[]){
