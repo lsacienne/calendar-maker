@@ -11,8 +11,6 @@ fichier c de la bibliothèque calendar
 \item 
 \mbox{\hyperlink{structcreneau}{creneau}} \mbox{\hyperlink{calendar_8c_ae21139e430dc43cc6e55bcef457d50fc}{init\+Cours}} ()
 \begin{DoxyCompactList}\small\item\em initialiser à NULL un cours d\textquotesingle{}une matière \end{DoxyCompactList}\item 
-\mbox{\hyperlink{structcreneau}{creneau}} \mbox{\hyperlink{calendar_8c_a847f66ed394bc781c1fb182442b093aa}{fill\+Cours}} (\mbox{\hyperlink{structcreneau}{creneau}} c, char $\ast$nom\+\_\+matiere, char $\ast$type\+\_\+cours, char $\ast$jour\+\_\+semaine, char $\ast$heure\+\_\+debut, char $\ast$heure\+\_\+fin, int frequence, char $\ast$mode\+\_\+cours, char $\ast$salle)
-\begin{DoxyCompactList}\small\item\em une fonction permattant de remplir un cours avec les informations qu\textquotesingle{}il contient \end{DoxyCompactList}\item 
 int \mbox{\hyperlink{calendar_8c_a45398789016533420a55e1492d122656}{menu}} (char $\ast$titre\+\_\+menu, char $\ast$$\ast$tableau\+\_\+proposition)
 \begin{DoxyCompactList}\small\item\em Fonction permettant d\textquotesingle{}afficher un menu. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{calendar_8c_abb572ee655a5064e09a88f78eb8cc056}\label{calendar_8c_abb572ee655a5064e09a88f78eb8cc056}} 
@@ -21,7 +19,9 @@ char $\ast$ {\bfseries afficher\+\_\+repertoire} (char $\ast$repertoire)
 \mbox{\hyperlink{structcreneau}{creneau}} $\ast$ \mbox{\hyperlink{calendar_8c_a87b9f6167e7fa8bc15cc1379c64b19a0}{read\+File}} (char $\ast$file\+\_\+name)
 \begin{DoxyCompactList}\small\item\em une fonction permettant de lire le fichier avec l\textquotesingle{}emploi du temps au format de l\textquotesingle{}utbm \end{DoxyCompactList}\item 
 time\+\_\+t \mbox{\hyperlink{calendar_8c_a32315808bd93c14f43ad88f6129f4f35}{get\+Time}} ()
-\begin{DoxyCompactList}\small\item\em fonction permettant d\textquotesingle{}afficher l\textquotesingle{}heure actuelle \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em fonction permettant d\textquotesingle{}afficher l\textquotesingle{}heure actuelle \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{calendar_8c_acc2360bed9c533084bb7045d560a2d0a}{concatener}} (char $\ast$string\+\_\+1, char $\ast$string\+\_\+2)
+\begin{DoxyCompactList}\small\item\em fonction permettant de concaténer deux strings en un seul peu importe l\textquotesingle{}ordre \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -39,37 +39,25 @@ février 2021
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{calendar_8c_a847f66ed394bc781c1fb182442b093aa}\label{calendar_8c_a847f66ed394bc781c1fb182442b093aa}} 
-\index{calendar.c@{calendar.c}!fillCours@{fillCours}}
-\index{fillCours@{fillCours}!calendar.c@{calendar.c}}
-\doxysubsubsection{\texorpdfstring{fillCours()}{fillCours()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structcreneau}{creneau}} fill\+Cours (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structcreneau}{creneau}}}]{c,  }\item[{char $\ast$}]{nom\+\_\+matiere,  }\item[{char $\ast$}]{type\+\_\+cours,  }\item[{char $\ast$}]{jour\+\_\+semaine,  }\item[{char $\ast$}]{heure\+\_\+debut,  }\item[{char $\ast$}]{heure\+\_\+fin,  }\item[{int}]{frequence,  }\item[{char $\ast$}]{mode\+\_\+cours,  }\item[{char $\ast$}]{salle }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{calendar_8c_acc2360bed9c533084bb7045d560a2d0a}\label{calendar_8c_acc2360bed9c533084bb7045d560a2d0a}} 
+\index{calendar.c@{calendar.c}!concatener@{concatener}}
+\index{concatener@{concatener}!calendar.c@{calendar.c}}
+\doxysubsubsection{\texorpdfstring{concatener()}{concatener()}}
+{\footnotesize\ttfamily char $\ast$ concatener (\begin{DoxyParamCaption}\item[{char $\ast$}]{string\+\_\+1,  }\item[{char $\ast$}]{string\+\_\+2 }\end{DoxyParamCaption})}
 
 
 
-une fonction permattant de remplir un cours avec les informations qu\textquotesingle{}il contient 
+fonction permettant de concaténer deux strings en un seul peu importe l\textquotesingle{}ordre 
 
 
 \begin{DoxyParams}{Parameters}
-{\em nom\+\_\+matiere} & -\/ nom de la matière \\
+{\em string\+\_\+1} & -\/ chaîne de caractère correspondant au string en première position \\
 \hline
-{\em type\+\_\+cours} & -\/ chaîne de caractères, le type du cours ( CM, TD, TP) \\
-\hline
-{\em jour\+\_\+semaine} & -\/ chaîne de caractères, le jour dans la semaine \\
-\hline
-{\em heure\+\_\+debut} & -\/ chaîne de caractères, heure du début du cours \\
-\hline
-{\em heure\+\_\+fin} & -\/ chaîne de caractères, heure de fin du cours \\
-\hline
-{\em frequence} & -\/ entier, frequence du cours ( 1 \+: toutes les semaines; 2 \+: 1 semaine sur deux) \\
-\hline
-{\em mode\+\_\+cours} & -\/ chaîne de caractères, mode du cours pendant l\textquotesingle{}épidémie du Covid-\/19 \\
-\hline
-{\em salles} & -\/ chaîne de caractères, nom de la salle du cours ( s\textquotesingle{}il y en a une) \\
+{\em string\+\_\+2} & -\/ chaîne de caractère correspondant au string en deuxième condition \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-un creneau complété avec les données rentrées 
+une chaîne de caractères correspondant à la concaténation 
 \end{DoxyReturn}
 \mbox{\Hypertarget{calendar_8c_a32315808bd93c14f43ad88f6129f4f35}\label{calendar_8c_a32315808bd93c14f43ad88f6129f4f35}} 
 \index{calendar.c@{calendar.c}!getTime@{getTime}}

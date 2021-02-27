@@ -61,16 +61,12 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_e9ec4bcd7293f72afe8df1fde89d9a0d.html">Algat</a></li><li class="navelem"><a class="el" href="dir_2d2d1851cb79969b505fdd6fe20d0eb7.html">Documents</a></li><li class="navelem"><a class="el" href="dir_ecd9472d35dadeca92abb0de2417e282.html">GitHub</a></li><li class="navelem"><a class="el" href="dir_3378950d781d616316a0ab161918eeb4.html">Calendar-maker--.ics-</a></li>  </ul>
-</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">calendar.c File Reference</div>  </div>
+<div class="title">C:/Users/Algat/Documents/GitHub/Calendar-maker--.ics-/calendar.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
@@ -83,9 +79,6 @@ Functions</h2></td></tr>
 <tr class="memitem:ae21139e430dc43cc6e55bcef457d50fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcreneau.html">creneau</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calendar_8c.html#ae21139e430dc43cc6e55bcef457d50fc">initCours</a> ()</td></tr>
 <tr class="memdesc:ae21139e430dc43cc6e55bcef457d50fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">initialiser à NULL un cours d'une matière  <a href="calendar_8c.html#ae21139e430dc43cc6e55bcef457d50fc">More...</a><br /></td></tr>
 <tr class="separator:ae21139e430dc43cc6e55bcef457d50fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a847f66ed394bc781c1fb182442b093aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcreneau.html">creneau</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calendar_8c.html#a847f66ed394bc781c1fb182442b093aa">fillCours</a> (<a class="el" href="structcreneau.html">creneau</a> c, char *nom_matiere, char *type_cours, char *jour_semaine, char *heure_debut, char *heure_fin, int frequence, char *mode_cours, char *salle)</td></tr>
-<tr class="memdesc:a847f66ed394bc781c1fb182442b093aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">une fonction permattant de remplir un cours avec les informations qu'il contient  <a href="calendar_8c.html#a847f66ed394bc781c1fb182442b093aa">More...</a><br /></td></tr>
-<tr class="separator:a847f66ed394bc781c1fb182442b093aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45398789016533420a55e1492d122656"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calendar_8c.html#a45398789016533420a55e1492d122656">menu</a> (char *titre_menu, char **tableau_proposition)</td></tr>
 <tr class="memdesc:a45398789016533420a55e1492d122656"><td class="mdescLeft">&#160;</td><td class="mdescRight">Fonction permettant d'afficher un menu.  <a href="calendar_8c.html#a45398789016533420a55e1492d122656">More...</a><br /></td></tr>
 <tr class="separator:a45398789016533420a55e1492d122656"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -98,6 +91,9 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>afficher_repertoire
 <tr class="memitem:a32315808bd93c14f43ad88f6129f4f35"><td class="memItemLeft" align="right" valign="top">time_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calendar_8c.html#a32315808bd93c14f43ad88f6129f4f35">getTime</a> ()</td></tr>
 <tr class="memdesc:a32315808bd93c14f43ad88f6129f4f35"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction permettant d'afficher l'heure actuelle  <a href="calendar_8c.html#a32315808bd93c14f43ad88f6129f4f35">More...</a><br /></td></tr>
 <tr class="separator:a32315808bd93c14f43ad88f6129f4f35"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc2360bed9c533084bb7045d560a2d0a"><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="calendar_8c.html#acc2360bed9c533084bb7045d560a2d0a">concatener</a> (char *string_1, char *string_2)</td></tr>
+<tr class="memdesc:acc2360bed9c533084bb7045d560a2d0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">fonction permettant de concaténer deux strings en un seul peu importe l'ordre  <a href="calendar_8c.html#acc2360bed9c533084bb7045d560a2d0a">More...</a><br /></td></tr>
+<tr class="separator:acc2360bed9c533084bb7045d560a2d0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>fichier c de la bibliothèque calendar </p>
@@ -105,65 +101,23 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>afficher_repertoire
 <dl class="section version"><dt>Version</dt><dd>1.0 </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>février 2021 </dd></dl>
 </div><h2 class="groupheader">Function Documentation</h2>
-<a id="a847f66ed394bc781c1fb182442b093aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a847f66ed394bc781c1fb182442b093aa">&#9670;&nbsp;</a></span>fillCours()</h2>
+<a id="acc2360bed9c533084bb7045d560a2d0a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc2360bed9c533084bb7045d560a2d0a">&#9670;&nbsp;</a></span>concatener()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structcreneau.html">creneau</a> fillCours </td>
+          <td class="memname">char * concatener </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structcreneau.html">creneau</a>&#160;</td>
-          <td class="paramname"><em>c</em>, </td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>string_1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>nom_matiere</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>type_cours</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>jour_semaine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>heure_debut</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>heure_fin</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>frequence</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>mode_cours</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">char *&#160;</td>
-          <td class="paramname"><em>salle</em>&#160;</td>
+          <td class="paramname"><em>string_2</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -173,21 +127,15 @@ char *&#160;</td><td class="memItemRight" valign="bottom"><b>afficher_repertoire
       </table>
 </div><div class="memdoc">
 
-<p>une fonction permattant de remplir un cours avec les informations qu'il contient </p>
+<p>fonction permettant de concaténer deux strings en un seul peu importe l'ordre </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">nom_matiere</td><td>- nom de la matière </td></tr>
-    <tr><td class="paramname">type_cours</td><td>- chaîne de caractères, le type du cours ( CM, TD, TP) </td></tr>
-    <tr><td class="paramname">jour_semaine</td><td>- chaîne de caractères, le jour dans la semaine </td></tr>
-    <tr><td class="paramname">heure_debut</td><td>- chaîne de caractères, heure du début du cours </td></tr>
-    <tr><td class="paramname">heure_fin</td><td>- chaîne de caractères, heure de fin du cours </td></tr>
-    <tr><td class="paramname">frequence</td><td>- entier, frequence du cours ( 1 : toutes les semaines; 2 : 1 semaine sur deux) </td></tr>
-    <tr><td class="paramname">mode_cours</td><td>- chaîne de caractères, mode du cours pendant l'épidémie du Covid-19 </td></tr>
-    <tr><td class="paramname">salles</td><td>- chaîne de caractères, nom de la salle du cours ( s'il y en a une) </td></tr>
+    <tr><td class="paramname">string_1</td><td>- chaîne de caractère correspondant au string en première position </td></tr>
+    <tr><td class="paramname">string_2</td><td>- chaîne de caractère correspondant au string en deuxième condition </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>un creneau complété avec les données rentrées </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>une chaîne de caractères correspondant à la concaténation </dd></dl>
 
 </div>
 </div>

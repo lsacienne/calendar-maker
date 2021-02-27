@@ -10,6 +10,28 @@
 #ifndef CALENDAR_HEADER
 #define CALENDAR_HEADER
 
+#ifdef __unix__ 
+
+    #define OS 1
+
+#elif _WIN32 
+    
+    #define OS 2
+
+#elif __posix__
+    
+    #define OS 3
+
+#elif __linux__
+    
+    #define OS 4
+
+#elif __APPLE__
+    
+    #define OS 5
+
+#endif
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -88,6 +110,14 @@ creneau* readFile(char* file_name);
  */
 time_t getTime();
 
+/**
+ * \fn char* concatener(char* string_1,char* string_2)
+ * \brief fonction permettant de concaténer deux strings en un seul peu importe l'ordre
+ * \param string_1 - chaîne de caractère correspondant au string en première position
+ * \param string_2 - chaîne de caractère correspondant au string en deuxième condition
+ * \return une chaîne de caractères correspondant à la concaténation
+ */
+char* concatener(char* string_1,char* string_2);
 
 
 

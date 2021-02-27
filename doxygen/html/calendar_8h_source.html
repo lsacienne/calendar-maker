@@ -47,6 +47,7 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -61,69 +62,88 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_d522931ffa1371640980b621734a4381.html">Users</a></li><li class="navelem"><a class="el" href="dir_e9ec4bcd7293f72afe8df1fde89d9a0d.html">Algat</a></li><li class="navelem"><a class="el" href="dir_2d2d1851cb79969b505fdd6fe20d0eb7.html">Documents</a></li><li class="navelem"><a class="el" href="dir_ecd9472d35dadeca92abb0de2417e282.html">GitHub</a></li><li class="navelem"><a class="el" href="dir_3378950d781d616316a0ab161918eeb4.html">Calendar-maker--.ics-</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">calendar.h</div>  </div>
+<div class="title">C:/Users/Algat/Documents/GitHub/Calendar-maker--.ics-/calendar.h</div>  </div>
 </div><!--header-->
 <div class="contents">
 <a href="calendar_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#ifndef CALENDAR_HEADER</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define CALENDAR_HEADER</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;dirent.h&gt;</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structcreneau.html">   23</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span>{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">char</span>* nom_matiere; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structcreneau.html#acba0549ea4ea60379fafa5374a9fa822">   25</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#acba0549ea4ea60379fafa5374a9fa822">type_cours</a>; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structcreneau.html#a07ea97de12bb8675559fd93f1ad24c8a">   26</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a07ea97de12bb8675559fd93f1ad24c8a">jour_semaine</a>; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structcreneau.html#aa61e4d7af94159d4c5fed28019838078">   27</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#aa61e4d7af94159d4c5fed28019838078">heure_debut</a>; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structcreneau.html#a17a2814496405b2bbdad6eaaae4847a4">   28</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a17a2814496405b2bbdad6eaaae4847a4">heure_fin</a>; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structcreneau.html#a2bc1a09094d49dca8fe391d30bbebc4e">   29</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structcreneau.html#a2bc1a09094d49dca8fe391d30bbebc4e">frequence</a>; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structcreneau.html#a75f0e191d356f9e025ed78c496316307">   30</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a75f0e191d356f9e025ed78c496316307">mode_cours</a>; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structcreneau.html#a669402417880f279606a841276d304cb">   31</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a669402417880f279606a841276d304cb">salles</a>; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <a class="code" href="structcreneau.html">creneau</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#ifdef __unix__ </span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">    #define OS 1</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#elif _WIN32 </span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">    #define OS 2</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#elif __posix__</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">    #define OS 3</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#elif __linux__</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">    #define OS 4</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#elif __APPLE__</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">    #define OS 5</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<a class="code" href="structcreneau.html">creneau</a> <a class="code" href="calendar_8h.html#ae21139e430dc43cc6e55bcef457d50fc">initCours</a>();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<a class="code" href="structcreneau.html">creneau</a> <a class="code" href="calendar_8h.html#a847f66ed394bc781c1fb182442b093aa">fillCours</a>(<a class="code" href="structcreneau.html">creneau</a> c,<span class="keywordtype">char</span>* nom_matiere,<span class="keywordtype">char</span>* type_cours, <span class="keywordtype">char</span>* jour_semaine, <span class="keywordtype">char</span>* heure_debut, <span class="keywordtype">char</span>* heure_fin, <span class="keywordtype">int</span> frequence, <span class="keywordtype">char</span>* mode_cours, <span class="keywordtype">char</span>* salle);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#include &lt;dirent.h&gt;</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="structcreneau.html">   45</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span>{</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">char</span>* nom_matiere; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structcreneau.html#acba0549ea4ea60379fafa5374a9fa822">   47</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#acba0549ea4ea60379fafa5374a9fa822">type_cours</a>; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structcreneau.html#a07ea97de12bb8675559fd93f1ad24c8a">   48</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a07ea97de12bb8675559fd93f1ad24c8a">jour_semaine</a>; </div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structcreneau.html#aa61e4d7af94159d4c5fed28019838078">   49</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#aa61e4d7af94159d4c5fed28019838078">heure_debut</a>; </div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structcreneau.html#a17a2814496405b2bbdad6eaaae4847a4">   50</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a17a2814496405b2bbdad6eaaae4847a4">heure_fin</a>; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structcreneau.html#a2bc1a09094d49dca8fe391d30bbebc4e">   51</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="structcreneau.html#a2bc1a09094d49dca8fe391d30bbebc4e">frequence</a>; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structcreneau.html#a75f0e191d356f9e025ed78c496316307">   52</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a75f0e191d356f9e025ed78c496316307">mode_cours</a>; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="structcreneau.html#a669402417880f279606a841276d304cb">   53</a></span>&#160;    <span class="keywordtype">char</span>* <a class="code" href="structcreneau.html#a669402417880f279606a841276d304cb">salles</a>; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <a class="code" href="structcreneau.html">creneau</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">int</span> <a class="code" href="calendar_8h.html#a45398789016533420a55e1492d122656">menu</a>(<span class="keywordtype">char</span>* titre_menu, <span class="keywordtype">char</span>** tableau_proposition);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keywordtype">char</span>* afficher_repertoire(<span class="keywordtype">char</span>* repertoire);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<a class="code" href="structcreneau.html">creneau</a>* <a class="code" href="calendar_8h.html#afc8d246188771a172379b11bb1feb171">readFile</a>(<span class="keywordtype">char</span>* file_name);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;time_t <a class="code" href="calendar_8h.html#a32315808bd93c14f43ad88f6129f4f35">getTime</a>();</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="acalendar_8h_html_a32315808bd93c14f43ad88f6129f4f35"><div class="ttname"><a href="calendar_8h.html#a32315808bd93c14f43ad88f6129f4f35">getTime</a></div><div class="ttdeci">time_t getTime()</div><div class="ttdoc">fonction permettant d'afficher l'heure actuelle</div><div class="ttdef"><b>Definition:</b> calendar.c:93</div></div>
-<div class="ttc" id="acalendar_8h_html_a45398789016533420a55e1492d122656"><div class="ttname"><a href="calendar_8h.html#a45398789016533420a55e1492d122656">menu</a></div><div class="ttdeci">int menu(char *titre_menu, char **tableau_proposition)</div><div class="ttdoc">Fonction permettant d'afficher un menu.</div><div class="ttdef"><b>Definition:</b> calendar.c:38</div></div>
-<div class="ttc" id="acalendar_8h_html_a847f66ed394bc781c1fb182442b093aa"><div class="ttname"><a href="calendar_8h.html#a847f66ed394bc781c1fb182442b093aa">fillCours</a></div><div class="ttdeci">creneau fillCours(creneau c, char *nom_matiere, char *type_cours, char *jour_semaine, char *heure_debut, char *heure_fin, int frequence, char *mode_cours, char *salle)</div><div class="ttdoc">une fonction permattant de remplir un cours avec les informations qu'il contient</div><div class="ttdef"><b>Definition:</b> calendar.c:25</div></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<a class="code" href="structcreneau.html">creneau</a> <a class="code" href="calendar_8h.html#ae21139e430dc43cc6e55bcef457d50fc">initCours</a>();</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="calendar_8h.html#a847f66ed394bc781c1fb182442b093aa">   78</a></span>&#160;<a class="code" href="structcreneau.html">creneau</a> <a class="code" href="calendar_8h.html#a847f66ed394bc781c1fb182442b093aa">fillCours</a>(<a class="code" href="structcreneau.html">creneau</a> c,<span class="keywordtype">char</span>* nom_matiere,<span class="keywordtype">char</span>* type_cours, <span class="keywordtype">char</span>* jour_semaine, <span class="keywordtype">char</span>* heure_debut, <span class="keywordtype">char</span>* heure_fin, <span class="keywordtype">int</span> frequence, <span class="keywordtype">char</span>* mode_cours, <span class="keywordtype">char</span>* salle);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">int</span> <a class="code" href="calendar_8h.html#a45398789016533420a55e1492d122656">menu</a>(<span class="keywordtype">char</span>* titre_menu, <span class="keywordtype">char</span>** tableau_proposition);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordtype">char</span>* afficher_repertoire(<span class="keywordtype">char</span>* repertoire);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<a class="code" href="structcreneau.html">creneau</a>* <a class="code" href="calendar_8h.html#afc8d246188771a172379b11bb1feb171">readFile</a>(<span class="keywordtype">char</span>* file_name);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;time_t <a class="code" href="calendar_8h.html#a32315808bd93c14f43ad88f6129f4f35">getTime</a>();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keywordtype">char</span>* <a class="code" href="calendar_8h.html#a1a408e7856759c866669c885f8d6e854">concatener</a>(<span class="keywordtype">char</span>* string_1,<span class="keywordtype">char</span>* string_2);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="acalendar_8h_html_a1a408e7856759c866669c885f8d6e854"><div class="ttname"><a href="calendar_8h.html#a1a408e7856759c866669c885f8d6e854">concatener</a></div><div class="ttdeci">char * concatener(char *string_1, char *string_2)</div><div class="ttdoc">fonction permettant de concaténer deux strings en un seul peu importe l'ordre</div><div class="ttdef"><b>Definition:</b> calendar.c:146</div></div>
+<div class="ttc" id="acalendar_8h_html_a32315808bd93c14f43ad88f6129f4f35"><div class="ttname"><a href="calendar_8h.html#a32315808bd93c14f43ad88f6129f4f35">getTime</a></div><div class="ttdeci">time_t getTime()</div><div class="ttdoc">fonction permettant d'afficher l'heure actuelle</div><div class="ttdef"><b>Definition:</b> calendar.c:141</div></div>
+<div class="ttc" id="acalendar_8h_html_a45398789016533420a55e1492d122656"><div class="ttname"><a href="calendar_8h.html#a45398789016533420a55e1492d122656">menu</a></div><div class="ttdeci">int menu(char *titre_menu, char **tableau_proposition)</div><div class="ttdoc">Fonction permettant d'afficher un menu.</div><div class="ttdef"><b>Definition:</b> calendar.c:27</div></div>
+<div class="ttc" id="acalendar_8h_html_a847f66ed394bc781c1fb182442b093aa"><div class="ttname"><a href="calendar_8h.html#a847f66ed394bc781c1fb182442b093aa">fillCours</a></div><div class="ttdeci">creneau fillCours(creneau c, char *nom_matiere, char *type_cours, char *jour_semaine, char *heure_debut, char *heure_fin, int frequence, char *mode_cours, char *salle)</div><div class="ttdoc">une fonction permattant de remplir un cours avec les informations qu'il contient</div></div>
 <div class="ttc" id="acalendar_8h_html_ae21139e430dc43cc6e55bcef457d50fc"><div class="ttname"><a href="calendar_8h.html#ae21139e430dc43cc6e55bcef457d50fc">initCours</a></div><div class="ttdeci">creneau initCours()</div><div class="ttdoc">initialiser à NULL un cours d'une matière</div><div class="ttdef"><b>Definition:</b> calendar.c:12</div></div>
-<div class="ttc" id="acalendar_8h_html_afc8d246188771a172379b11bb1feb171"><div class="ttname"><a href="calendar_8h.html#afc8d246188771a172379b11bb1feb171">readFile</a></div><div class="ttdeci">creneau * readFile(char *file_name)</div><div class="ttdoc">une fonction permettant de lire le fichier avec l'emploi du temps au format de l'utbm</div><div class="ttdef"><b>Definition:</b> calendar.c:88</div></div>
-<div class="ttc" id="astructcreneau_html"><div class="ttname"><a href="structcreneau.html">creneau</a></div><div class="ttdoc">une structure pour stocker les données des créneux horaires pour chaque cours</div><div class="ttdef"><b>Definition:</b> calendar.h:23</div></div>
-<div class="ttc" id="astructcreneau_html_a07ea97de12bb8675559fd93f1ad24c8a"><div class="ttname"><a href="structcreneau.html#a07ea97de12bb8675559fd93f1ad24c8a">creneau::jour_semaine</a></div><div class="ttdeci">char * jour_semaine</div><div class="ttdoc">type_cours : le type du cours ( CM, TD, TP)</div><div class="ttdef"><b>Definition:</b> calendar.h:26</div></div>
-<div class="ttc" id="astructcreneau_html_a17a2814496405b2bbdad6eaaae4847a4"><div class="ttname"><a href="structcreneau.html#a17a2814496405b2bbdad6eaaae4847a4">creneau::heure_fin</a></div><div class="ttdeci">char * heure_fin</div><div class="ttdoc">heure_debut : heure du début du cours</div><div class="ttdef"><b>Definition:</b> calendar.h:28</div></div>
-<div class="ttc" id="astructcreneau_html_a2bc1a09094d49dca8fe391d30bbebc4e"><div class="ttname"><a href="structcreneau.html#a2bc1a09094d49dca8fe391d30bbebc4e">creneau::frequence</a></div><div class="ttdeci">int frequence</div><div class="ttdoc">heure_fin : heure de fin du cours</div><div class="ttdef"><b>Definition:</b> calendar.h:29</div></div>
-<div class="ttc" id="astructcreneau_html_a669402417880f279606a841276d304cb"><div class="ttname"><a href="structcreneau.html#a669402417880f279606a841276d304cb">creneau::salles</a></div><div class="ttdeci">char * salles</div><div class="ttdoc">mode_cours : mode du cours pendant l'épidémie du Covid-19</div><div class="ttdef"><b>Definition:</b> calendar.h:31</div></div>
-<div class="ttc" id="astructcreneau_html_a75f0e191d356f9e025ed78c496316307"><div class="ttname"><a href="structcreneau.html#a75f0e191d356f9e025ed78c496316307">creneau::mode_cours</a></div><div class="ttdeci">char * mode_cours</div><div class="ttdoc">frequence : frequence du cours ( 1 : toutes les semaines; 2 : 1 semaine sur deux)</div><div class="ttdef"><b>Definition:</b> calendar.h:30</div></div>
-<div class="ttc" id="astructcreneau_html_aa61e4d7af94159d4c5fed28019838078"><div class="ttname"><a href="structcreneau.html#aa61e4d7af94159d4c5fed28019838078">creneau::heure_debut</a></div><div class="ttdeci">char * heure_debut</div><div class="ttdoc">jour_semaine : le jour dans la semaine</div><div class="ttdef"><b>Definition:</b> calendar.h:27</div></div>
-<div class="ttc" id="astructcreneau_html_acba0549ea4ea60379fafa5374a9fa822"><div class="ttname"><a href="structcreneau.html#acba0549ea4ea60379fafa5374a9fa822">creneau::type_cours</a></div><div class="ttdeci">char * type_cours</div><div class="ttdoc">nom_matiere : nom de la matière</div><div class="ttdef"><b>Definition:</b> calendar.h:25</div></div>
+<div class="ttc" id="acalendar_8h_html_afc8d246188771a172379b11bb1feb171"><div class="ttname"><a href="calendar_8h.html#afc8d246188771a172379b11bb1feb171">readFile</a></div><div class="ttdeci">creneau * readFile(char *file_name)</div><div class="ttdoc">une fonction permettant de lire le fichier avec l'emploi du temps au format de l'utbm</div><div class="ttdef"><b>Definition:</b> calendar.c:77</div></div>
+<div class="ttc" id="astructcreneau_html"><div class="ttname"><a href="structcreneau.html">creneau</a></div><div class="ttdoc">une structure pour stocker les données des créneux horaires pour chaque cours</div><div class="ttdef"><b>Definition:</b> calendar.h:45</div></div>
+<div class="ttc" id="astructcreneau_html_a07ea97de12bb8675559fd93f1ad24c8a"><div class="ttname"><a href="structcreneau.html#a07ea97de12bb8675559fd93f1ad24c8a">creneau::jour_semaine</a></div><div class="ttdeci">char * jour_semaine</div><div class="ttdoc">type_cours : le type du cours ( CM, TD, TP)</div><div class="ttdef"><b>Definition:</b> calendar.h:48</div></div>
+<div class="ttc" id="astructcreneau_html_a17a2814496405b2bbdad6eaaae4847a4"><div class="ttname"><a href="structcreneau.html#a17a2814496405b2bbdad6eaaae4847a4">creneau::heure_fin</a></div><div class="ttdeci">char * heure_fin</div><div class="ttdoc">heure_debut : heure du début du cours</div><div class="ttdef"><b>Definition:</b> calendar.h:50</div></div>
+<div class="ttc" id="astructcreneau_html_a2bc1a09094d49dca8fe391d30bbebc4e"><div class="ttname"><a href="structcreneau.html#a2bc1a09094d49dca8fe391d30bbebc4e">creneau::frequence</a></div><div class="ttdeci">int frequence</div><div class="ttdoc">heure_fin : heure de fin du cours</div><div class="ttdef"><b>Definition:</b> calendar.h:51</div></div>
+<div class="ttc" id="astructcreneau_html_a669402417880f279606a841276d304cb"><div class="ttname"><a href="structcreneau.html#a669402417880f279606a841276d304cb">creneau::salles</a></div><div class="ttdeci">char * salles</div><div class="ttdoc">mode_cours : mode du cours pendant l'épidémie du Covid-19</div><div class="ttdef"><b>Definition:</b> calendar.h:53</div></div>
+<div class="ttc" id="astructcreneau_html_a75f0e191d356f9e025ed78c496316307"><div class="ttname"><a href="structcreneau.html#a75f0e191d356f9e025ed78c496316307">creneau::mode_cours</a></div><div class="ttdeci">char * mode_cours</div><div class="ttdoc">frequence : frequence du cours ( 1 : toutes les semaines; 2 : 1 semaine sur deux)</div><div class="ttdef"><b>Definition:</b> calendar.h:52</div></div>
+<div class="ttc" id="astructcreneau_html_aa61e4d7af94159d4c5fed28019838078"><div class="ttname"><a href="structcreneau.html#aa61e4d7af94159d4c5fed28019838078">creneau::heure_debut</a></div><div class="ttdeci">char * heure_debut</div><div class="ttdoc">jour_semaine : le jour dans la semaine</div><div class="ttdef"><b>Definition:</b> calendar.h:49</div></div>
+<div class="ttc" id="astructcreneau_html_acba0549ea4ea60379fafa5374a9fa822"><div class="ttname"><a href="structcreneau.html#acba0549ea4ea60379fafa5374a9fa822">creneau::type_cours</a></div><div class="ttdeci">char * type_cours</div><div class="ttdoc">nom_matiere : nom de la matière</div><div class="ttdef"><b>Definition:</b> calendar.h:47</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

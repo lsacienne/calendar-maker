@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fillcours_21',['fillCours',['../calendar_8c.html#a847f66ed394bc781c1fb182442b093aa',1,'fillCours(creneau c, char *nom_matiere, char *type_cours, char *jour_semaine, char *heure_debut, char *heure_fin, int frequence, char *mode_cours, char *salle):&#160;calendar.c'],['../calendar_8h.html#a847f66ed394bc781c1fb182442b093aa',1,'fillCours(creneau c, char *nom_matiere, char *type_cours, char *jour_semaine, char *heure_debut, char *heure_fin, int frequence, char *mode_cours, char *salle):&#160;calendar.c']]]
+  ['concatener_22',['concatener',['../calendar_8c.html#acc2360bed9c533084bb7045d560a2d0a',1,'concatener(char *string_1, char *string_2):&#160;calendar.c'],['../calendar_8h.html#a1a408e7856759c866669c885f8d6e854',1,'concatener(char *string_1, char *string_2):&#160;calendar.c']]]
 ];

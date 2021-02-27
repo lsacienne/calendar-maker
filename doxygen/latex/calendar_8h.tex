@@ -30,7 +30,9 @@ char $\ast$ {\bfseries afficher\+\_\+repertoire} (char $\ast$repertoire)
 \mbox{\hyperlink{structcreneau}{creneau}} $\ast$ \mbox{\hyperlink{calendar_8h_afc8d246188771a172379b11bb1feb171}{read\+File}} (char $\ast$file\+\_\+name)
 \begin{DoxyCompactList}\small\item\em une fonction permettant de lire le fichier avec l\textquotesingle{}emploi du temps au format de l\textquotesingle{}utbm \end{DoxyCompactList}\item 
 time\+\_\+t \mbox{\hyperlink{calendar_8h_a32315808bd93c14f43ad88f6129f4f35}{get\+Time}} ()
-\begin{DoxyCompactList}\small\item\em fonction permettant d\textquotesingle{}afficher l\textquotesingle{}heure actuelle \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em fonction permettant d\textquotesingle{}afficher l\textquotesingle{}heure actuelle \end{DoxyCompactList}\item 
+char $\ast$ \mbox{\hyperlink{calendar_8h_a1a408e7856759c866669c885f8d6e854}{concatener}} (char $\ast$string\+\_\+1, char $\ast$string\+\_\+2)
+\begin{DoxyCompactList}\small\item\em fonction permettant de concaténer deux strings en un seul peu importe l\textquotesingle{}ordre \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -48,6 +50,26 @@ février 2021
 
 
 \doxysubsection{Function Documentation}
+\mbox{\Hypertarget{calendar_8h_a1a408e7856759c866669c885f8d6e854}\label{calendar_8h_a1a408e7856759c866669c885f8d6e854}} 
+\index{calendar.h@{calendar.h}!concatener@{concatener}}
+\index{concatener@{concatener}!calendar.h@{calendar.h}}
+\doxysubsubsection{\texorpdfstring{concatener()}{concatener()}}
+{\footnotesize\ttfamily char$\ast$ concatener (\begin{DoxyParamCaption}\item[{char $\ast$}]{string\+\_\+1,  }\item[{char $\ast$}]{string\+\_\+2 }\end{DoxyParamCaption})}
+
+
+
+fonction permettant de concaténer deux strings en un seul peu importe l\textquotesingle{}ordre 
+
+
+\begin{DoxyParams}{Parameters}
+{\em string\+\_\+1} & -\/ chaîne de caractère correspondant au string en première position \\
+\hline
+{\em string\+\_\+2} & -\/ chaîne de caractère correspondant au string en deuxième condition \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+une chaîne de caractères correspondant à la concaténation 
+\end{DoxyReturn}
 \mbox{\Hypertarget{calendar_8h_a847f66ed394bc781c1fb182442b093aa}\label{calendar_8h_a847f66ed394bc781c1fb182442b093aa}} 
 \index{calendar.h@{calendar.h}!fillCours@{fillCours}}
 \index{fillCours@{fillCours}!calendar.h@{calendar.h}}

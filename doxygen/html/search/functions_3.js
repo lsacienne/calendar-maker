@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['menu_24',['menu',['../calendar_8c.html#a45398789016533420a55e1492d122656',1,'menu(char *titre_menu, char **tableau_proposition):&#160;calendar.c'],['../calendar_8h.html#a45398789016533420a55e1492d122656',1,'menu(char *titre_menu, char **tableau_proposition):&#160;calendar.c']]]
+  ['initcours_25',['initCours',['../calendar_8c.html#ae21139e430dc43cc6e55bcef457d50fc',1,'initCours():&#160;calendar.c'],['../calendar_8h.html#ae21139e430dc43cc6e55bcef457d50fc',1,'initCours():&#160;calendar.c']]]
 ];
