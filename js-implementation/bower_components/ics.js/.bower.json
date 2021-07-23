@@ -1,0 +1,39 @@
+{
+  "name": "ics.js",
+  "main": "ics.js",
+  "version": "0.2.0",
+  "homepage": "https://github.com/nwcell/ics.js",
+  "contributors": [
+    "Travis Krause <travis@codeforemen.com>",
+    "Kyle Hornberg <kyle.hornberg@gmail.com>"
+  ],
+  "description": "A browser firendly .ics/.vcs file generator written entirely in javascript",
+  "keywords": [
+    "ics",
+    "iCal",
+    "iCalendar"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demo"
+  ],
+  "dependencies": {
+    "Blob.js": "eligrey/Blob.js",
+    "FileSaver": "*"
+  },
+  "_release": "0.2.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.0",
+    "commit": "223f80dde534494412d574cd46f6e6a4291bd2ad"
+  },
+  "_source": "https://github.com/nwcell/ics.js.git",
+  "_target": "^0.2.0",
+  "_originalSource": "ics.js",
+  "_direct": true
+}
