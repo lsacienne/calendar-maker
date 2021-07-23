@@ -4,19 +4,63 @@
 let edt_texte_brut = document.getElementById('edt');
 let body = document.getElementsByTagName("body");
 const form = document.getElementById('form');
-console.log("texte récupéré : "+edt_texte_brut);
 
 /* Obtention de l'emploi du temps au format brut fourni par l'UTBM */
 
 
 function getEdt(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    let valeur_brute = edt_texte_brut.value;
-    console.log("texte récupéré : "+valeur_brute);
-    traitement_donnees(valeur_brute);
+    try {
+        event.stopPropagation();
+        event.preventDefault();
+        let valeur_brute = edt_texte_brut.value;
+        traitement_donnees(valeur_brute);
+    } catch(err) {
+        alert("Saisie incorrecte, veuillez réessayer !");
+    }
 }
 form.addEventListener('submit',getEdt,false);
+
+function generateForm(uv,aujourdhui){
+    let new_form = document.createElement('form');
+
+    let div1 = document.createElement('div');
+    let div2 = document.createElement('div');
+
+    let radio1 = document.createElement('input');
+    let radio2 = document.createElement('input');
+
+    div1.style.display = "list-item";
+    div2.style.display = "list-item";
+    div1.style.listStyle="none"
+    div2.style.listStyle="none"
+
+    radio1.type ='radio';
+    radio2.type ='radio';
+
+    radio1.class ='firstDate';
+    radio2.class ='secondDate';
+
+    radio1.name ='choix_date';
+    radio2.name ='choix_date';
+    
+    radio1.value = ajoutJourRelatif(aujourdhui,uv).toString();
+    radio2.value = ajouterJour(ajoutJourRelatif(aujourdhui,uv),7).toString();
+
+    let label1 = document.createElement('label');
+    let label2 = document.createElement('label');
+
+    label1.for = 'firstDate';
+    label2.for = 'secondDate';
+
+    label1.innerHTML = ajoutJourRelatif(aujourdhui,uv).toString().concat("  ",uv.afficherTitre());
+    label2.innerHTML = ajouterJour(ajoutJourRelatif(aujourdhui,uv),7).toString().concat("  ",uv.afficherTitre());
+
+    div1.append(radio1,label1);
+    div2.append(radio2,label2);
+
+    new_form.append(div1,div2);
+    body[0].append(new_form);
+}
 
 
 /* Transformation de l'emploi du temps en des événements dans une première classe */
@@ -32,18 +76,14 @@ function traitement_donnees(valeur) {
         elements.splice(1,1);
         let nouveau_creneau = new CreneauBrut(elements);
         edt_semi_brut.push(nouveau_creneau);
-        /*
-        console.log("c1 contient : ", nouveau_creneau);
-        */
-        /*
-        for(element of elements){
-            console.log(element);
+        if(nouveau_creneau.convertFreq()==2) {
+            generateForm(nouveau_creneau,new Date());
         }
-        */
 
         i++;
     }
-    console.log(" contenu de l'edt : ", edt_semi_brut);
+
+
 
     generate_ics(edt_semi_brut);
 }
