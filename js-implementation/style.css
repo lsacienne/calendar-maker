@@ -20,7 +20,12 @@ header h1 {
 body form {
     text-align: center;
     margin: 10vw;
+    padding: 1vw;
     display: block;
+    border: solid;
+    border-color: rgb(35, 35, 136);
+    border-width: 2em;
+    border-radius:3em;
 }
 
 body form input {
@@ -28,7 +33,12 @@ body form input {
 }
 
 body form textarea {
-    width: 100%;
+    width: 90%;
+    padding: 2%;
+    border: solid;
+    border-width: 1em;
+    border-top-left-radius: 2em;
+    border-bottom-right-radius: 2em;
     resize: vertical;
     min-height: 20em;
     max-height: 40em;
@@ -38,7 +48,7 @@ body form input[type=submit] {
     border: none;
     border-top-left-radius: 1em;
     border-bottom-right-radius: 1em;
-    background-color: blue;
+    background-color: rgb(35, 35, 136);
     color: white;
     font-weight: bold;
     font-size: 2em;

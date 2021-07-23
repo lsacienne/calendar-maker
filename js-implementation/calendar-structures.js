@@ -34,4 +34,48 @@ class CreneauBrut {
             this.salle = champs[6];
         }
     }
+
+    convertDay() {
+        return dico_semaine.semaine.get(this.jour);
+    }
+
+    convertHour() {
+        let array = this.heure_debut.split(':').concat(this.heure_fin.split(':'));
+        let i = 0;
+        //console.log(array);
+        let array_number = [];
+        for(let mot of array) {
+            array_number.push(parseInt(mot));
+        }
+        //console.log(array_number);
+        return array_number;
+    }
+
+    afficherTitre() {
+        return this.uv.concat(' - ',this.type);
+    }
+
+    convertFreq() {
+        return parseInt(this.frequence,10);
+    }
+}
+
+class rrule {
+    constructor(freq,until,interval) {
+        this.freq = freq;
+        this.until = until;
+        this.interval = interval;
+    }
+}
+
+
+
+const jour_ics = {
+    LUNDI:1,
+    MARDI:2,
+    MERCREDI:3,
+    JEUDI:4,
+    VENDREDI:5,
+    SAMEDI:6,
+    DIMANCHE:7
 }

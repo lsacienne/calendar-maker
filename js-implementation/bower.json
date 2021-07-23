@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "file-saver": "^2.0.4",
-    "ics.js": "^0.2.0"
+    "ics.js": "^0.2.0",
+    "moment": "^2.29.1"
   }
 }
