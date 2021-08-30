@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon/format-ics.png">
+    
+    <title>Calendar maker</title>
+
+    <!-- ics library & dependencies -->
+    <script src="./bower_components/Blob.js/Blob.js"></script>
+    <script src="./bower_components/file-saver/dist/FileSaver.min.js"></script>
+    <script src="./bower_components/ics.js/ics.min.js"></script>
+
+    <!-- jQuery library -->
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Moments library -->
+    <script src="./bower_components/moment/moment.js"></script>
+
+    <!-- Font Awesome library -->
+    <script src="https://kit.fontawesome.com/b8475c77e1.js" crossorigin="anonymous"></script>
+
+    <!-- Source code -->
+    <script src="const.js"></script>
+    <script src="calendar-structures.js"></script>
+    <script src="calendar.js" defer></script>
+</head>
+<body>
+    <header>
+        <h1>Bienvenue sur calendar maker !</h1>
+    </header>
+
+    <form action="" id="form">
+        <textarea name="" id="edt" placeholder="Copier-coller votre emploi du temps ici..."></textarea>
+
+        <div class="date">
+            <div class="date-item">
+                <label for="date_debut">Date du début des cours : </label>
+                <input type="date" name="date_debut" id="date_debut_cours">
+            </div>
+        </div>
+
+        <div class="date">
+            <div class="date-item">
+                <label for="date_debut_vacances_1">Début période de vacances 1 :</label>
+                <input type="date" name="date_debut_vacances_1" id="date_debut_vacances_1">
+            </div>
+            <div class="date-item">
+                <label for="date_fin_vacances_1">Fin de période de vacances 1 :</label>
+                <input type="date" name="date_fin_vacances_1" id="date_fin_vacances_1">
+            </div>
+        </div>
+
+        <div class="date">
+            <div class="date-item">
+                <label for="date_debut_vacances_2">Début période de vacances 2 :</label>
+                <input type="date" name="date_debut_vacances_2" id="date_debut_vacances_2" disabled>
+            </div>
+            <div class="date-item">
+                <label for="date_fin_vacances_2">Fin de période de vacances 2 :</label>
+                <input type="date" name="date_fin_vacances_2" id="date_fin_vacances_2" disabled>
+            </div>
+        </div>
+
+        <div class="date">
+            <div class="date-item">
+                <label for="date_fin">Date de la fin des cours : </label>
+                <input type="date" name="date_fin" id="date_fin_cours">
+            </div>
+        </div>
+
+        <input type="submit" value="J'ai fini !" id="end">
+    </form>
+</body>
+
+<footer>
+    <div class="utpepper">
+        &copy UT'Pepper. L'Sacienne.
+    </div>
+    <div class="documentation">
+        <a href="https://github.com/Zer67/Calendar-maker--.ics-">
+            <i class="fab fa-github"></i> Documentation
+        </a>
+    </div>
+    <div class="artist">
+        Icônes conçues par <a href="https://www.flaticon.com/fr/auteurs/iconixar" title="iconixar">iconixar</a> from <a href="https://www.flaticon.com/fr/" title="Flaticon">www.flaticon.com</a>
+    </div>
+</footer>
+
+</html>

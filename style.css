@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+html{
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body{
+    background: rgb(255, 255, 255);
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    background: rgb(63,94,251);
+    background: linear-gradient(315deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
+
+header h1 {
+    text-align: center;
+}
+
+body form {
+    text-align: center;
+    margin: 10vh;
+    padding: 1vw;
+    display: block;
+    border: solid;
+    -webkit-box-shadow: 0px 0px 23px -3px #000000; 
+    box-shadow: 0px 0px 23px -3px #000000;
+    border-color: rgb(35, 35, 136);
+    border-width: 2em;
+    border-radius:3em;
+}
+
+body form input {
+    margin-bottom: 2%;
+}
+
+body form textarea {
+    width: 90%;
+    padding: 2%;
+    background: rgba(255,255,255,0.3);
+    border: solid;
+    border-width: 1em;
+    border-top-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+    resize: vertical;
+    min-height: 20em;
+    max-height: 40em;
+}
+
+body form input[type=submit] {
+    border: none;
+    border-top-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: rgb(35, 35, 136);
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    padding: 10px;
+
+}
+
+body form input[type=submit]:hover{
+    background-color: brown;
+
+}
+
+body form .date {
+    margin: 2%;
+    text-align: left;
+    padding: 20px;
+    border: solid;
+    border-width: 0.5em;
+    border-top-left-radius: 2em;
+    border-bottom-right-radius: 2em;
+}
+
+body form .date .date-item {
+    margin:1%;
+}
+
+body form .date input {
+    margin-bottom: unset;
+    background: rgba(255,255,255,0.3);
+    border: none;
+    border-radius: 1em;
+    padding: 5px;
+}
+/*
+body form input[type=button] {
+    border: none;
+    border-top-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    font-size: 2em;
+    padding: 10px;
+
+}
+
+body form input[type=button]:hover{
+    background-color: brown;
+
+}
+*/
+
+body form .titreFormDate {
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: rgb(35, 35, 136);
+    padding: 0.5em;
+}
+
+body form .divFormDate {
+    display: list-item;
+    list-style: none;
+}
+
+body .finalSubmit {
+    border: none;
+    border-top-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    background-color: rgb(35, 35, 136);
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5em;
+    padding: 15px;
+}
+
+body .finalSubmit:hover{
+    background-color: brown;
+}
+
+body .finalSubmit:disabled {
+    background-color: rgb(91, 94, 124);
+}
+
+body .divSubmit {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10vh;
+}
+
+footer {
+    width: 100%;
+    background: rgba(255,255,255,0.5);
+    padding: 10px;
+    text-align: center;
+}
+
+.documentation a, .documentation a:visited {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+
+.artist {
+    text-align: right;
+    padding-right: 20px;
+}
+
+
+@media (max-width: 750px) {
+    body form {
+        margin: 2vh;
+        margin-bottom: 10vh;
+        border-width: 1em;
+    }
+
+    body form textarea {
+        margin-top: 1em;
+        font-size: 0.8em;
+        tab-size: 2;
+        border-width: 0.5em;
+
+    }
+
+    body .finalSubmit {
+        font-size: 1em;
+        padding: 10px;
+    }
+}
+
