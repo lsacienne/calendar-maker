@@ -16,10 +16,10 @@ Pour importer votre emploi du temps UTBM, suivez le guide d'utilisation ci-desso
 1. Tout d'abord il faut copier l'emploi du temps avec un **ctrl + c** bien placé (**Commande + c** sur mac évidemment).
 ![tuto-1.png](./images-documentation/tuto-1.png)
 
-2. Il faut ensuite se rendre sur le site ![Calendar-maker](https://zer67.github.io/calendar-maker-host/) et lâcher ton meilleur **ctrl + v** dans l'encart prévu à cet effet.
+2. Il faut ensuite se rendre sur le site [Calendar-maker](https://zer67.github.io/calendar-maker-host/) et lâcher ton meilleur **ctrl + v** dans l'encart prévu à cet effet.
 ![tuto-2.png](./images-documentation/tuto-2.png)
 
-3. Il faut ensuite indiquer quand auront lieu les vacances scolaires et quand s'achève le semestre. Les calendriers universitaires sont disponibles à cette adresse : ![Calendrier-universitaires-UTBM](https://www.utbm.fr/espace-etudiants/calendriers-plannings-emplois-du-temps/).
+3. Il faut ensuite indiquer quand auront lieu les vacances scolaires et quand s'achève le semestre. Les calendriers universitaires sont disponibles à cette adresse : [Calendrier-universitaires-UTBM](https://www.utbm.fr/espace-etudiants/calendriers-plannings-emplois-du-temps/).
 ![tuto-3.png](./images-documentation/tuto-3.png)
 
 4. Appuie sur **J'ai fini !**. 
