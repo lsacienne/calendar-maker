@@ -31,7 +31,7 @@ Pour importer votre emploi du temps UTBM, suivez le guide d'utilisation ci-desso
 6. Cliques sur **Téléchargez votre emploi du temps** et c'est parti. Tu auras entre tes mains le précieux fichier ics !
 ![tuto-6.png](./images-documentation/tuto-6.png)
 
-> :warning: Si tu t'es rendu compte que tu as raté une de ces étapes, je suis désolé mais il va falloir tout reccommencer en lâchat un bon vieux **F5**. Bon courage :heart: 
+> :warning: Si tu t'es rendu compte que tu as raté une de ces étapes, je suis désolé mais il va falloir tout reccommencer en lâchant un bon vieux **F5**. Bon courage :heart: 
 
 ### Import sur différentes plateforme
 
@@ -43,7 +43,7 @@ Avant de commencer à lister les différentes applications, pense à toujours cr
 
 #### Zimbra
 
-Le classico Zimbra. TOut étudiant à l'UTBM possède une boîte Zimbra, c'est parfait pour tout centraliser au même endroit.
+Le classico Zimbra. Tout étudiant à l'UTBM possède une boîte Zimbra, c'est parfait pour tout centraliser au même endroit.
 
 1. On crée d'abord un nouveau calendrier pour éviter tout souci.
 ![tuto-zimbra-1.png](./images-documentation/tuto-zimbra/tuto-zimbra-1.png)
@@ -54,7 +54,7 @@ Le classico Zimbra. TOut étudiant à l'UTBM possède une boîte Zimbra, c'est p
 3. Choisis le fichier qui vient d'être généré par le site.
 ![tuto-zimbra-3.png](./images-documentation/tuto-zimbra/tuto-zimbra-3.png)
 
-4. Choisis le calendrier que tu viens de créer et cliques puis cliques sur le bouton **importer**.
+4. Choisis le calendrier que tu viens de créer puis cliques sur le bouton **importer**.
 ![tuto-zimbra-4.png](./images-documentation/tuto-zimbra/tuto-zimbra-4.png)
 
 5. Et voilà ton agenda est disponible sur Zimbra !
