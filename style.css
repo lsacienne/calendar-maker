@@ -160,8 +160,12 @@ footer {
     font-weight: bold;
 }
 
+.utpepper img {
+    width: 1em;
+}
 
 .artist {
+    font-size: .7em;
     text-align: right;
     padding-right: 20px;
 }
@@ -185,6 +189,10 @@ footer {
     body .finalSubmit {
         font-size: 1em;
         padding: 10px;
+    }
+
+    .artist {
+        text-align: center;
     }
 }
 
