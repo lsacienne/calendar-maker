@@ -22,7 +22,7 @@ class CreneauBrut {
     }
 
     convertDay() {
-        return dico_semaine.semaine.get(this.jour);
+        return dico_semaine.semaine.get(this.jour.split(' ')[0]);
     }
 
     convertHour() {
