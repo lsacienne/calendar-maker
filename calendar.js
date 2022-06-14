@@ -69,11 +69,7 @@ date_fin_cours.value = ajouterJour(maintenant,7*19).toISOString().split('T')[0];
  *************************************/
 
 function scrollToAnimation(target, speed,additionalPixels) {
-    console.log(target);
     $target = $(target);
-    console.log($target);
-    console.log("position : "+$target.offset().top);
-    console.log("hieght : "+$target.height());
     if(typeof(speed) === 'undefined' || speed <= 0) {
         speed = 1000;
     }
@@ -167,7 +163,6 @@ function init_generation(evt) {
             for(cours of evt.currentTarget.listeForms) {
                 if(cours.titre.innerHTML === CreneauBrut.afficherTitre()) {
                     CreneauBrut.ajouterDate(cours.form.valeur);
-                    console.log(CreneauBrut.afficherTitre());
                 }
             }
         } 
@@ -261,7 +256,7 @@ function mettreHeure(date,creneau) {
     let fin = new Date(date.valueOf());
     debut.setHours(creneau.convertHour()[0],creneau.convertHour()[1],0,0);
     fin.setHours(creneau.convertHour()[2],creneau.convertHour()[3],0,0);
-
+    console.log([debut,fin])
     return [debut,fin];
 }
 
