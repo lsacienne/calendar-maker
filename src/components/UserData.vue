@@ -1,38 +1,41 @@
 <template>
     <article>
+        <h1>1. Coller votre emploi du temps</h1>
         <form action="">
-            <h1>1. Coller votre emploi du temps</h1>
             <textarea name="schedule-handler" id="schedule-handler" placeholder="Coller votre emploi du temps ici"></textarea>
-            <div class="date">
-                <DateField labeltext="Date du début des cours :"></DateField>
+            <div class="date-grid">
+              <DateContainer title="Début des cours :">
+                  <DateField labeltext=""></DateField>
+              </DateContainer>
+
+              <DateContainer title="Date de fin des cours">
+                  <DateField labeltext=""></DateField>
+              </DateContainer>
+
+              <DateContainer title="Période des vacances 1 :">
+                  <DateField labeltext="Début :"></DateField>
+                  <DateField labeltext="Fin :"></DateField>
+              </DateContainer>
+
+              <DateContainer title="Période des vacances 2 :">
+                  <DateField  labeltext="Début :" :disabled="true"></DateField>
+                  <DateField labeltext="Fin :" :disabled="true"></DateField>
+              </DateContainer>
             </div>
 
-            <div class="date">
-                <DateField labeltext="Début période de vacances 1 :"></DateField>
-                <DateField labeltext="Fin de période de vacances 1 :"></DateField>
-            </div>
-
-            <div class="date">
-                <DateField labeltext="Début période de vacances 2 :"></DateField>
-                <DateField labeltext="Fin de période de vacances 2 :"></DateField>
-            </div>
-
-            <div class="date">
-                <DateField labeltext="Date de la fin des cours :"></DateField>
-            </div>
-
-            <input type="submit" value="J'ai fini 😎" id="end">
+            <input type="submit" value="J'ai fini 😎" id="end" ref="submit">
         </form>
     </article>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import DateContainer from './from_components/DateContainer.vue'
 import DateField from './from_components/DateField.vue'
 
 export default defineComponent({
   name: 'UserData',
-  components: { DateField }
+  components: { DateField, DateContainer }
 })
 </script>
 
@@ -41,10 +44,15 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: rgba(255, 243, 193, 0.5);
+      background-color: rgba(255, 216, 59, 0.5);
       padding: 1.5rem;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       border-radius: 1rem;
+    }
+
+    h1 {
+      margin-left: 4rem;
+      align-self: flex-start;
     }
 
     article form {
@@ -57,7 +65,7 @@ export default defineComponent({
 
     form textarea {
       border-radius: 0.8rem;
-      width: 95%;
+      width: 85%;
       height: 30vh;
       padding: 1rem;
       resize: none;
@@ -65,9 +73,9 @@ export default defineComponent({
       /*border: solid rgb(252, 204, 12) 0.2rem;*/
     }
 
-    .date {
-      display: flex;
-      flex-direction: column;
+    .date-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       width: 100%;
       gap: 0.5rem;
     }
