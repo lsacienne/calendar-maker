@@ -2,18 +2,21 @@
   <body>
     <div class="body-content">
       <UserData></UserData>
+      <FirstClassChooser></FirstClassChooser>
     </div>
   </body>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import FirstClassChooser from './components/FirstClassChooser.vue'
 import UserData from './components/UserData.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    UserData
+    UserData,
+    FirstClassChooser
   }
 })
 </script>
@@ -39,5 +42,9 @@ body {
   border-radius: 1.5rem;
   padding: 1rem;
   min-height: 50vh;
+
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 </style>
