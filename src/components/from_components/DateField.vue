@@ -1,7 +1,9 @@
 <template>
     <div class="date-item">
         <label for="date_debut">{{labeltext}}</label>
-        <input type="date" name="date_debut" id="date_debut_cours">
+
+        <input v-if="disabled" type="date" name="date_debut" id="date_debut_cours" disabled>
+        <input v-else type="date" name="date_debut" id="date_debut_cours">
     </div>
 </template>
 
@@ -16,7 +18,8 @@ export default defineComponent({
     }
   },
   props: {
-    labeltext: String
+    labeltext: String,
+    disabled: Boolean
   }
 })
 </script>
@@ -24,17 +27,13 @@ export default defineComponent({
 <style scoped>
   .date-item {
     display: inline-flex;
-    width: 60%;
+    flex-wrap: wrap;
+    width: 70%;
     justify-content: space-between;
   }
 
   .date-item label {
     font-size: 1.1rem;
     font-weight: bold;
-  }
-
-  .date-item label::before {
-    content: "📅";
-    margin-right: 0.5rem;
   }
 </style>
