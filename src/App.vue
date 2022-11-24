@@ -1,27 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <body>
+    <div class="body-content">
+      <UserData></UserData>
+    </div>
+  </body>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import UserData from './components/UserData.vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    UserData
   }
 })
 </script>
 
 <style>
-#app {
+body {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  background-color: rgb(46, 46, 116);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.body-content {
+  width: 50vw;
+  background-color: rgba(240, 248, 255,0.8);
+  backdrop-filter: blur(1rem);
+  border-radius: 1.5rem;
+  padding: 1rem;
+  min-height: 50vh;
 }
 </style>
