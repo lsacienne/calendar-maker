@@ -3,12 +3,14 @@
     <div class="body-content">
       <UserData></UserData>
       <FirstClassChooser></FirstClassChooser>
+      <CustomSchedule></CustomSchedule>
     </div>
   </body>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import CustomSchedule from './components/CustomSchedule.vue'
 import FirstClassChooser from './components/FirstClassChooser.vue'
 import UserData from './components/UserData.vue'
 
@@ -16,7 +18,8 @@ export default defineComponent({
   name: 'App',
   components: {
     UserData,
-    FirstClassChooser
+    FirstClassChooser,
+    CustomSchedule
   }
 })
 </script>
