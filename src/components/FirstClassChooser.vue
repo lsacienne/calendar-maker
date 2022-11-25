@@ -1,14 +1,23 @@
 <template>
-    <article>
-        <h1>2. Choisis la date de ton premier cours (en fonction de ton groupe)</h1>
-    </article>
+  <article>
+    <h1>2. Choisis la date de ton premier cours (en fonction de ton groupe)</h1>
+    <div class="class-chooser">
+      <ClassChooser subject="AP4A" group="TP 1" :date1="new Date()" :date2="new Date()"></ClassChooser>
+      <ClassChooser subject="SY43" group="TP 2" :date1="new Date()" :date2="new Date()"></ClassChooser>
+      <ClassChooser subject="HM40" group="TP 1" :date1="new Date()" :date2="new Date()"></ClassChooser>
+    </div>
+    <SubmitButton text="J'ai fini pour de vrai ! 😅"></SubmitButton>
+  </article>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import ClassChooser from './class_chooser_components/ClassChooser.vue'
+import SubmitButton from './form_components/SubmitButton.vue'
 
 export default defineComponent({
-  name: 'FirstClassChooser'
+  name: 'FirstClassChooser',
+  components: { ClassChooser, SubmitButton }
 })
 </script>
 <style scoped>
@@ -20,10 +29,18 @@ export default defineComponent({
     padding: 1.5rem;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     border-radius: 1rem;
+    gap: 1.5rem
   }
 
   h1 {
     margin-left: 4rem;
     align-self: flex-start;
+  }
+
+  .class-chooser {
+    display: inline-flex;
+    justify-content: space-around;
+    gap: 1rem;
+    flex-wrap: wrap;
   }
 </style>
