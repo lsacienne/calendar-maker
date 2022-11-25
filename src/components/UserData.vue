@@ -64,10 +64,10 @@ export default defineComponent({
     }
 
     form textarea {
-      border-radius: 0.8rem;
-      width: 85%;
+      border-radius: 1rem;
+      width: 91%;
       height: 30vh;
-      padding: 1rem;
+      padding: 4%;
       resize: none;
       border: solid rgb(121, 121, 209) 0.2rem;
       /*border: solid rgb(252, 204, 12) 0.2rem;*/
@@ -78,6 +78,8 @@ export default defineComponent({
       grid-template-columns: 1fr 1fr;
       width: 100%;
       gap: 0.5rem;
+      border-radius: 1rem;
+      background-color: rgb(121, 121, 209,0.6);
     }
 
     input[type=submit] {
