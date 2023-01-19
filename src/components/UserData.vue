@@ -13,13 +13,13 @@
         </DateContainer>
 
         <DateContainer title="Période de vacances 1 :">
-          <DateField labeltext="Début :"></DateField>
-          <DateField labeltext="Fin :"></DateField>
+          <DateField labeltext="Début :" ref="startRest1" v-on:dateChange="enableDate2()"></DateField>
+          <DateField labeltext="Fin :" ref="endRest1" v-on:dateChange="enableDate2()"></DateField>
         </DateContainer>
 
         <DateContainer title="Période de vacances 2 :">
-          <DateField  labeltext="Début :" :disabled="true"></DateField>
-          <DateField labeltext="Fin :" :disabled="true"></DateField>
+          <DateField labeltext="Début :" :disabled="true" ref="startRest2"></DateField>
+          <DateField labeltext="Fin :" :disabled="true" ref="endRest2"></DateField>
         </DateContainer>
       </div>
       <SubmitButton text="J'ai fini 😎"></SubmitButton>
