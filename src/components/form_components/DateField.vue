@@ -2,8 +2,8 @@
     <div class="date-item">
         <label for="date_debut">{{labeltext}}</label>
 
-        <input v-if="disabled" type="date" name="date_debut" id="date_debut_cours" disabled>
-        <input v-else type="date" name="date_debut" id="date_debut_cours">
+        <input v-if="isDisabled" type="date" name="date_debut" id="date_debut_cours" v-on:change="$emit('dateChange')" disabled>
+        <input v-else type="date" name="date_debut" id="date_debut_cours" v-on:change="$emit('dateChange')">
     </div>
 </template>
 
