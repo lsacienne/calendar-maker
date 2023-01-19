@@ -14,7 +14,14 @@ export default defineComponent({
   name: 'DateField',
   data () {
     return {
-      test: String
+      isDisabled: Boolean.prototype
+    }
+  },
+  mounted () {
+    if (this.disabled) {
+      this.isDisabled = true
+    } else {
+      this.isDisabled = false
     }
   },
   props: {
