@@ -27,6 +27,14 @@ export default defineComponent({
   props: {
     labeltext: String,
     disabled: Boolean
+  },
+  methods: {
+    disable () {
+      this.isDisabled = true
+    },
+    enable () {
+      this.isDisabled = false
+    }
   }
 })
 </script>
