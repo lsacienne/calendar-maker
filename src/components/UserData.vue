@@ -35,7 +35,21 @@ import SubmitButton from './form_components/SubmitButton.vue'
 
 export default defineComponent({
   name: 'UserData',
-  components: { DateField, DateContainer, SubmitButton }
+  components: { DateField, DateContainer, SubmitButton },
+  methods: {
+    enableDate2 () {
+      console.log('activated')
+      // const startRest1 = this.$refs.startRest1 as typeof DateField
+      // const endRest1 = this.$refs.endRest1 as typeof DateField
+      const startRest2 = this.$refs.startRest2 as typeof DateField
+      const endRest2 = this.$refs.endRest2 as typeof DateField
+
+      startRest2.enable()
+      endRest2.enable()
+
+      console.log(startRest2)
+    }
+  }
 })
 </script>
 
