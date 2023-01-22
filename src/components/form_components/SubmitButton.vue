@@ -1,5 +1,5 @@
 <template>
-  <input type="submit" :value="text" id="end" ref="submit">
+  <input type="submit" :value="text" id="end" ref="submit" @click="handleClick">
 </template>
 
 <script lang="ts">
@@ -9,6 +9,11 @@ export default defineComponent({
   name: 'SubmitButton',
   props: {
     text: String
+  },
+  methods: {
+    handleClick (e: Event) {
+      e.preventDefault()
+    }
   }
 })
 </script>
