@@ -41,7 +41,6 @@ body {
 .body-content {
   width: 50vw;
   background-color: rgba(240, 248, 255,0.8);
-  backdrop-filter: blur(1rem);
   border-radius: 1.5rem;
   padding: 1rem;
   min-height: 50vh;
@@ -49,5 +48,17 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.c-toast.c-toast--default {
+  color: white;
+  font-size: 1.4rem;
+  padding: 2rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: solid 3px rgb(114, 75, 255);
+  background-color: rgb(139, 107, 255);
+  border-radius: 1rem;
+  transition: all .2s;
 }
 </style>
