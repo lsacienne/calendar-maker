@@ -26,7 +26,11 @@ export default defineComponent({
   },
   props: {
     labeltext: String,
-    disabled: Boolean
+    disabled: Boolean,
+    min: {
+      type: Date,
+      default: null
+    }
   },
   methods: {
     disable () {
