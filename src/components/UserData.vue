@@ -32,6 +32,9 @@ import { defineComponent } from 'vue'
 import DateContainer from './form_components/DateContainer.vue'
 import DateField from './form_components/DateField.vue'
 import SubmitButton from './form_components/SubmitButton.vue'
+import { createToaster } from '@meforma/vue-toaster'
+
+const toaster = createToaster()
 
 export default defineComponent({
   name: 'UserData',
