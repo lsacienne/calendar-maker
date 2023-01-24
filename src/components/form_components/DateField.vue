@@ -21,9 +21,20 @@ export default defineComponent({
   },
   mounted () {
     if (this.disabled) {
-      this.isDisabled = true
+      this.disabled_ = true
     } else {
-      this.isDisabled = false
+      this.disabled_ = false
+    }
+    if (this.min !== null) {
+      this.min_ = this.min
+    } else {
+      this.min_ = new Date(0)
+    }
+  },
+  computed: {
+    minDateStr () {
+      const isoString: string = this.min_.toISOString()
+      return isoString.substring(0, isoString.indexOf('T'))
     }
   },
   props: {
