@@ -14,7 +14,9 @@ export default defineComponent({
   name: 'DateField',
   data () {
     return {
-      isDisabled: Boolean.prototype
+      disabled_: Boolean.prototype,
+      min_: new Date() as Date,
+      value_: '' as string
     }
   },
   mounted () {
