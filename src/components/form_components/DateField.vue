@@ -47,10 +47,20 @@ export default defineComponent({
   },
   methods: {
     disable () {
-      this.isDisabled = true
+      this.disabled_ = true
     },
     enable () {
-      this.isDisabled = false
+      this.disabled_ = false
+    },
+    setMin (date: Date) {
+      this.min_ = date
+    },
+    getValue () {
+      return this.value_
+    },
+    setValue (date: Date) {
+      const isoString: string = date.toISOString()
+      this.value_ = isoString.substring(0, isoString.indexOf('T'))
     }
   }
 })
