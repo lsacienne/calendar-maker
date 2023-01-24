@@ -40,6 +40,29 @@ export default defineComponent({
   name: 'UserData',
   components: { DateField, DateContainer, SubmitButton },
   methods: {
+    handleCoursesStart () {
+      const startCourses = this.$refs.startCourses as typeof DateField
+      const endCourses = this.$refs.endCourses as typeof DateField
+      const startRest1 = this.$refs.startRest1 as typeof DateField
+      const endRest1 = this.$refs.endRest1 as typeof DateField
+
+      let endCoursesMin = new Date(startCourses.getValue()) as Date
+      endCoursesMin = this.addDay(endCoursesMin, 1)
+
+      let startRest1Min = new Date(startCourses.getValue()) as Date
+      startRest1Min = this.addDay(startRest1Min, 1)
+
+      let endRest1Min = new Date(startCourses.getValue()) as Date
+      endRest1Min = this.addDay(endRest1Min, 7)
+
+      endCourses.setMin(endCoursesMin)
+      startRest1.setMin(startRest1Min)
+      endRest1.setMin(endRest1Min)
+
+      endCourses.enable()
+      startRest1.enable()
+      endRest1.enable()
+    },
     enableDate2 () {
       console.log('activated')
       // const startRest1 = this.$refs.startRest1 as typeof DateField
