@@ -1,7 +1,7 @@
 <template>
   <body>
     <div class="body-content">
-      <UserData></UserData>
+      <UserData @formValidated="getData"></UserData>
       <FirstClassChooser></FirstClassChooser>
       <CustomSchedule></CustomSchedule>
     </div>
@@ -20,6 +20,18 @@ export default defineComponent({
     UserData,
     FirstClassChooser,
     CustomSchedule
+  },
+  methods: {
+    getData (content: {
+        courses: {start: string, end: string} | object,
+        schedule: Array<object>,
+        rests: Array<{start: string, end: string}> | Array<object>
+      }
+    ) {
+      if (content.schedule.length > 0) {
+        console.log(content)
+      }
+    }
   }
 })
 </script>
