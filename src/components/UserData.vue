@@ -2,27 +2,27 @@
   <article>
     <h1>1. Coller votre emploi du temps</h1>
     <form action="">
-      <textarea name="schedule-handler" id="schedule-handler" placeholder="Coller votre emploi du temps ici"></textarea>
+      <textarea name="schedule-handler" ref="scheduleArea" id="schedule-handler" placeholder="Coller votre emploi du temps ici"></textarea>
       <div class="date-grid">
         <DateContainer title="Début des cours :">
-          <DateField labeltext=""></DateField>
+          <DateField labeltext="" ref="startCourses" v-on:dateChange="handleCoursesStart()"></DateField>
         </DateContainer>
 
         <DateContainer title="Date de fin des cours">
-          <DateField labeltext=""></DateField>
+          <DateField labeltext="" :disabled="true" ref="endCourses"></DateField>
         </DateContainer>
 
         <DateContainer title="Période de vacances 1 :">
-          <DateField labeltext="Début :" ref="startRest1" v-on:dateChange="enableDate2()"></DateField>
-          <DateField labeltext="Fin :" ref="endRest1" v-on:dateChange="enableDate2()"></DateField>
+          <DateField labeltext="Début :" :disabled="true" ref="startRest1" v-on:dateChange="handleStart1()"></DateField>
+          <DateField labeltext="Fin :" :disabled="true" ref="endRest1" v-on:dateChange="handleEnd1()"></DateField>
         </DateContainer>
 
         <DateContainer title="Période de vacances 2 :">
-          <DateField labeltext="Début :" :disabled="true" ref="startRest2"></DateField>
+          <DateField labeltext="Début :" :disabled="true" ref="startRest2" v-on:dateChange="handleStart2()"></DateField>
           <DateField labeltext="Fin :" :disabled="true" ref="endRest2"></DateField>
         </DateContainer>
       </div>
-      <SubmitButton text="J'ai fini 😎"></SubmitButton>
+      <SubmitButton text="J'ai fini 😎" v-on:click="sendData"></SubmitButton>
     </form>
   </article>
 </template>
@@ -63,17 +63,175 @@ export default defineComponent({
       startRest1.enable()
       endRest1.enable()
     },
+    handleStart1 () {
+      const startRest1 = this.$refs.startRest1 as typeof DateField
+      const endRest1 = this.$refs.endRest1 as typeof DateField
+      let endRestMinDate = new Date(startRest1.getValue()) as Date
+      endRestMinDate = this.addDay(endRestMinDate, 6)
+      endRest1.setMin(endRestMinDate)
+      endRest1.setValue(endRestMinDate)
+      this.enableDate2()
+    },
+    handleEnd1 () {
+      const startRest1 = this.$refs.startRest1 as typeof DateField
+      const endRest1 = this.$refs.endRest1 as typeof DateField
+      let startNewDate = new Date(endRest1.getValue()) as Date
+      startNewDate = this.addDay(startNewDate, -6)
+      startRest1.setValue(startNewDate)
+      this.enableDate2()
+    },
+    handleStart2 () {
+      const startRest2 = this.$refs.startRest1 as typeof DateField
+      const endRest2 = this.$refs.endRest1 as typeof DateField
+      let endRestMinDate = new Date(startRest2.getValue()) as Date
+      endRestMinDate = this.addDay(endRestMinDate, 6)
+      endRest2.setMin(endRestMinDate)
+      endRest2.setValue(endRestMinDate)
+    },
     enableDate2 () {
-      console.log('activated')
-      // const startRest1 = this.$refs.startRest1 as typeof DateField
-      // const endRest1 = this.$refs.endRest1 as typeof DateField
+      const endRest1 = this.$refs.endRest1 as typeof DateField
       const startRest2 = this.$refs.startRest2 as typeof DateField
       const endRest2 = this.$refs.endRest2 as typeof DateField
 
+      let startRest2Min = new Date(endRest1.getValue()) as Date
+      let endRest2Min = new Date(endRest1.getValue()) as Date
+      startRest2Min = this.addDay(startRest2Min, 1)
+      endRest2Min = this.addDay(endRest2Min, 7)
+
+      startRest2.setMin(startRest2Min)
+      endRest2.setMin(endRest2Min)
+
       startRest2.enable()
       endRest2.enable()
+    },
+    addDay (date: Date, days: number): Date {
+      const resultDate = new Date(date)
+      resultDate.setDate(resultDate.getDate() + days)
+      return resultDate
+    },
+    sendData (): {
+      courses: {start: string, end: string} | object,
+      schedule: Array<object>,
+      rests: Array<{start: string, end: string}> | Array<object>
+      } {
+      const scheduleArea = this.$refs.scheduleArea as HTMLTextAreaElement
+      const startCourses = this.$refs.startCourses as typeof DateField
+      const endCourses = this.$refs.endCourses as typeof DateField
+      const startRest1 = this.$refs.startRest1 as typeof DateField
+      const endRest1 = this.$refs.endRest1 as typeof DateField
+      const startRest2 = this.$refs.startRest2 as typeof DateField
+      const endRest2 = this.$refs.endRest2 as typeof DateField
 
-      console.log(startRest2)
+      const courses = {
+        start: startCourses.getValue(),
+        end: endCourses.getValue()
+      }
+      const rest1 = {
+        start: startRest1.getValue(),
+        end: endRest1.getValue()
+      }
+      const rest2 = {
+        start: startRest2.getValue(),
+        end: endRest2.getValue()
+      }
+
+      const scheduleStr = scheduleArea.value
+      const schedule = scheduleStr.split('\n').map(line => line.split(/\t+/)) as Array<Array<string>>
+      const scheduleTable = []
+
+      for (const line of schedule) {
+        let mode = '' as string
+        let classroom = '' as string
+        if (line.length > 7) {
+          classroom = line[7]
+          mode = line[6]
+        } else if (line[6] === 'Distanciel') {
+          mode = line[6]
+        } else {
+          classroom = line[6]
+        }
+
+        scheduleTable.push({
+          uv: line[0],
+          type: line[1],
+          day: line[2],
+          startHour: line[3],
+          endHour: line[4],
+          frequency: line[5],
+          classroom: classroom,
+          mode: mode
+        })
+      }
+
+      const resultObject = {
+        schedule: [],
+        courses: {},
+        rests: []
+      }
+
+      if (scheduleStr === '') {
+        toaster.show(
+          'Colles ton emploi du temps chef ! 📆',
+          {
+            position: 'bottom',
+            duration: 2000,
+            queue: true
+          }
+        )
+        this.$emit('formValidated', resultObject)
+        return resultObject
+      } else if (scheduleStr.indexOf('\t') === -1) {
+        toaster.show(
+          'Colles ton emploi du temps directement depuis le site ! ✂️',
+          {
+            position: 'bottom',
+            duration: 2000,
+            queue: true
+          }
+        )
+        this.$emit('formValidated', resultObject)
+        return resultObject
+      } else if (courses.start === '') {
+        toaster.show(
+          'Il faut une date de début 😩',
+          {
+            position: 'bottom',
+            duration: 2000,
+            queue: true
+          }
+        )
+        this.$emit('formValidated', resultObject)
+        return resultObject
+      } else if (courses.end === '') {
+        toaster.show(
+          'Tu oublierais pas la date de fin ? 🙃',
+          {
+            position: 'bottom',
+            duration: 2000,
+            queue: true
+          }
+        )
+        this.$emit('formValidated', resultObject)
+        return resultObject
+      }
+
+      const restArray = []
+      if (rest1.start !== '') {
+        restArray.push(rest1)
+      }
+      if (rest2.start !== '') {
+        restArray.push(rest2)
+      }
+      this.$emit('formValidated', {
+        schedule: scheduleTable,
+        courses: courses,
+        rests: restArray
+      })
+      return {
+        schedule: scheduleTable,
+        courses: courses,
+        rests: restArray
+      }
     }
   }
 })
