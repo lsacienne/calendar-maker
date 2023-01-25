@@ -110,10 +110,10 @@ export default defineComponent({
       return resultDate
     },
     sendData (): {
-      courses: {start: string, end: string} | object,
+      courses: {start: string, end: string},
       schedule: Array<object>,
-      rests: Array<{start: string, end: string}> | Array<object>
-      } {
+      rests: Array<{start: string, end: string}>
+      } | null {
       const scheduleArea = this.$refs.scheduleArea as HTMLTextAreaElement
       const startCourses = this.$refs.startCourses as typeof DateField
       const endCourses = this.$refs.endCourses as typeof DateField
@@ -163,12 +163,6 @@ export default defineComponent({
         })
       }
 
-      const resultObject = {
-        schedule: [],
-        courses: {},
-        rests: []
-      }
-
       if (scheduleStr === '') {
         toaster.show(
           'Colles ton emploi du temps chef ! 📆',
@@ -178,8 +172,8 @@ export default defineComponent({
             queue: true
           }
         )
-        this.$emit('formValidated', resultObject)
-        return resultObject
+        this.$emit('formValidated', null)
+        return null
       } else if (scheduleStr.indexOf('\t') === -1) {
         toaster.show(
           'Colles ton emploi du temps directement depuis le site ! ✂️',
@@ -189,20 +183,9 @@ export default defineComponent({
             queue: true
           }
         )
-        this.$emit('formValidated', resultObject)
-        return resultObject
-      } else if (courses.start === '') {
-        toaster.show(
-          'Il faut une date de début 😩',
-          {
-            position: 'bottom',
-            duration: 2000,
-            queue: true
-          }
-        )
-        this.$emit('formValidated', resultObject)
-        return resultObject
-      } else if (courses.end === '') {
+        this.$emit('formValidated', null)
+        return null
+      } else if (courses.start !== '' && courses.end === '') {
         toaster.show(
           'Tu oublierais pas la date de fin ? 🙃',
           {
@@ -211,8 +194,8 @@ export default defineComponent({
             queue: true
           }
         )
-        this.$emit('formValidated', resultObject)
-        return resultObject
+        this.$emit('formValidated', null)
+        return null
       }
 
       const restArray = []
