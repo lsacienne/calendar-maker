@@ -21,16 +21,19 @@ export default defineComponent({
     FirstClassChooser,
     CustomSchedule
   },
+  data () {
+    return {
+      userData: null as unknown as Record<string, unknown> | null
+    }
+  },
   methods: {
     getData (content: {
-        courses: {start: string, end: string} | object,
+        courses: {start: string, end: string},
         schedule: Array<object>,
-        rests: Array<{start: string, end: string}> | Array<object>
-      }
+        rests: Array<{start: string, end: string}>
+      } | null
     ) {
-      if (content.schedule.length > 0) {
-        console.log(content)
-      }
+      this.userData = content
     }
   }
 })
