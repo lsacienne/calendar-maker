@@ -2,7 +2,7 @@
   <body>
     <div class="body-content">
       <UserData @formValidated="getData"></UserData>
-      <FirstClassChooser></FirstClassChooser>
+      <FirstClassChooser :userData="userData"></FirstClassChooser>
       <CustomSchedule></CustomSchedule>
     </div>
   </body>
