@@ -2,9 +2,7 @@
   <article v-if="isUserData">
     <h1>2. Choisis la date de ton premier cours (en fonction de ton groupe)</h1>
     <div class="class-chooser">
-      <ClassChooser subject="AP4A" group="TP 1" :date1="new Date()" :date2="new Date()"></ClassChooser>
-      <ClassChooser subject="SY43" group="TP 2" :date1="new Date()" :date2="new Date()"></ClassChooser>
-      <ClassChooser subject="HM40" group="TP 1" :date1="new Date()" :date2="new Date()"></ClassChooser>
+      <ClassChooser v-for="obj in frequencyObj" :key="obj.id" :subject="obj.uv" :group="obj.type" :date1="obj.date1" :date2="obj.date2"></ClassChooser>
     </div>
     <SubmitButton text="J'ai fini pour de vrai ! 😅"></SubmitButton>
   </article>
@@ -18,12 +16,147 @@ import SubmitButton from './form_components/SubmitButton.vue'
 export default defineComponent({
   name: 'FirstClassChooser',
   components: { ClassChooser, SubmitButton },
+  data () {
+    return {
+      week: new Map(
+        [
+          ['lundi', 1],
+          ['mardi', 2],
+          ['mercredi', 3],
+          ['jeudi', 4],
+          ['vendredi', 5],
+          ['samedi', 6],
+          ['dimanche', 0]
+        ]
+      ),
+      nWeek: new Map(
+        [
+          [1, 'lundi'],
+          [2, 'mardi'],
+          [3, 'mercredi'],
+          [4, 'jeudi'],
+          [5, 'vendredi'],
+          [6, 'samedi'],
+          [0, 'dimanche']
+        ]
+      )
+    }
+  },
   props: {
     userData: null as unknown as Record<string, unknown>
   },
   computed: {
     isUserData (): boolean {
       return this.userData !== null
+    },
+    frequencyObj (): Array<{id: number, uv: string, type: string, day: string, date1: Date | undefined, date2: Date | undefined}> {
+      const copyUserData = this.userData as {
+        courses: {start: string, end: string},
+        schedule: Array<{
+          uv: string,
+          type: string,
+          day: string,
+          startHour: string,
+          endHour: string,
+          frequency: string,
+          classroom: string,
+          mode: string
+        }>,
+        rests: Array<{start: string, end: string}>
+      } | null
+      const targetedCourses = this.freqAnalyze(copyUserData)
+      if (targetedCourses !== null) {
+        const freqObj = [] as Array<{id: number, uv: string, type: string, day: string, date1: Date | undefined, date2: Date | undefined}>
+        let index = 0 as number
+        for (const course of targetedCourses) {
+          if (course.date) {
+            const { date1, date2 } = this.computeDates(course.date, course.day)
+            freqObj.push(
+              {
+                id: index++,
+                uv: course.uv,
+                type: course.type,
+                day: course.day,
+                date1: date1,
+                date2: date2
+              }
+            )
+          } else {
+            freqObj.push(
+              {
+                id: index++,
+                uv: course.uv,
+                type: course.type,
+                day: course.day,
+                date1: undefined,
+                date2: undefined
+              }
+            )
+          }
+        }
+        return freqObj
+      } else {
+        return []
+      }
+    }
+  },
+  methods: {
+    computeDates (date: string, day: string): {date1: Date, date2: Date} {
+      let date1 = new Date(date)
+      let date2 = new Date(date)
+      const startDay = date1.getDay()
+      const courseDay = this.week.get(day) as number
+
+      console.log(startDay, courseDay)
+
+      if (startDay <= courseDay) {
+        date1 = this.addDay(date1, courseDay - startDay)
+        date2 = this.addDay(date2, 7 + courseDay - startDay)
+      } else {
+        date1 = this.addDay(date1, 7 - (startDay - courseDay))
+        date2 = this.addDay(date2, 14 - (startDay - courseDay))
+      }
+      return {
+        date1: date1,
+        date2: date2
+      }
+    },
+    addDay (date: Date, days: number): Date {
+      const resultDate = new Date(date)
+      resultDate.setDate(resultDate.getDate() + days)
+      return resultDate
+    },
+    freqAnalyze (data: {
+        courses: {start: string, end: string},
+        schedule: Array<{
+          uv: string,
+          type: string,
+          day: string,
+          startHour: string,
+          endHour: string,
+          frequency: string,
+          classroom: string,
+          mode: string
+        }>,
+        rests: Array<{start: string, end: string}>
+      } | null
+    ): Array<{uv: string, type: string, day: string, date: string | null}> | null {
+      if (data) {
+        const freq2uv = data.schedule.filter((course: { frequency: string }) => course.frequency === '2')
+        let freq2choices = [] as Array<{uv: string, type: string, day: string, date: string | null}>
+        if (data.courses.start === '' || data.courses.end === '') {
+          freq2choices = freq2uv.map((course: { uv: string; type: string; day: string }) => {
+            return { uv: course.uv, type: course.type, day: course.day, date: null }
+          })
+        } else {
+          freq2choices = freq2uv.map((course: { uv: string; type: string; day: string }) => {
+            return { uv: course.uv, type: course.type, day: course.day, date: data.courses.start }
+          })
+        }
+        return freq2choices
+      } else {
+        return null
+      }
     }
   }
 })
