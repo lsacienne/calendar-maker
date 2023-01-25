@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article v-if="isUserData">
     <h1>2. Choisis la date de ton premier cours (en fonction de ton groupe)</h1>
     <div class="class-chooser">
       <ClassChooser subject="AP4A" group="TP 1" :date1="new Date()" :date2="new Date()"></ClassChooser>
@@ -17,7 +17,15 @@ import SubmitButton from './form_components/SubmitButton.vue'
 
 export default defineComponent({
   name: 'FirstClassChooser',
-  components: { ClassChooser, SubmitButton }
+  components: { ClassChooser, SubmitButton },
+  props: {
+    userData: null as unknown as Record<string, unknown>
+  },
+  computed: {
+    isUserData (): boolean {
+      return this.userData !== null
+    }
+  }
 })
 </script>
 <style scoped>
