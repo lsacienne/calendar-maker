@@ -4,11 +4,11 @@
     <form action="">
       <div class="date-container">
         <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-1">
-        <label for="date-1">{{convertFrDate(date1)}}</label>
+        <label for="date-1">{{date1Computed}}</label>
       </div>
       <div class="date-container">
         <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-2">
-        <label for="date-2">{{convertFrDate(date2)}}</label>
+        <label for="date-2">{{date2Computed}}</label>
       </div>
     </form>
   </article>
@@ -30,11 +30,29 @@ export default defineComponent({
     },
     date1: {
       type: Date,
-      required: true
+      required: true,
+      default: undefined
     },
     date2: {
       type: Date,
-      required: true
+      required: true,
+      default: undefined
+    }
+  },
+  computed: {
+    date1Computed () {
+      if (this.date1 === undefined) {
+        return 'Semaine Impaire'
+      } else {
+        return this.convertFrDate(this.date1)
+      }
+    },
+    date2Computed () {
+      if (this.date2 === undefined) {
+        return 'Semaine Paire'
+      } else {
+        return this.convertFrDate(this.date2)
+      }
     }
   },
   methods: {
