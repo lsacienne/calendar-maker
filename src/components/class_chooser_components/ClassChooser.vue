@@ -3,11 +3,11 @@
     <h1>{{subject}} - {{group}} ✏️</h1>
     <form action="">
       <div class="date-container">
-        <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-1">
+        <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-1" @click="$emit('date1Change')">
         <label for="date-1">{{date1Computed}}</label>
       </div>
       <div class="date-container">
-        <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-2">
+        <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-2" @click="$emit('date2Change')">
         <label for="date-2">{{date2Computed}}</label>
       </div>
     </form>
@@ -30,12 +30,10 @@ export default defineComponent({
     },
     date1: {
       type: Date,
-      required: true,
       default: undefined
     },
     date2: {
       type: Date,
-      required: true,
       default: undefined
     }
   },
