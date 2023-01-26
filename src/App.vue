@@ -2,7 +2,7 @@
   <body>
     <div class="body-content">
       <UserData @formValidated="getData"></UserData>
-      <FirstClassChooser :userData="userData"></FirstClassChooser>
+      <FirstClassChooser :userData="userData" @dateChosen="getDate"></FirstClassChooser>
       <CustomSchedule></CustomSchedule>
     </div>
   </body>
@@ -23,7 +23,15 @@ export default defineComponent({
   },
   data () {
     return {
-      userData: null as unknown as Record<string, unknown> | null
+      userData: null as Record<string, unknown> | null,
+      dateSlots: null as Array<{
+        id: number, uv: string,
+        type: string,
+        day: string,
+        date1: Date | undefined,
+        date2: Date | undefined,
+        chosenDate: Date | number |undefined
+      }> | null
     }
   },
   methods: {
@@ -34,6 +42,18 @@ export default defineComponent({
       } | null
     ) {
       this.userData = content
+    },
+    getDate (content: Array<{
+        id: number, uv: string,
+        type: string,
+        day: string,
+        date1: Date | undefined,
+        date2: Date | undefined,
+        chosenDate: Date | number |undefined
+      }> | null
+    ) {
+      console.log(content)
+      this.dateSlots = content
     }
   }
 })
