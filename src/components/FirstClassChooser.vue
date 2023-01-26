@@ -2,9 +2,18 @@
   <article v-if="isUserData">
     <h1>2. Choisis la date de ton premier cours (en fonction de ton groupe)</h1>
     <div class="class-chooser">
-      <ClassChooser v-for="obj in frequencyObj" :key="obj.id" :subject="obj.uv" :group="obj.type" :date1="obj.date1" :date2="obj.date2"></ClassChooser>
+      <ClassChooser
+        v-for="obj in userData_"
+        :key="obj.id"
+        :subject="obj.uv"
+        :group="obj.type"
+        :date1="obj.date1"
+        :date2="obj.date2"
+        @date1Change="obj.chosenDate = obj.date1 ? obj.date1 : 1"
+        @date2Change="obj.chosenDate = obj.date2 ? obj.date2 : 2"
+      ></ClassChooser>
     </div>
-    <SubmitButton text="J'ai fini pour de vrai ! 😅"></SubmitButton>
+    <SubmitButton text="J'ai fini pour de vrai ! 😅" @click="sendData"></SubmitButton>
   </article>
 </template>
 
@@ -12,6 +21,9 @@
 import { defineComponent } from 'vue'
 import ClassChooser from './class_chooser_components/ClassChooser.vue'
 import SubmitButton from './form_components/SubmitButton.vue'
+import { createToaster } from '@meforma/vue-toaster'
+
+const toaster = createToaster()
 
 export default defineComponent({
   name: 'FirstClassChooser',
@@ -39,7 +51,16 @@ export default defineComponent({
           [6, 'samedi'],
           [0, 'dimanche']
         ]
-      )
+      ),
+      userData_: null as Array<{
+        id: number,
+        uv: string,
+        type: string,
+        day: string,
+        date1: Date | undefined,
+        date2: Date | undefined,
+        chosenDate: Date | number | undefined
+      }> | null
     }
   },
   props: {
@@ -48,8 +69,38 @@ export default defineComponent({
   computed: {
     isUserData (): boolean {
       return this.userData !== null
+    }
+  },
+  watch: {
+    userData () {
+      this.userData_ = this.frequencyObj()
+    }
+  },
+  methods: {
+    sendData () {
+      if (this.userData_ && this.userData_.filter(x => x.chosenDate === undefined).length === 0) {
+        this.$emit('dateChosen', this.userData_)
+        return this.userData_
+      }
+      toaster.show(
+        'N\'oublies pas d\'UV camarade 🧐',
+        {
+          position: 'bottom',
+          duration: 2000,
+          queue: true
+        }
+      )
+      this.$emit('dateChosen', null)
+      return null
     },
-    frequencyObj (): Array<{id: number, uv: string, type: string, day: string, date1: Date | undefined, date2: Date | undefined}> {
+    frequencyObj (): Array<{
+      id: number, uv: string,
+      type: string,
+      day: string,
+      date1: Date | undefined,
+      date2: Date | undefined,
+      chosenDate: Date | number |undefined
+    }> {
       const copyUserData = this.userData as {
         courses: {start: string, end: string},
         schedule: Array<{
@@ -66,7 +117,15 @@ export default defineComponent({
       } | null
       const targetedCourses = this.freqAnalyze(copyUserData)
       if (targetedCourses !== null) {
-        const freqObj = [] as Array<{id: number, uv: string, type: string, day: string, date1: Date | undefined, date2: Date | undefined}>
+        const freqObj = [] as Array<{
+          id: number,
+          uv: string,
+          type: string,
+          day: string,
+          date1: Date | undefined,
+          date2: Date | undefined,
+          chosenDate: Date | number | undefined
+        }>
         let index = 0 as number
         for (const course of targetedCourses) {
           if (course.date) {
@@ -78,7 +137,8 @@ export default defineComponent({
                 type: course.type,
                 day: course.day,
                 date1: date1,
-                date2: date2
+                date2: date2,
+                chosenDate: undefined
               }
             )
           } else {
@@ -89,7 +149,8 @@ export default defineComponent({
                 type: course.type,
                 day: course.day,
                 date1: undefined,
-                date2: undefined
+                date2: undefined,
+                chosenDate: undefined
               }
             )
           }
@@ -98,9 +159,7 @@ export default defineComponent({
       } else {
         return []
       }
-    }
-  },
-  methods: {
+    },
     computeDates (date: string, day: string): {date1: Date, date2: Date} {
       let date1 = new Date(date)
       let date2 = new Date(date)
