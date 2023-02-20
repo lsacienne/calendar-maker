@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h1>1. Coller votre emploi du temps</h1>
+    <h1>Colle ton emploi du temps ici mon BG</h1>
     <form action="">
       <textarea name="schedule-handler" ref="scheduleArea" id="schedule-handler" placeholder="Coller votre emploi du temps ici"></textarea>
       <div class="date-grid">
@@ -225,15 +225,11 @@ export default defineComponent({
       display: flex;
       flex-direction: column;
       align-items: center;
-      background-color: rgba(255, 216, 59, 0.5);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
       padding: 1.5rem;
-      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      box-shadow: rgba(0, 0, 0, 0.5) 0px 3px 8px;
       border-radius: 1rem;
-    }
-
-    h1 {
-      margin-left: 4rem;
-      align-self: flex-start;
     }
 
     article form {
@@ -250,9 +246,18 @@ export default defineComponent({
       height: 30vh;
       padding: 4%;
       resize: none;
-      background-color: rgb(255, 255, 255);
-      border: solid rgb(121, 121, 209) 0.2rem;
+      background-color: #212121;
+      border: solid rgba(4,97,159,1) 0.2rem;
+      color: white;
+      transition: 0.5s;
       /*border: solid rgb(252, 204, 12) 0.2rem;*/
+    }
+
+    form textarea:focus {
+      border: solid white 0.2rem;
+      outline: none;
+      box-shadow: 0px 0px 15px 5px rgba(4,97,159,1);
+      transition: 0.5s;
     }
 
     .date-grid {
@@ -261,6 +266,6 @@ export default defineComponent({
       width: 100%;
       gap: 0.5rem;
       border-radius: 1rem;
-      background-color: rgb(121, 121, 209,0.6);
+      background-color: rgba(4,97,159,1);
     }
 </style>
