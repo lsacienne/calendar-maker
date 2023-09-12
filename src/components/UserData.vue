@@ -180,21 +180,7 @@ export default defineComponent({
           } else {
             resultObject.classroom = value
           }
-        })/*
-        if (!frenchDays.includes(line[2])) {
-          resultObject.group = line[2]
-          hasGroup = true
-        }
-        if (line.length > 7) {
-
-          classroom = line[7]
-          mode = line[6]
-        } else if (line[6] === 'Distanciel') {
-          mode = line[6]
-        } else {
-          classroom = line[6]
-        }
-        */
+        })
 
         scheduleTable.push(resultObject)
       }
