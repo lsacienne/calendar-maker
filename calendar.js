@@ -21,7 +21,6 @@ let date_fin_vacances_2 = $('#date_fin_vacances_2')[0];
 let maintenant = new Date();
 
 /* Date de début des cours */
-date_debut_cours.min = maintenant.toISOString().split('T')[0];
 date_debut_cours.value = maintenant.toISOString().split('T')[0];
 date_debut_cours.addEventListener('change',function(){
     let nlle_date = new Date(date_debut_cours.value);
@@ -131,11 +130,17 @@ function traitement_donnees(valeur) {
         elements.splice(1,1);
         if(typeof(elements[1]) != 'undefined' ) {
             let nouveau_creneau = new CreneauBrut(elements);
-            edt_semi_brut.push(nouveau_creneau);
-            if(nouveau_creneau.convertFreq()==2) {
-                listeForms.push(generateForm(nouveau_creneau,new Date(date_debut_cours.value)));
-            }
 
+            if(nouveau_creneau.convertFreq()==2) {
+                if(nouveau_creneau.semaine === 'A') {
+                    nouveau_creneau.ajouterDate(ajoutJourRelatif(new Date(date_debut_cours.value), nouveau_creneau));
+                }else if(nouveau_creneau.semaine === 'B'){
+                    nouveau_creneau.ajouterDate(ajouterJour(ajoutJourRelatif(new Date(date_debut_cours.value), nouveau_creneau),7));
+                }else{
+                    listeForms.push(generateForm(nouveau_creneau,new Date(date_debut_cours.value)));
+                }
+            }
+            edt_semi_brut.push(nouveau_creneau);
             i++;
         }
         
@@ -143,6 +148,7 @@ function traitement_donnees(valeur) {
     if(edt_semi_brut.length == 0) {
         throw "Erreur de saisie : veuillez rentrer au moins un créneau!";
     }
+
     if(listeForms.length == 0) {
         generate_ics(edt_semi_brut);
     } else {
