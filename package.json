@@ -44,7 +44,8 @@
       "ecmaVersion": 2020
     },
     "rules": {
-      "eqeqeq": 0
+      "eqeqeq": 0,
+      "space-before-function-paren": 0
     }
   },
   "browserslist": [
