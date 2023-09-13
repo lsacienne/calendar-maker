@@ -13,6 +13,8 @@ import { defineComponent } from 'vue'
 import CustomSchedule from './components/CustomSchedule.vue'
 import FirstClassChooser from './components/FirstClassChooser.vue'
 import UserData from './components/UserData.vue'
+import { DateChooser, ScheduleWithChoice, ScheduleItem, Schedule, icsEvent } from './models/types'
+import { generateCorrectDates, generateICSObjects } from './models/dateTools'
 
 export default defineComponent({
   name: 'App',
@@ -21,39 +23,81 @@ export default defineComponent({
     FirstClassChooser,
     CustomSchedule
   },
-  data () {
+  data() {
     return {
-      userData: null as Record<string, unknown> | null,
-      dateSlots: null as Array<{
-        id: number, uv: string,
-        type: string,
-        day: string,
-        date1: Date | undefined,
-        date2: Date | undefined,
-        chosenDate: Date | number |undefined
-      }> | null
+      userData: null as {
+        courses: { start: string, end: string },
+        schedule: Array<object>,
+        rests: Array<{ start: string, end: string }>
+      } | null,
+      dateSlots: null as Array<DateChooser> | null,
+      icsData: null as Array<icsEvent> | null
+    }
+  },
+  computed: {
+    scheduleGenerated(): Schedule | null {
+      if (this.userData) {
+        const scheduleData = [] as Array<ScheduleWithChoice>
+        const { courses, schedule, rests } = this.userData as {
+          courses: {
+            start: string,
+            end: string
+          },
+          rests: Array<{
+            start: string,
+            end: string
+          }>,
+          schedule: Array<ScheduleItem>
+        }
+        for (const course of schedule) {
+          if (course.frequency !== '1') {
+            if (this.dateSlots === null) {
+              return null
+            }
+            const slotObj = this.dateSlots.filter(d => d.uv === course.uv && d.type === course.type && d.day === course.day)
+            if (slotObj.length === 0 && slotObj[0].chosenDate === null) {
+              return null
+            }
+            scheduleData.push({ ...course, chosenDate: slotObj[0].chosenDate })
+          } else {
+            scheduleData.push({ ...course, chosenDate: null })
+          }
+        }
+
+        return {
+          courses: courses,
+          rests: rests,
+          schedule: scheduleData
+        }
+      }
+      return null
     }
   },
   methods: {
-    getData (content: {
-        courses: {start: string, end: string},
-        schedule: Array<object>,
-        rests: Array<{start: string, end: string}>
-      } | null
+    getData(content: {
+      courses: { start: string, end: string },
+      schedule: Array<ScheduleWithChoice>,
+      rests: Array<{ start: string, end: string }>
+    } | null
     ) {
       this.userData = content
     },
-    getDate (content: Array<{
-        id: number, uv: string,
-        type: string,
-        day: string,
-        date1: Date | undefined,
-        date2: Date | undefined,
-        chosenDate: Date | number |undefined
-      }> | null
+    getDate(content: Array<DateChooser> | null
     ) {
-      console.log(content)
+      console.log('---------------------BEGIN TEST------------------')
       this.dateSlots = content
+      console.log(content)
+      if (content !== null) {
+        console.log(this.scheduleGenerated)
+        if (this.scheduleGenerated !== null) {
+          const dateItems = generateCorrectDates(this.scheduleGenerated)
+          console.log(dateItems)
+          if (dateItems !== null) {
+            this.icsData = generateICSObjects(dateItems)
+            console.log(this.icsData)
+          }
+        }
+      }
     }
   }
 })
@@ -75,7 +119,7 @@ body {
 
 .body-content {
   width: 50vw;
-  background-color: rgba(240, 248, 255,0.8);
+  background-color: rgba(240, 248, 255, 0.8);
   border-radius: 1.5rem;
   padding: 1rem;
   min-height: 50vh;
