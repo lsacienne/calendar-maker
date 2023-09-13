@@ -11,6 +11,8 @@
     "@meforma/vue-toaster": "^1.3.0",
     "core-js": "^3.8.3",
     "ics": "^2.41.0",
+    "moment": "^2.29.4",
+    "rrule": "^2.7.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {
@@ -26,7 +28,7 @@
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-vue": "^8.0.3",
+    "eslint-plugin-vue": "^7.20.0",
     "lint-staged": "^11.1.2",
     "typescript": "~4.5.5"
   },
