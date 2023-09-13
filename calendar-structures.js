@@ -4,20 +4,21 @@ class CreneauBrut {
     constructor(champs) {
         this.uv = champs[0];
         this.type = champs[1];
-        this.jour = champs[2];
-        this.heure_debut = champs[3];
-        this.heure_fin = champs[4];
-        this.frequence = champs[5];
-        if(champs[6] == "Distanciel" && champs.length > 7) {
-            this.salle = champs[7];
-            this.mode_ens = champs[6];
-        } else if (champs[6] == "Distanciel") {
-            this.mode_ens = champs[6];
-        } else if (champs.length > 7) {
-            this.salle = champs[7];
-            this.mode_ens = champs[6];
+        this.semaine = champs[2];
+        this.jour = champs[3];
+        this.heure_debut = champs[4];
+        this.heure_fin = champs[5];
+        this.frequence = champs[6];
+        if(champs[7] == "Distanciel" && champs.length > 8) {
+            this.salle = champs[8];
+            this.mode_ens = champs[7];
+        } else if (champs[7] == "Distanciel") {
+            this.mode_ens = champs[7];
+        } else if (champs.length > 8) {
+            this.salle = champs[8];
+            this.mode_ens = champs[7];
         } else {
-            this.salle = champs[6];
+            this.salle = champs[7];
         }
     }
 
