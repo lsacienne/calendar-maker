@@ -9,11 +9,13 @@
       xmlns="http://www.w3.org/2000/svg"
     ></svg>
   </div>
+  <button @click="pngSchedule"></button>
 </template>
 
 <script lang="ts">
 import { Color } from "@/models/color";
-import { defineComponent } from "vue";
+import { SVGtoPNG } from "@/utils/svg-to-png";
+import { computed, defineComponent } from "vue";
 
 interface RectParams {
   isSquared?: boolean;
@@ -86,6 +88,10 @@ export default defineComponent({
     canvas.appendChild(slot5);
   },
   methods: {
+    pngSchedule(event: MouseEvent): void {
+      const canvas: SVGSVGElement = this.$refs.canvas as SVGSVGElement;
+      SVGtoPNG(canvas, this.svgWidth * 5, this.svgHeight * 5);
+    },
     computeHeight(hourSize: number) {
       return (this.innerHeight / (this.maxHour - this.minHour)) * hourSize;
     },
@@ -144,11 +150,15 @@ export default defineComponent({
         "text"
       );
       textUV.setAttribute("x", (width / 2 + x).toString());
-      textUV.setAttribute("y", (y + height / 10).toString());
+      textUV.setAttribute("y", (y + (height * 2) / 10).toString());
       textUV.setAttribute("text-anchor", "middle");
-      textUV.setAttribute("dominant-baseline", "hanging");
+      textUV.setAttribute("dominant-baseline", "middle");
       textUV.setAttribute("font-size", fontSizeUV.toString());
       textUV.setAttribute("font-weight", "bold");
+      textUV.setAttribute(
+        "font-family",
+        "Avenir, Helvetica, Arial, sans-serif;"
+      );
 
       textUV.textContent = uvName;
 
@@ -158,16 +168,21 @@ export default defineComponent({
         "text"
       );
       textRoom.setAttribute("x", (width / 2 + x).toString());
-      textRoom.setAttribute("y", (y + height / 2).toString());
+      textRoom.setAttribute("y", (y + (height * 5) / 10).toString());
       textRoom.setAttribute("text-anchor", "middle");
-      textRoom.setAttribute("dominant-baseline", "hanging");
+      textRoom.setAttribute("dominant-baseline", "middle");
       textRoom.setAttribute("font-size", fontSizeRoom.toString());
+      textRoom.setAttribute(
+        "font-family",
+        "Avenir, Helvetica, Arial, sans-serif;"
+      );
       textRoom.textContent = room;
 
       const group: SVGGElement = document.createElementNS(
         "http://www.w3.org/2000/svg",
         "g"
       );
+
       group.appendChild(slot);
       group.appendChild(textUV);
       group.appendChild(textRoom);
