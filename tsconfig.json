@@ -12,9 +12,10 @@
     "useDefineForClassFields": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "types": [
-      "webpack-env"
+    "typeRoots": [
+      "node_modules/@types"
     ],
+    "types": ["moment", "rrule"],
     "paths": {
       "@/*": [
         "src/*"
