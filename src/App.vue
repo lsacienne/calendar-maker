@@ -3,7 +3,7 @@
     <div class="body-content">
       <UserData @formValidated="getData"></UserData>
       <FirstClassChooser :userData="userData" @dateChosen="getDate"></FirstClassChooser>
-      <CustomSchedule></CustomSchedule>
+      <CustomSchedule :ics-data="icsData"></CustomSchedule>
     </div>
   </body>
 </template>
@@ -31,7 +31,7 @@ export default defineComponent({
         rests: Array<{ start: string, end: string }>
       } | null,
       dateSlots: null as Array<DateChooser> | null,
-      icsData: null as Array<icsEvent> | null
+      icsData: undefined as Array<icsEvent> | undefined
     }
   },
   computed: {
@@ -84,18 +84,11 @@ export default defineComponent({
     },
     getDate(content: Array<DateChooser> | null
     ) {
-      console.log('---------------------BEGIN TEST------------------')
       this.dateSlots = content
-      console.log(content)
-      if (content !== null) {
-        console.log(this.scheduleGenerated)
-        if (this.scheduleGenerated !== null) {
-          const dateItems = generateCorrectDates(this.scheduleGenerated)
-          console.log(dateItems)
-          if (dateItems !== null) {
-            this.icsData = generateICSObjects(dateItems)
-            console.log(this.icsData)
-          }
+      if (content !== null && this.scheduleGenerated !== null) {
+        const dateItems = generateCorrectDates(this.scheduleGenerated)
+        if (dateItems !== null) {
+          this.icsData = generateICSObjects(dateItems)
         }
       }
     }

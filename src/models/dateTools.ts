@@ -86,18 +86,19 @@ function generateDateForPeriod(
         firstDate = setHourToDate(item.chosenDate, item.startHour)
       } else {
         firstDate = findFirstDateDesync(beginPeriod, chosenDate)
-        firstDate = setHourToDate(firstDate.toDate(), item.startHour)
+        firstDate = setHourToDateM(firstDate, item.startHour)
       }
     } else {
       firstDate = findFirstDate(beginPeriod, item.day)
+      firstDate = setHourToDateM(firstDate, item.startHour)
     }
     const lastDate = findLastDate(endPeriod, item.day)
 
     newEvent.uv = item.uv
     newEvent.type = item.type
     newEvent.group = item.group
-    newEvent.firstDate = firstDate.toString()
-    newEvent.lastDate = lastDate.toString()
+    newEvent.firstDate = firstDate.format()
+    newEvent.lastDate = lastDate.format()
     newEvent.frequency = parseInt(item.frequency)
     newEvent.classroom = item.classroom
     newEvent.mode = item.mode
@@ -119,21 +120,24 @@ function getHoursAndMinutesFromDuration(duration: number): {
 
 function setHourToDate(date: Date, stringHour: string): moment.Moment {
   const hourArray = stringHour.split(':').map((elem) => parseInt(elem))
-  console.log(hourArray)
   const dateMoment = moment(date)
-  dateMoment.set({ h: hourArray[0], m: hourArray[1] })
+  dateMoment.set({ hour: hourArray[0], minutes: hourArray[1] })
   return dateMoment
+}
+
+function setHourToDateM(date: moment.Moment, stringHour: string): moment.Moment {
+  const hourArray = stringHour.split(':').map((elem) => parseInt(elem))
+  date.set({ hour: hourArray[0], minutes: hourArray[1] })
+  return date
 }
 
 function diffHours(hour1: string, hour2: string) {
   const hour1A = hour1.split(':').map((elem) => parseInt(elem))
   const hour2A = hour2.split(':').map((elem) => parseInt(elem))
-  console.log(hour1A, hour2A)
   const hour1M = moment()
   const hour2M = moment()
   hour1M.set({ hour: hour1A[0], minute: hour1A[1] })
   hour2M.set({ hour: hour2A[0], minute: hour2A[1] })
-  console.log(hour2M.diff(hour1M, 'minutes'))
   return hour2M.diff(hour1M, 'minutes')
 }
 
