@@ -1,3 +1,9 @@
+export interface IColor {
+    r: number;
+    g: number;
+    b: number;
+}
+
 export class Color {
     private _r: number;
     private _g: number;
@@ -54,6 +60,14 @@ export class Color {
         return color;
     }
 
+    static fromIColor(colorI: IColor): Color {
+        const color = new Color();
+        color.r = colorI.r;
+        color.g = colorI.g;
+        color.b = colorI.b;
+        return color;
+    }
+
     static fromHex(hex: string): Color {
         const color = new Color();
         const colorArray: Array<number> = hex.match(/[0-9a-fA-F]{2}/g)?.map((value) => parseInt(value, 16)) || [];
@@ -73,6 +87,14 @@ export class Color {
         const blueHex = this._b.toString(16).padStart(2, '0');
 
         return `#${redHex}${greenHex}${blueHex}`;
+    }
+
+    toIColor(): IColor {
+        return {
+            r: this._r,
+            g: this._g,
+            b: this._b
+        };
     }
 
     darkenColor(t: number): Color {
