@@ -7,7 +7,20 @@
       :viewBox="`0 0 ${svgWidth} ${svgHeight}`"
       preserve-aspect-ratio="true"
       xmlns="http://www.w3.org/2000/svg"
-    ></svg>
+    >
+      <SVGTimeSlot
+        v-for="uv in uvs"
+        :key="uv.uvName"
+        :uvName="uv.uvName"
+        :room="uv.room"
+        :x="computeX(uv.day)"
+        :y="computeY(uv.hourBegin)"
+        :width="slotWidth"
+        :color="uv.color.toIColor()"
+        :height="computeHeight(uv.hourSize)"
+        :isSquared="false"
+      ></SVGTimeSlot>
+    </svg>
   </div>
   <button @click="pngSchedule"></button>
 </template>
@@ -15,15 +28,14 @@
 <script lang="ts">
 import { Color } from "@/models/color";
 import { SVGtoPNG } from "@/utils/svg-to-png";
-import { computed, defineComponent } from "vue";
-
-interface RectParams {
-  isSquared?: boolean;
-  color?: Color;
-}
+import { computed, defineComponent, PropType } from "vue";
+import SVGTimeSlot from "./SVGTimeSlot.vue";
 
 export default defineComponent({
   name: "SVGSchedule",
+  components: {
+    SVGTimeSlot,
+  },
   props: {
     schedule: Array<object>,
     svgWidth: {
@@ -47,6 +59,58 @@ export default defineComponent({
       default: 20,
     },
   },
+  data() {
+    return {
+      _uvs: [
+        {
+          hourBegin: 9,
+          day: 0,
+          uvName: "AP4A - TP 1",
+          room: "B403",
+          hourSize: 2,
+          color: Color.blue,
+        },
+        {
+          hourBegin: 9,
+          day: 1,
+          uvName: "AP4A - TP 1",
+          room: "B403",
+          hourSize: 2,
+          color: Color.fromRGB(255, 255, 0) as Color,
+        },
+        {
+          hourBegin: 9,
+          day: 2,
+          uvName: "AP4A - TP 1",
+          room: "B403",
+          hourSize: 2,
+          color: Color.red as Color,
+        },
+        {
+          hourBegin: 9,
+          day: 3,
+          uvName: "AP4A - TP 1",
+          room: "B403",
+          hourSize: 2,
+          color: Color.red as Color,
+        },
+        {
+          hourBegin: 9,
+          day: 4,
+          uvName: "AP4A - TP 1",
+          room: "B403",
+          hourSize: 2,
+          color: Color.red as Color,
+        },
+      ],
+      get uvs() {
+        return this._uvs;
+      },
+      set uvs(value) {
+        this._uvs = value;
+      },
+    };
+  },
   computed: {
     sideMargin(): number {
       return this.svgWidth / 50;
@@ -69,13 +133,17 @@ export default defineComponent({
   },
   mounted() {
     const canvas: SVGSVGElement = this.$refs.canvas as SVGSVGElement;
-    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    rect.setAttribute("x", this.sideMargin.toString());
-    rect.setAttribute("y", this.verticalMargin.toString());
-    rect.setAttribute("width", this.innerWidth.toString());
-    rect.setAttribute("height", this.innerHeight.toString());
-    rect.setAttribute("fill", "red");
-    canvas.appendChild(rect);
+    /**
+     * 
+     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+     rect.setAttribute("x", this.sideMargin.toString());
+     rect.setAttribute("y", this.verticalMargin.toString());
+     rect.setAttribute("width", this.innerWidth.toString());
+     rect.setAttribute("height", this.innerHeight.toString());
+     rect.setAttribute("fill", "red");
+     canvas.prepend(rect);
+     */
+    /*
     const slot1 = this.createSlot(9, 0, "AP4A - TP 1", "B403", 2);
     const slot2 = this.createSlot(9, 1, "AP4A - TP 1", "B403", 2);
     const slot3 = this.createSlot(9, 2, "AP4A - TP 1", "B403", 2);
@@ -86,6 +154,7 @@ export default defineComponent({
     canvas.appendChild(slot3);
     canvas.appendChild(slot4);
     canvas.appendChild(slot5);
+    */
   },
   methods: {
     pngSchedule(event: MouseEvent): void {
@@ -108,85 +177,6 @@ export default defineComponent({
         ((hourBegin - this.minHour) * this.innerHeight) /
           (this.maxHour - this.minHour)
       );
-    },
-    createSlot(
-      hourBegin: number,
-      day: number,
-      uvName: string,
-      room: string,
-      hourSize: number,
-      rectParams?: RectParams
-    ): SVGGElement {
-      const slot: SVGRectElement = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "rect"
-      );
-      const [x, y, height, width] = [
-        this.computeX(day),
-        this.computeY(hourBegin),
-        this.computeHeight(hourSize),
-        this.slotWidth,
-      ];
-
-      let borderColor: Color =
-        rectParams?.color || Color.blue.lightenColor(0.5);
-      let fillColor: Color = borderColor.lightenColor(0.5);
-      slot.setAttribute("x", x.toString());
-      slot.setAttribute("y", y.toString());
-      slot.setAttribute("width", width.toString());
-      slot.setAttribute("height", height.toString());
-      slot.setAttribute("fill", fillColor.toHexString());
-      slot.setAttribute("stroke", borderColor.toHexString());
-      slot.setAttribute("stroke-width", (height / 50).toString());
-
-      if (!rectParams?.isSquared) {
-        slot.setAttribute("rx", (width / 10).toString());
-        slot.setAttribute("ry", (width / 10).toString());
-      }
-
-      const fontSizeUV = (width * height) / 300;
-      const textUV: SVGTextElement = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "text"
-      );
-      textUV.setAttribute("x", (width / 2 + x).toString());
-      textUV.setAttribute("y", (y + (height * 2) / 10).toString());
-      textUV.setAttribute("text-anchor", "middle");
-      textUV.setAttribute("dominant-baseline", "middle");
-      textUV.setAttribute("font-size", fontSizeUV.toString());
-      textUV.setAttribute("font-weight", "bold");
-      textUV.setAttribute(
-        "font-family",
-        "Avenir, Helvetica, Arial, sans-serif;"
-      );
-
-      textUV.textContent = uvName;
-
-      const fontSizeRoom = fontSizeUV * 0.8;
-      const textRoom: SVGTextElement = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "text"
-      );
-      textRoom.setAttribute("x", (width / 2 + x).toString());
-      textRoom.setAttribute("y", (y + (height * 5) / 10).toString());
-      textRoom.setAttribute("text-anchor", "middle");
-      textRoom.setAttribute("dominant-baseline", "middle");
-      textRoom.setAttribute("font-size", fontSizeRoom.toString());
-      textRoom.setAttribute(
-        "font-family",
-        "Avenir, Helvetica, Arial, sans-serif;"
-      );
-      textRoom.textContent = room;
-
-      const group: SVGGElement = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "g"
-      );
-
-      group.appendChild(slot);
-      group.appendChild(textUV);
-      group.appendChild(textRoom);
-      return group;
     },
   },
 });
