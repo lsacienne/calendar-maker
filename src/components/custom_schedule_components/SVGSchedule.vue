@@ -8,6 +8,43 @@
       preserve-aspect-ratio="true"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <line
+        v-for="line in hoursConstructionLines"
+        class="hour-divider"
+        :x1="sideMargin + hourLabelsContainerWidth"
+        :y1="computeY(line)"
+        :x2="svgWidth - 5"
+        :y2="computeY(line)"
+        stroke="#4a4646"
+        stroke-width="0.5"
+        stroke-linecap="round"
+        stroke-dasharray="2 2"
+        xmlns="http://www.w3.org/2000/svg"
+      ></line>
+      <text
+        v-for="line in hoursConstructionLines"
+        fill="#4a4646"
+        :x="sideMargin * 2"
+        :y="computeY(line)"
+        dominant-baseline="middle"
+        text-anchor="start"
+        :font-size="sideMargin * 0.7"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {{ convertDecimalToHour(line) }}
+      </text>
+      <text
+        v-for="day in [...Array(nbDays).keys()]"
+        :x="computeX(day) + slotWidth / 2"
+        :y="verticalMargin"
+        dominant-baseline="middle"
+        text-anchor="middle"
+        fill="#4a4646"
+        :font-size="verticalMargin * 0.5"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {{ getDay(day) }}
+      </text>
       <SVGTimeSlot
         v-for="uv in uvs"
         :key="uv.uvName"
@@ -30,6 +67,7 @@ import { Color } from "@/models/color";
 import { SVGtoPNG } from "@/utils/svg-to-png";
 import { computed, defineComponent, PropType } from "vue";
 import SVGTimeSlot from "./SVGTimeSlot.vue";
+import { frenchDays } from "@/models/types";
 
 export default defineComponent({
   name: "SVGSchedule",
@@ -109,6 +147,7 @@ export default defineComponent({
       set uvs(value) {
         this._uvs = value;
       },
+      hoursConstructionLines: [8, 10, 10.25, 12.25, 14, 16, 16.25, 19.25],
     };
   },
   computed: {
@@ -119,10 +158,20 @@ export default defineComponent({
       return this.svgHeight / 20;
     },
     innerWidth(): number {
-      return this.svgWidth - 2 * this.sideMargin;
+      return (
+        this.svgWidth - 2 * this.sideMargin - this.hourLabelsContainerWidth
+      );
+    },
+    hourLabelsContainerWidth(): number {
+      return this.sideMargin * 4;
     },
     innerHeight(): number {
-      return this.svgHeight - 2 * this.verticalMargin;
+      return (
+        this.svgHeight - 2 * this.verticalMargin - this.dayLabelsContainerHeight
+      );
+    },
+    dayLabelsContainerHeight(): number {
+      return this.verticalMargin;
     },
     columnWidth(): number {
       return this.innerWidth / this.nbDays;
@@ -131,31 +180,7 @@ export default defineComponent({
       return 0.9 * this.columnWidth;
     },
   },
-  mounted() {
-    const canvas: SVGSVGElement = this.$refs.canvas as SVGSVGElement;
-    /**
-     * 
-     const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-     rect.setAttribute("x", this.sideMargin.toString());
-     rect.setAttribute("y", this.verticalMargin.toString());
-     rect.setAttribute("width", this.innerWidth.toString());
-     rect.setAttribute("height", this.innerHeight.toString());
-     rect.setAttribute("fill", "red");
-     canvas.prepend(rect);
-     */
-    /*
-    const slot1 = this.createSlot(9, 0, "AP4A - TP 1", "B403", 2);
-    const slot2 = this.createSlot(9, 1, "AP4A - TP 1", "B403", 2);
-    const slot3 = this.createSlot(9, 2, "AP4A - TP 1", "B403", 2);
-    const slot4 = this.createSlot(9, 3, "AP4A - TP 1", "B403", 2);
-    const slot5 = this.createSlot(9, 4, "AP4A - TP 1", "B403", 2);
-    canvas.appendChild(slot1);
-    canvas.appendChild(slot2);
-    canvas.appendChild(slot3);
-    canvas.appendChild(slot4);
-    canvas.appendChild(slot5);
-    */
-  },
+  mounted() {},
   methods: {
     pngSchedule(event: MouseEvent): void {
       const canvas: SVGSVGElement = this.$refs.canvas as SVGSVGElement;
@@ -167,6 +192,7 @@ export default defineComponent({
     computeX(day: number) {
       return (
         this.sideMargin +
+        this.hourLabelsContainerWidth +
         day * this.columnWidth +
         (this.columnWidth - this.slotWidth) / 2
       );
@@ -174,9 +200,20 @@ export default defineComponent({
     computeY(hourBegin: number) {
       return (
         this.verticalMargin +
+        this.dayLabelsContainerHeight +
         ((hourBegin - this.minHour) * this.innerHeight) /
           (this.maxHour - this.minHour)
       );
+    },
+    convertDecimalToHour(decimal: number): string {
+      const hour = Math.floor(decimal);
+      const minutes = Math.round((decimal - hour) * 60)
+        .toString()
+        .padStart(2, "0");
+      return `${hour}h${minutes}`;
+    },
+    getDay(value: number) {
+      return frenchDays.at(value);
     },
   },
 });

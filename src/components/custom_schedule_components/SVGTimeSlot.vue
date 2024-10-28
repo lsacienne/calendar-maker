@@ -84,7 +84,7 @@ export default defineComponent({
       return this._color.toHexString();
     },
     fillColor(): string {
-      return this._color.lightenColor(0.5).toHexString();
+      return this._color.lightenColor(0.8).toHexString();
     },
     borderRadius(): number {
       return this.isSquared ? 0 : this.width / 10;
