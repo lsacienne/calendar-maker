@@ -29,6 +29,7 @@
         dominant-baseline="middle"
         text-anchor="start"
         :font-size="sideMargin * 0.7"
+        font-family="Avenir, Helvetica, Arial, sans-serif"
         xmlns="http://www.w3.org/2000/svg"
       >
         {{ convertDecimalToHour(line) }}
@@ -41,6 +42,7 @@
         text-anchor="middle"
         fill="#4a4646"
         :font-size="verticalMargin * 0.5"
+        font-family="Avenir, Helvetica, Arial, sans-serif"
         xmlns="http://www.w3.org/2000/svg"
       >
         {{ getDay(day) }}
@@ -65,7 +67,7 @@
 <script lang="ts">
 import { Color } from "@/models/color";
 import { SVGtoPNG } from "@/utils/svg-to-png";
-import { computed, defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import SVGTimeSlot from "./SVGTimeSlot.vue";
 import { frenchDays } from "@/models/types";
 
