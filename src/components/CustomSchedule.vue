@@ -8,14 +8,16 @@
         <button>ICS File 📆</button>
       </a>
     </div>
-    <SVGSchedule :nb-days="5"></SVGSchedule>
+    <div class="svg-schedule-container">
+      <SVGSchedule></SVGSchedule>
+    </div>
+
     <!-- CanvasSchedule></CanvasSchedule -->
   </article>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import CanvasSchedule from "./custom_schedule_components/CanvasSchedule.vue";
 import SVGSchedule from "./custom_schedule_components/SVGSchedule.vue";
 import { icsEvent } from "@/models/types";
 import { createEvents } from "ics";
@@ -90,6 +92,7 @@ article {
   background-color: rgba(255, 216, 59, 0.5);
   padding: 1.5rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  row-gap: 1rem;
   border-radius: 1rem;
 }
 
@@ -102,7 +105,8 @@ h1 {
   align-self: flex-start;
 }
 
-.ics-container {
+.ics-container,
+.svg-schedule-container {
   width: 95%;
   padding: 1rem;
   display: inline-flex;
