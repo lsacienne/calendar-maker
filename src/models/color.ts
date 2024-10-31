@@ -141,4 +141,17 @@ export class Color {
     static get blue(): Color {
         return Color.fromRGB(0, 0, 255);
     }
+
+    static defaultPalette(): Array<Color> {
+        return [
+            Color.fromHex('#AB42F5'),
+            Color.fromHex('#42F58E'),
+            Color.fromHex('#F5B441'),
+            Color.fromHex('#B5955E'),
+            Color.fromHex('#8660A0'),
+            Color.fromHex('#60A07B'),
+            Color.fromHex('#756B5A'),
+            Color.fromHex('#47414B'),
+        ];
+    }
 }
