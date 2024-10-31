@@ -48,15 +48,16 @@
         {{ getDay(day) }}
       </text>
       <SVGTimeSlot
-        v-for="uv in uvs"
-        :key="uv.uvName"
-        :uvName="uv.uvName"
-        :room="uv.room"
-        :x="computeX(uv.day)"
-        :y="computeY(uv.hourBegin)"
+        v-for="uv in uvSlots"
+        :key="uv.uv"
+        :uvName="`${uv.uv} - ${uv.type} ${uv.group}`"
+        :room="uv.classroom"
+        :x="computeX(uv.dayIdx)"
+        :y="computeY(uv.startHour)"
         :width="slotWidth"
-        :color="uv.color.toIColor()"
-        :height="computeHeight(uv.hourSize)"
+        :font-size-u-v="innerHeight / 40"
+        :color="uv.strokeColor.toIColor()"
+        :height="computeHeight(uv.duration)"
         :isSquared="false"
       ></SVGTimeSlot>
     </svg>
@@ -67,9 +68,9 @@
 <script lang="ts">
 import { Color } from "@/models/color";
 import { SVGtoPNG } from "@/utils/svg-to-png";
-import { defineComponent } from "vue";
+import { defineComponent, Prop, PropType } from "vue";
 import SVGTimeSlot from "./SVGTimeSlot.vue";
-import { frenchDays } from "@/models/types";
+import { frenchDays, SVGUvCourse, UVCourses } from "@/models/types";
 
 export default defineComponent({
   name: "SVGSchedule",
@@ -97,6 +98,11 @@ export default defineComponent({
     maxHour: {
       type: Number,
       default: 20,
+    },
+    uvCourses: {
+      required: false,
+      type: Array as PropType<Array<UVCourses>>,
+      default: undefined,
     },
   },
   data() {
@@ -180,6 +186,23 @@ export default defineComponent({
     },
     slotWidth(): number {
       return 0.9 * this.columnWidth;
+    },
+    uvSlots(): Array<SVGUvCourse> {
+      const uvSlots: Array<SVGUvCourse> = [];
+      if (this.uvCourses !== undefined) {
+        this.uvCourses.forEach((uv) => {
+          uv.courses.forEach((course) => {
+            uvSlots.push({
+              uv: uv.uv,
+              fillColor: uv.fillColor,
+              strokeColor: uv.strokeColor,
+              ...course,
+            });
+          });
+        });
+        console.log(uvSlots);
+      }
+      return uvSlots;
     },
   },
   mounted() {},
