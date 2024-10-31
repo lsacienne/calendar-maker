@@ -67,6 +67,10 @@ export default defineComponent({
       type: Number,
       required: true,
     },
+    fontSizeUV: {
+      type: Number,
+      required: true,
+    },
     color: {
       type: Object as PropType<IColor>,
       default: Color.blue,
@@ -92,17 +96,14 @@ export default defineComponent({
     textUVPosition(): { x: number; y: number } {
       return {
         x: this.width / 2 + this.x,
-        y: this.y + (this.height * 2) / 10,
+        y: this.y + Math.min(1.5 * this.fontSizeUV, (4 * this.height) / 10),
       };
     },
     textRoomPosition(): { x: number; y: number } {
       return {
         x: this.width / 2 + this.x,
-        y: this.y + (this.height * 5) / 10,
+        y: this.textUVPosition.y + 1.2 * this.fontSizeUV,
       };
-    },
-    fontSizeUV(): number {
-      return (this.width * this.height) / 300;
     },
     fontSizeRoom(): number {
       return this.fontSizeUV * 0.8;
