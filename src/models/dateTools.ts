@@ -131,7 +131,12 @@ function setHourToDateM(date: moment.Moment, stringHour: string): moment.Moment 
   return date
 }
 
-function diffHours(hour1: string, hour2: string) {
+export function hourToDecimal(hour: string) {
+  const hourArray = hour.split(':').map((elem) => parseInt(elem))
+  return hourArray[0] + hourArray[1] / 60
+}
+
+export function diffHours(hour1: string, hour2: string) {
   const hour1A = hour1.split(':').map((elem) => parseInt(elem))
   const hour2A = hour2.split(':').map((elem) => parseInt(elem))
   const hour1M = moment()
