@@ -2,98 +2,115 @@
   <body>
     <div class="body-content">
       <UserData @formValidated="getData"></UserData>
-      <FirstClassChooser :userData="userData" @dateChosen="getDate"></FirstClassChooser>
-      <CustomSchedule :ics-data="icsData"></CustomSchedule>
+      <FirstClassChooser
+        :userData="userData"
+        @dateChosen="getDate"
+      ></FirstClassChooser>
+      <CustomSchedule
+        :ics-data="icsData"
+        :date-slots="scheduleGenerated?.schedule"
+      ></CustomSchedule>
     </div>
   </body>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import CustomSchedule from './components/CustomSchedule.vue'
-import FirstClassChooser from './components/FirstClassChooser.vue'
-import UserData from './components/UserData.vue'
-import { DateChooser, ScheduleWithChoice, ScheduleItem, Schedule, icsEvent } from './models/types'
-import { generateCorrectDates, generateICSObjects } from './models/dateTools'
+import { defineComponent } from "vue";
+import CustomSchedule from "./components/CustomSchedule.vue";
+import FirstClassChooser from "./components/FirstClassChooser.vue";
+import UserData from "./components/UserData.vue";
+import {
+  DateChooser,
+  ScheduleWithChoice,
+  ScheduleItem,
+  Schedule,
+  icsEvent,
+} from "./models/types";
+import { generateCorrectDates, generateICSObjects } from "./models/dateTools";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     UserData,
     FirstClassChooser,
-    CustomSchedule
+    CustomSchedule,
   },
   data() {
     return {
       userData: null as {
-        courses: { start: string, end: string },
-        schedule: Array<object>,
-        rests: Array<{ start: string, end: string }>
+        courses: { start: string; end: string };
+        schedule: Array<object>;
+        rests: Array<{ start: string; end: string }>;
       } | null,
       dateSlots: null as Array<DateChooser> | null,
-      icsData: undefined as Array<icsEvent> | undefined
-    }
+      icsData: undefined as Array<icsEvent> | undefined,
+    };
   },
   computed: {
     scheduleGenerated(): Schedule | null {
       if (this.userData) {
-        const scheduleData = [] as Array<ScheduleWithChoice>
+        const scheduleData = [] as Array<ScheduleWithChoice>;
         const { courses, schedule, rests } = this.userData as {
           courses: {
-            start: string,
-            end: string
-          },
+            start: string;
+            end: string;
+          };
           rests: Array<{
-            start: string,
-            end: string
-          }>,
-          schedule: Array<ScheduleItem>
-        }
+            start: string;
+            end: string;
+          }>;
+          schedule: Array<ScheduleItem>;
+        };
         for (const course of schedule) {
-          if (course.frequency !== '1') {
+          if (course.frequency !== "1") {
             if (this.dateSlots === null) {
-              return null
+              return null;
             }
-            const slotObj = this.dateSlots.filter(d => d.uv === course.uv && d.type === course.type && d.day === course.day)
+            const slotObj = this.dateSlots.filter(
+              (d) =>
+                d.uv === course.uv &&
+                d.type === course.type &&
+                d.day === course.day
+            );
             if (slotObj.length === 0 && slotObj[0].chosenDate === null) {
-              return null
+              return null;
             }
-            scheduleData.push({ ...course, chosenDate: slotObj[0].chosenDate })
+            scheduleData.push({ ...course, chosenDate: slotObj[0].chosenDate });
           } else {
-            scheduleData.push({ ...course, chosenDate: null })
+            scheduleData.push({ ...course, chosenDate: null });
           }
         }
 
         return {
           courses: courses,
           rests: rests,
-          schedule: scheduleData
-        }
+          schedule: scheduleData,
+        };
       }
-      return null
-    }
+      return null;
+    },
   },
   methods: {
-    getData(content: {
-      courses: { start: string, end: string },
-      schedule: Array<ScheduleWithChoice>,
-      rests: Array<{ start: string, end: string }>
-    } | null
+    getData(
+      content: {
+        courses: { start: string; end: string };
+        schedule: Array<ScheduleWithChoice>;
+        rests: Array<{ start: string; end: string }>;
+      } | null
     ) {
-      this.userData = content
+      this.userData = content;
     },
-    getDate(content: Array<DateChooser> | null
-    ) {
-      this.dateSlots = content
+    getDate(content: Array<DateChooser> | null) {
+      this.dateSlots = content;
       if (content !== null && this.scheduleGenerated !== null) {
-        const dateItems = generateCorrectDates(this.scheduleGenerated)
+        const dateItems = generateCorrectDates(this.scheduleGenerated);
         if (dateItems !== null) {
-          this.icsData = generateICSObjects(dateItems)
+          this.icsData = generateICSObjects(dateItems);
         }
       }
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
 <style>
@@ -131,6 +148,6 @@ body {
   border: solid 3px rgb(114, 75, 255);
   background-color: rgb(139, 107, 255);
   border-radius: 1rem;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 </style>

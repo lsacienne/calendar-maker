@@ -1,15 +1,18 @@
 <template>
-  <article>
-    <h1>3. Télécharges 💾 & Personnalises ! 🎨</h1>
-    <div class="ics-container">
+  <article :class="{ invisible: !isDisplayed }">
+    <h1>3. Personnalises 🎨 & Télécharges 💾 !</h1>
+    <div class="ics-container" :class="{ invisible: icsData === undefined }">
       <p>💾 Télécharges ton fichier ICS et importes le sur ton agenda !</p>
       <input type="text" name="" id="" v-model="filename" />
       <a :href="icsURL" :download="filenameComp">
         <button>ICS File 📆</button>
       </a>
     </div>
-    <div class="svg-schedule-container">
-      <SVGSchedule></SVGSchedule>
+    <div
+      class="svg-schedule-container"
+      :class="{ invisible: !isSVGScheduleDisplayed }"
+    >
+      <SVGSchedule :uv-courses="SVGUvCourse"></SVGSchedule>
     </div>
 
     <!-- CanvasSchedule></CanvasSchedule -->
@@ -19,8 +22,16 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import SVGSchedule from "./custom_schedule_components/SVGSchedule.vue";
-import { icsEvent } from "@/models/types";
+import {
+  Course,
+  frenchDays,
+  icsEvent,
+  ScheduleWithChoice,
+  UVCourses,
+} from "@/models/types";
 import { createEvents } from "ics";
+import { diffHours, hourToDecimal } from "@/models/dateTools";
+import { Color } from "@/models/color";
 
 export default defineComponent({
   name: "CustomSchedule",
@@ -40,11 +51,69 @@ export default defineComponent({
       }
       return this.filename + ".ics";
     },
+    isDisplayed(): boolean {
+      return this.icsData !== undefined || this.isSVGScheduleDisplayed;
+    },
+    isSVGScheduleDisplayed(): boolean {
+      if (this.dateSlots === undefined) {
+        return false;
+      }
+      this.dateSlots.forEach((date) => {
+        if (date.chosenDate === null) {
+          return false;
+        }
+      });
+      return true;
+    },
+    SVGUvCourse(): Array<UVCourses> | undefined {
+      if (this.isSVGScheduleDisplayed) {
+        const uvMap: Map<string, Array<Course>> = new Map();
+        this.dateSlots!.forEach((dateSlot: ScheduleWithChoice) => {
+          if (
+            parseInt(dateSlot.frequency) === 1 ||
+            dateSlot.chosenDate !== null
+          ) {
+            const course: Course = {
+              type: dateSlot.type,
+              dayIdx: frenchDays.findIndex((value) => value === dateSlot.day),
+              startHour: hourToDecimal(dateSlot.startHour),
+              duration: diffHours(dateSlot.startHour, dateSlot.endHour) / 60,
+              classroom: dateSlot.classroom,
+              mode: dateSlot.mode,
+              group: dateSlot.group,
+            };
+            if (uvMap.has(dateSlot.uv)) {
+              uvMap.get(dateSlot.uv)?.push(course);
+            } else {
+              uvMap.set(dateSlot.uv, [course]);
+            }
+          }
+        });
+        const uvCourses: Array<UVCourses> = [];
+        const colorPalette = Color.defaultPalette();
+        uvMap.keys().forEach((key, index) => {
+          const currentColor = colorPalette.at(index);
+          uvCourses.push({
+            uv: key,
+            courses: uvMap.get(key)!,
+            fillColor: currentColor!.lightenColor(0.8),
+            strokeColor: currentColor!,
+          });
+        });
+        return uvCourses;
+      }
+      return undefined;
+    },
   },
   props: {
     icsData: {
       required: false,
       type: Array as PropType<Array<icsEvent>>,
+      default: undefined,
+    },
+    dateSlots: {
+      required: false,
+      type: Array as PropType<Array<ScheduleWithChoice> | undefined>,
       default: undefined,
     },
   },
@@ -114,6 +183,11 @@ h1 {
   border-radius: inherit;
   align-items: center;
   justify-content: space-between;
+}
+
+.ics-container.invisible,
+.svg-schedule-container.invisible {
+  display: none;
 }
 
 .ics-container p {
