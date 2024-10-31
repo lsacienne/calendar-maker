@@ -1,3 +1,5 @@
+import { Color } from "./color"
+
 export type DateChooser = {
   id: number,
   uv: string,
@@ -6,6 +8,40 @@ export type DateChooser = {
   date1: Date | undefined,
   date2: Date | undefined,
   chosenDate: Date | number | null
+}
+
+export type SVGUvCourse = {
+  uv: string,
+  type: string,
+  dayIdx: number,
+  startHour: number,
+  duration: number,
+  left?: boolean,
+  right?: boolean,
+  classroom: string,
+  mode: string,
+  group: string,
+  fillColor: Color,
+  strokeColor: Color
+}
+
+export type UVCourses = {
+  uv: string,
+  courses: Array<Course>,
+  fillColor: Color,
+  strokeColor: Color
+}
+
+export type Course = {
+  type: string,
+  dayIdx: number,
+  startHour: number,
+  duration: number,
+  left?: boolean,
+  right?: boolean,
+  classroom: string,
+  mode: string,
+  group: string
 }
 
 export type ScheduleWithChoice = {
