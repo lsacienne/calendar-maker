@@ -206,6 +206,11 @@ function findLastDate(endDate: Date, day: string) {
   return moment()
 }
 
+export function getWeek(date: Date) {
+  const dateM = moment(date);
+  return dateM.week();
+}
+
 const daysMap = new Map(
   [
     ['lundi', 1],

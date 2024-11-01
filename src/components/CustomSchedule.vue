@@ -32,6 +32,7 @@ import {
 import { createEvents } from "ics";
 import { diffHours, hourToDecimal } from "@/models/dateTools";
 import { Color } from "@/models/color";
+import { Side } from "@/models/svg-utils";
 
 export default defineComponent({
   name: "CustomSchedule",
@@ -68,17 +69,41 @@ export default defineComponent({
     SVGUvCourse(): Array<UVCourses> | undefined {
       if (this.isSVGScheduleDisplayed) {
         const uvMap: Map<string, Array<Course>> = new Map();
+        let firstWeek: number;
         this.dateSlots!.forEach((dateSlot: ScheduleWithChoice) => {
           if (
             parseInt(dateSlot.frequency) === 1 ||
             dateSlot.chosenDate !== null
           ) {
+            let side = Side.NONE;
+            if (dateSlot.chosenDate !== null) {
+              if (typeof dateSlot.chosenDate === "number") {
+                if (dateSlot.chosenDate === 1) {
+                  side = Side.LEFT;
+                } else if (dateSlot.chosenDate === 2) {
+                  side = Side.RIGHT;
+                }
+              } else if (typeof dateSlot.chosenDate === "object") {
+                const week = getWeek(dateSlot.chosenDate);
+                if (firstWeek === undefined) {
+                  firstWeek = week;
+                  side = Side.LEFT;
+                } else {
+                  if (week === firstWeek) {
+                    side = Side.LEFT;
+                  } else {
+                    side = Side.RIGHT;
+                  }
+                }
+              }
+            }
             const course: Course = {
               type: dateSlot.type,
               dayIdx: frenchDays.findIndex((value) => value === dateSlot.day),
               startHour: hourToDecimal(dateSlot.startHour),
               duration: diffHours(dateSlot.startHour, dateSlot.endHour) / 60,
               classroom: dateSlot.classroom,
+              side: side,
               mode: dateSlot.mode,
               group: dateSlot.group,
             };

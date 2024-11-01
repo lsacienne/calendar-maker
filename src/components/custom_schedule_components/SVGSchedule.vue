@@ -8,6 +8,13 @@
       preserve-aspect-ratio="true"
       xmlns="http://www.w3.org/2000/svg"
     >
+      <rect
+        x1="0"
+        y1="0"
+        :width="svgWidth"
+        :height="svgHeight"
+        fill="whitesmoke"
+      ></rect>
       <line
         v-for="line in hoursConstructionLines"
         class="hour-divider"
@@ -55,6 +62,7 @@
         :x="computeX(uv.dayIdx)"
         :y="computeY(uv.startHour)"
         :width="slotWidth"
+        :side="uv.side"
         :font-size-u-v="innerHeight / 40"
         :color="uv.strokeColor.toIColor()"
         :height="computeHeight(uv.duration)"
@@ -71,6 +79,7 @@ import { SVGtoPNG } from "@/utils/svg-to-png";
 import { defineComponent, Prop, PropType } from "vue";
 import SVGTimeSlot from "./SVGTimeSlot.vue";
 import { frenchDays, SVGUvCourse, UVCourses } from "@/models/types";
+import { Side } from "@/models/svg-utils";
 
 export default defineComponent({
   name: "SVGSchedule",
@@ -107,54 +116,6 @@ export default defineComponent({
   },
   data() {
     return {
-      _uvs: [
-        {
-          hourBegin: 9,
-          day: 0,
-          uvName: "AP4A - TP 1",
-          room: "B403",
-          hourSize: 2,
-          color: Color.blue,
-        },
-        {
-          hourBegin: 9,
-          day: 1,
-          uvName: "AP4A - TP 1",
-          room: "B403",
-          hourSize: 2,
-          color: Color.fromRGB(255, 255, 0) as Color,
-        },
-        {
-          hourBegin: 9,
-          day: 2,
-          uvName: "AP4A - TP 1",
-          room: "B403",
-          hourSize: 2,
-          color: Color.red as Color,
-        },
-        {
-          hourBegin: 9,
-          day: 3,
-          uvName: "AP4A - TP 1",
-          room: "B403",
-          hourSize: 2,
-          color: Color.red as Color,
-        },
-        {
-          hourBegin: 9,
-          day: 4,
-          uvName: "AP4A - TP 1",
-          room: "B403",
-          hourSize: 2,
-          color: Color.red as Color,
-        },
-      ],
-      get uvs() {
-        return this._uvs;
-      },
-      set uvs(value) {
-        this._uvs = value;
-      },
       hoursConstructionLines: [8, 10, 10.25, 12.25, 14, 16, 16.25, 19.25],
     };
   },

@@ -1,4 +1,5 @@
 import { Color } from "./color"
+import { Side } from "./svg-utils"
 
 export type DateChooser = {
   id: number,
@@ -16,8 +17,7 @@ export type SVGUvCourse = {
   dayIdx: number,
   startHour: number,
   duration: number,
-  left?: boolean,
-  right?: boolean,
+  side: Side,
   classroom: string,
   mode: string,
   group: string,
@@ -37,8 +37,7 @@ export type Course = {
   dayIdx: number,
   startHour: number,
   duration: number,
-  left?: boolean,
-  right?: boolean,
+  side: Side,
   classroom: string,
   mode: string,
   group: string

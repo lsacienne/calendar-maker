@@ -1,9 +1,9 @@
 <template>
   <g>
     <rect
-      :x="x"
+      :x="computedX"
       :y="y"
-      :width="width"
+      :width="computedWidth"
       :height="height"
       :fill="fillColor"
       :stroke="borderColor"
@@ -15,9 +15,10 @@
     <text
       :x="textUVPosition.x"
       :y="textUVPosition.y"
+      white-space="normal"
       text-anchor="middle"
       dominant-baseline="middle"
-      :font-size="fontSizeUV"
+      :font-size="computedFontSizeUV"
       font-weight="bold"
       font-family="Avenir, Helvetica, Arial, sans-serif"
       xmlns="http://www.w3.org/2000/svg"
@@ -38,6 +39,7 @@
 
 <script lang="ts">
 import { Color, IColor } from "@/models/color";
+import { Side } from "@/models/svg-utils";
 import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
@@ -79,6 +81,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    side: {
+      type: Number as PropType<Side>,
+      default: Side.NONE,
+      required: false,
+    },
   },
   computed: {
     _color(): Color {
@@ -87,26 +94,76 @@ export default defineComponent({
     borderColor(): string {
       return this._color.toHexString();
     },
+    computedWidth(): number {
+      switch (this.side) {
+        case Side.NONE: {
+          return this.width;
+        }
+        case Side.LEFT: {
+          return this.width / 2;
+        }
+        case Side.RIGHT: {
+          return this.width / 2;
+        }
+        default: {
+          return this.width;
+        }
+      }
+    },
+    computedX(): number {
+      switch (this.side) {
+        case Side.NONE: {
+          return this.x;
+        }
+        case Side.LEFT: {
+          return this.x;
+        }
+        case Side.RIGHT: {
+          return this.x + this.computedWidth;
+        }
+        default: {
+          return this.x;
+        }
+      }
+    },
     fillColor(): string {
       return this._color.lightenColor(0.8).toHexString();
     },
     borderRadius(): number {
-      return this.isSquared ? 0 : this.width / 10;
+      return this.isSquared ? 0 : this.computedWidth / 10;
     },
     textUVPosition(): { x: number; y: number } {
       return {
-        x: this.width / 2 + this.x,
-        y: this.y + Math.min(1.5 * this.fontSizeUV, (4 * this.height) / 10),
+        x: this.computedWidth / 2 + this.computedX,
+        y:
+          this.y +
+          Math.min(1.5 * this.computedFontSizeUV, (4 * this.height) / 10),
       };
     },
     textRoomPosition(): { x: number; y: number } {
       return {
-        x: this.width / 2 + this.x,
-        y: this.textUVPosition.y + 1.2 * this.fontSizeUV,
+        x: this.computedWidth / 2 + this.computedX,
+        y: this.textUVPosition.y + 1.2 * this.computedFontSizeUV,
       };
     },
+    computedFontSizeUV(): number {
+      switch (this.side) {
+        case Side.NONE: {
+          return this.fontSizeUV;
+        }
+        case Side.LEFT: {
+          return this.fontSizeUV * 0.8;
+        }
+        case Side.RIGHT: {
+          return this.fontSizeUV * 0.8;
+        }
+        default: {
+          return this.fontSizeUV;
+        }
+      }
+    },
     fontSizeRoom(): number {
-      return this.fontSizeUV * 0.8;
+      return this.computedFontSizeUV * 0.8;
     },
   },
 });
