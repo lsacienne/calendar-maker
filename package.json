@@ -17,7 +17,9 @@
     "ics": "^3.8.1",
     "moment": "^2.30.1",
     "rrule": "^2.8.1",
-    "vue": "^3.2.13"
+    "vite-plugin-vuetify": "^2.0.4",
+    "vue": "^3.2.13",
+    "vuetify": "^3.7.0-beta.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.10.0",
