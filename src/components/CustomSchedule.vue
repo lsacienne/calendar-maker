@@ -1,6 +1,14 @@
 <template>
   <article :class="{ invisible: !isDisplayed }">
     <h1>3. Personnalises 🎨 & Télécharges 💾 !</h1>
+    <div
+      class="svg-schedule-container"
+      :class="{ invisible: !isSVGScheduleDisplayed }"
+    >
+      <ColorManager></ColorManager>
+      <SVGSchedule :uv-courses="SVGUvCourse"></SVGSchedule>
+    </div>
+
     <div class="ics-container" :class="{ invisible: icsData === undefined }">
       <p>💾 Télécharges ton fichier ICS et importes le sur ton agenda !</p>
       <input type="text" name="" id="" v-model="filename" />
@@ -8,13 +16,6 @@
         <button>ICS File 📆</button>
       </a>
     </div>
-    <div
-      class="svg-schedule-container"
-      :class="{ invisible: !isSVGScheduleDisplayed }"
-    >
-      <SVGSchedule :uv-courses="SVGUvCourse"></SVGSchedule>
-    </div>
-
     <!-- CanvasSchedule></CanvasSchedule -->
   </article>
 </template>
@@ -22,6 +23,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
 import SVGSchedule from "./custom_schedule_components/SVGSchedule.vue";
+import { scheduleColorsManager } from "@/models/scheduleColorsManager";
 import {
   Course,
   frenchDays,
@@ -30,14 +32,16 @@ import {
   UVCourses,
 } from "@/models/types";
 import { createEvents } from "ics";
-import { diffHours, hourToDecimal } from "@/models/dateTools";
+import { diffHours, getWeek, hourToDecimal } from "@/models/dateTools";
 import { Color } from "@/models/color";
+import ColorManager from "./custom_schedule_components/ColorManager.vue";
 import { Side } from "@/models/svg-utils";
 
 export default defineComponent({
   name: "CustomSchedule",
   components: {
     SVGSchedule,
+    ColorManager,
   },
   data() {
     return {
@@ -116,13 +120,32 @@ export default defineComponent({
         });
         const uvCourses: Array<UVCourses> = [];
         const colorPalette = Color.defaultPalette();
+        if (scheduleColorsManager.initialized === false) {
+          uvMap.keys().forEach((key, index) => {
+            scheduleColorsManager.addTimeSlotColorManager({
+              uvName: key,
+              borderColor: (
+                colorPalette.at(index) ?? Color.white
+              ).toHexString(),
+              backgroundColor: (
+                colorPalette.at(index)?.lightenColor(0.8) ?? Color.white
+              ).toHexString(),
+              fontColor: Color.black.toHexString(),
+            });
+          });
+        }
+
         uvMap.keys().forEach((key, index) => {
-          const currentColor = colorPalette.at(index);
           uvCourses.push({
             uv: key,
             courses: uvMap.get(key)!,
-            fillColor: currentColor!.lightenColor(0.8),
-            strokeColor: currentColor!,
+            fillColor: Color.fromHex(
+              scheduleColorsManager.timeSlotColorManagers.at(index)!
+                .backgroundColor
+            ),
+            strokeColor: Color.fromHex(
+              scheduleColorsManager.timeSlotColorManagers.at(index)!.borderColor
+            ),
           });
         });
         return uvCourses;
@@ -203,9 +226,18 @@ h1 {
 .svg-schedule-container {
   width: 95%;
   padding: 1rem;
-  display: inline-flex;
   background-color: rgb(230, 195, 116);
   border-radius: inherit;
+}
+.ics-container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.svg-schedule-container {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
