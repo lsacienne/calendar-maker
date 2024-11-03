@@ -1,3 +1,22 @@
+export interface AllTimeSlotColorManagers {
+    timeSlotColorManagers: TimeSlotColorManager[];
+    initialized: boolean;
+}
+
+export interface TimeSlotColorManager {
+    uvName: string;
+    borderColor: Color;
+    backgroundColor: Color;
+    fontColor: Color;
+}
+
+export interface TimeSlotColorManagerString {
+    uvName: string;
+    borderColor: string;
+    backgroundColor: string;
+    fontColor: string;
+} 
+
 export interface IColor {
     r: number;
     g: number;
