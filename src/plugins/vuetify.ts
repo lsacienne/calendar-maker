@@ -1,6 +1,6 @@
 import { createVuetify } from "vuetify";
 import { VColorPicker } from "vuetify/components/VColorPicker";
-import { Ripple } from "vuetify/directives";
+import { ClickOutside, Ripple } from "vuetify/directives";
 
 const vuetify = createVuetify({
   components: {
@@ -8,6 +8,7 @@ const vuetify = createVuetify({
   },
   directives: {
     Ripple,
+    ClickOutside
   },
 });
 
