@@ -18,6 +18,7 @@
       white-space="normal"
       text-anchor="middle"
       dominant-baseline="middle"
+      :fill="_fontColor"
       :font-size="computedFontSizeUV"
       font-weight="bold"
       font-family="Avenir, Helvetica, Arial, sans-serif"
@@ -29,6 +30,7 @@
       :y="textRoomPosition.y"
       text-anchor="middle"
       dominant-baseline="middle"
+      :fill="_fontColor"
       :font-size="fontSizeRoom"
       font-family="Avenir, Helvetica, Arial, sans-serif"
       xmlns="http://www.w3.org/2000/svg"
@@ -81,6 +83,10 @@ export default defineComponent({
       type: Object as PropType<IColor>,
       required: true,
     },
+    fontColor: {
+      type: Object as PropType<IColor>,
+      required: true,
+    },
     isSquared: {
       type: Boolean,
       default: false,
@@ -97,6 +103,9 @@ export default defineComponent({
     },
     _fillColor(): string {
       return Color.fromIColor(this.fillColor).toHexString();
+    },
+    _fontColor(): string {
+      return Color.fromIColor(this.fontColor).toHexString();
     },
     computedWidth(): number {
       switch (this.side) {

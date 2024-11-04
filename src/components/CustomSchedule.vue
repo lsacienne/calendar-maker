@@ -144,6 +144,9 @@ export default defineComponent({
             strokeColor: Color.fromHex(
               scheduleColorsManager.timeSlotColorManagers.at(index)!.mainColor
             ),
+            fontColor: Color.fromHex(
+              scheduleColorsManager.timeSlotColorManagers.at(index)!.fontColor
+            ),
           });
         });
         return uvCourses;
@@ -187,7 +190,7 @@ export default defineComponent({
         if (returnObject.error) {
           reject(returnObject.error);
         }
-        console.log(returnObject.value);
+        //console.log(returnObject.value);
         if (returnObject.value !== undefined) {
           resolve(
             new File([returnObject.value], filename, { type: "text/calendar" })

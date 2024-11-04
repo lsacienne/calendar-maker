@@ -22,14 +22,16 @@ export type SVGUvCourse = {
   mode: string,
   group: string,
   fillColor: Color,
-  strokeColor: Color
+  strokeColor: Color,
+  fontColor: Color
 }
 
 export type UVCourses = {
   uv: string,
   courses: Array<Course>,
   fillColor: Color,
-  strokeColor: Color
+  strokeColor: Color,
+  fontColor: Color
 }
 
 export type Course = {

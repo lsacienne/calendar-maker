@@ -25,11 +25,7 @@ import { VColorPicker } from "vuetify/components/VColorPicker";
 import ColorSelector from "./ColorSelector.vue";
 import ColorLine from "./ColorLine.vue";
 import { scheduleColorsManager } from "@/models/scheduleColorsManager";
-import {
-  Color,
-  TimeSlotColorManager,
-  TimeSlotColorManagerString,
-} from "@/models/color";
+import { TimeSlotColorManager } from "@/models/color";
 
 export default defineComponent({
   name: "ColorManager",
@@ -56,10 +52,6 @@ export default defineComponent({
 
 <style scoped>
 .control-panel {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
   height: auto;
   padding: 0.5rem;
 

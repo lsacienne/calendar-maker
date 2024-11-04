@@ -65,6 +65,7 @@
         :side="uv.side"
         :font-size-u-v="innerHeight / 40"
         :stroke-color="uv.strokeColor.toIColor()"
+        :font-color="uv.fontColor.toIColor()"
         :fill-color="uv.fillColor.toIColor()"
         :height="computeHeight(uv.duration)"
         :isSquared="false"
@@ -153,17 +154,18 @@ export default defineComponent({
       const uvSlots: Array<SVGUvCourse> = [];
       if (this.uvCourses !== undefined) {
         this.uvCourses.forEach((uv) => {
-          console.log(uv);
+          //console.log(uv);
           uv.courses.forEach((course) => {
             uvSlots.push({
               uv: uv.uv,
               fillColor: uv.fillColor,
               strokeColor: uv.strokeColor,
+              fontColor: uv.fontColor,
               ...course,
             });
           });
         });
-        console.log(uvSlots);
+        //console.log(uvSlots);
       }
       return uvSlots;
     },

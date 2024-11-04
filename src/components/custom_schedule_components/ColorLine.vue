@@ -15,6 +15,14 @@
       picker-name="border color:"
       v-model="_borderColor"
     ></ColorSelector>
+    <div class="input">
+      <label for="is-uniform">uniforme:</label>
+      <input
+        name="is-uniform"
+        type="checkbox"
+        @input="isUniform = !isUniform"
+      />
+    </div>
     <ColorSelector
       picker-name="font color:"
       v-model="_fontColor"
@@ -62,9 +70,13 @@ export default defineComponent({
       },
       set(value: string) {
         this.$emit("update:borderColor", value);
-        this._backgroundColor = Color.fromHex(value)
-          .lightenColor(0.8)
-          .toHexString();
+        if (this.isUniform) {
+          this._backgroundColor = value;
+        } else {
+          this._backgroundColor = Color.fromHex(value)
+            .lightenColor(0.8)
+            .toHexString();
+        }
       },
     },
     _fontColor: {
@@ -81,8 +93,33 @@ export default defineComponent({
       },
       set(value: string) {
         this.$emit("update:backgroundColor", value);
+        const bgColor = Color.fromHex(value);
+        if (bgColor.r * 0.299 + bgColor.g * 0.587 + bgColor.b * 0.114 > 150) {
+          this._fontColor = "#000000";
+        } else {
+          this._fontColor = "#ffffff";
+        }
       },
     },
+  },
+  watch: {
+    isUniform: {
+      immediate: true,
+      handler(value: boolean) {
+        if (value) {
+          this._backgroundColor = this._borderColor;
+        } else {
+          this._backgroundColor = Color.fromHex(this._borderColor)
+            .lightenColor(0.8)
+            .toHexString();
+        }
+      },
+    },
+  },
+  data() {
+    return {
+      isUniform: false as Boolean,
+    };
   },
 });
 </script>
@@ -105,5 +142,9 @@ export default defineComponent({
   padding: 0.5rem;
   border-width: 2px;
   border-style: solid;
+}
+
+.input input:hover {
+  cursor: pointer;
 }
 </style>
