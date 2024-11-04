@@ -5,8 +5,8 @@
       :y="y"
       :width="computedWidth"
       :height="height"
-      :fill="fillColor"
-      :stroke="borderColor"
+      :fill="_fillColor"
+      :stroke="_borderColor"
       :rx="borderRadius"
       :ry="borderRadius"
       xmlns="http://www.w3.org/2000/svg"
@@ -73,9 +73,13 @@ export default defineComponent({
       type: Number,
       required: true,
     },
-    color: {
+    strokeColor: {
       type: Object as PropType<IColor>,
-      default: Color.blue,
+      required: true,
+    },
+    fillColor: {
+      type: Object as PropType<IColor>,
+      required: true,
     },
     isSquared: {
       type: Boolean,
@@ -88,11 +92,11 @@ export default defineComponent({
     },
   },
   computed: {
-    _color(): Color {
-      return Color.fromIColor(this.color);
+    _borderColor(): string {
+      return Color.fromIColor(this.strokeColor).toHexString();
     },
-    borderColor(): string {
-      return this._color.toHexString();
+    _fillColor(): string {
+      return Color.fromIColor(this.fillColor).toHexString();
     },
     computedWidth(): number {
       switch (this.side) {
@@ -125,9 +129,6 @@ export default defineComponent({
           return this.x;
         }
       }
-    },
-    fillColor(): string {
-      return this._color.lightenColor(0.8).toHexString();
     },
     borderRadius(): number {
       return this.isSquared ? 0 : this.computedWidth / 10;

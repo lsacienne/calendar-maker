@@ -16,10 +16,6 @@
       v-model="_borderColor"
     ></ColorSelector>
     <ColorSelector
-      picker-name="background color:"
-      v-model="_backgroundColor"
-    ></ColorSelector>
-    <ColorSelector
       picker-name="font color:"
       v-model="_fontColor"
     ></ColorSelector>
@@ -49,7 +45,7 @@ export default defineComponent({
     },
     backgroundColor: {
       type: String,
-      default: "#000000",
+      default: "#FFFFFF",
       required: true,
     },
     fontColor: {
@@ -66,14 +62,9 @@ export default defineComponent({
       },
       set(value: string) {
         this.$emit("update:borderColor", value);
-      },
-    },
-    _backgroundColor: {
-      get(): string {
-        return this.backgroundColor;
-      },
-      set(value: string) {
-        this.$emit("update:backgroundColor", value);
+        this._backgroundColor = Color.fromHex(value)
+          .lightenColor(0.8)
+          .toHexString();
       },
     },
     _fontColor: {
@@ -82,6 +73,14 @@ export default defineComponent({
       },
       set(value: string) {
         this.$emit("update:fontColor", value);
+      },
+    },
+    _backgroundColor: {
+      get(): string {
+        return this.backgroundColor;
+      },
+      set(value: string) {
+        this.$emit("update:backgroundColor", value);
       },
     },
   },

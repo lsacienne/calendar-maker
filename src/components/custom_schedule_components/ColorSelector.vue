@@ -30,7 +30,6 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import "animate.css";
 import { VColorPicker } from "vuetify/components/VColorPicker";
 
 export default defineComponent({

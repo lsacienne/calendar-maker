@@ -5,14 +5,14 @@
         colorManager, index
       ) in scheduleColorsManager.timeSlotColorManagers"
       :uv-name="colorManager.uvName"
-      v-model:background-color="
-        scheduleColorsManager.timeSlotColorManagers[index].backgroundColor
-      "
       v-model:border-color="
-        scheduleColorsManager.timeSlotColorManagers[index].borderColor
+        scheduleColorsManager.timeSlotColorManagers[index].mainColor
       "
       v-model:font-color="
         scheduleColorsManager.timeSlotColorManagers[index].fontColor
+      "
+      v-model:background-color="
+        scheduleColorsManager.timeSlotColorManagers[index].backgroundColor
       "
     ></ColorLine>
   </div>

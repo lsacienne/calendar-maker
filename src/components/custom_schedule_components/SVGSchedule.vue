@@ -64,7 +64,8 @@
         :width="slotWidth"
         :side="uv.side"
         :font-size-u-v="innerHeight / 40"
-        :color="uv.strokeColor.toIColor()"
+        :stroke-color="uv.strokeColor.toIColor()"
+        :fill-color="uv.fillColor.toIColor()"
         :height="computeHeight(uv.duration)"
         :isSquared="false"
       ></SVGTimeSlot>
@@ -152,6 +153,7 @@ export default defineComponent({
       const uvSlots: Array<SVGUvCourse> = [];
       if (this.uvCourses !== undefined) {
         this.uvCourses.forEach((uv) => {
+          console.log(uv);
           uv.courses.forEach((course) => {
             uvSlots.push({
               uv: uv.uv,

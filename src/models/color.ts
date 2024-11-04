@@ -5,14 +5,14 @@ export interface AllTimeSlotColorManagers {
 
 export interface TimeSlotColorManager {
     uvName: string;
-    borderColor: Color;
+    mainColor: Color;
     backgroundColor: Color;
     fontColor: Color;
 }
 
 export interface TimeSlotColorManagerString {
     uvName: string;
-    borderColor: string;
+    mainColor: string;
     backgroundColor: string;
     fontColor: string;
 } 

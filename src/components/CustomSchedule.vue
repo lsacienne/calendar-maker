@@ -124,9 +124,7 @@ export default defineComponent({
           uvMap.keys().forEach((key, index) => {
             scheduleColorsManager.addTimeSlotColorManager({
               uvName: key,
-              borderColor: (
-                colorPalette.at(index) ?? Color.white
-              ).toHexString(),
+              mainColor: (colorPalette.at(index) ?? Color.white).toHexString(),
               backgroundColor: (
                 colorPalette.at(index)?.lightenColor(0.8) ?? Color.white
               ).toHexString(),
@@ -144,7 +142,7 @@ export default defineComponent({
                 .backgroundColor
             ),
             strokeColor: Color.fromHex(
-              scheduleColorsManager.timeSlotColorManagers.at(index)!.borderColor
+              scheduleColorsManager.timeSlotColorManagers.at(index)!.mainColor
             ),
           });
         });

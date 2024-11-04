@@ -13,7 +13,7 @@ export const scheduleColorsManager = reactive({
             return {
                 uvName: timeSlotColorManager.uvName,
                 backgroundColor: Color.fromHex(timeSlotColorManager.backgroundColor),
-                borderColor: Color.fromHex(timeSlotColorManager.borderColor),
+                mainColor: Color.fromHex(timeSlotColorManager.mainColor),
                 fontColor: Color.fromHex(timeSlotColorManager.fontColor),
             }
         });
