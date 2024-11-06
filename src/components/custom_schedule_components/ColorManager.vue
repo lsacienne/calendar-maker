@@ -1,5 +1,6 @@
 <template>
   <div class="control-panel">
+    <TopColorLine @update-uniform="updateIsUniform"></TopColorLine>
     <ColorLine
       v-for="(
         colorManager, index
@@ -17,6 +18,7 @@
       v-model:is-squared="
         scheduleColorsManager.timeSlotColorManagers[index].isSquared
       "
+      :is-uniform="uniform"
     ></ColorLine>
   </div>
 </template>
@@ -29,6 +31,7 @@ import ColorSelector from "./ColorSelector.vue";
 import ColorLine from "./ColorLine.vue";
 import { scheduleColorsManager } from "@/models/scheduleColorsManager";
 import { TimeSlotUIManager } from "@/models/color";
+import TopColorLine from "./TopColorLine.vue";
 
 export default defineComponent({
   name: "ColorManager",
@@ -36,6 +39,7 @@ export default defineComponent({
     VColorPicker,
     ColorSelector,
     ColorLine,
+    TopColorLine,
   },
   props: {
     modelValue: {
@@ -49,6 +53,17 @@ export default defineComponent({
     scheduleColorsManager() {
       return scheduleColorsManager;
     },
+  },
+  methods: {
+    updateIsUniform(value: boolean) {
+      console.log("is uniform");
+      this.uniform = value;
+    },
+  },
+  data() {
+    return {
+      uniform: false as boolean,
+    };
   },
 });
 </script>

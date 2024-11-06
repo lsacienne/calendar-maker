@@ -20,7 +20,8 @@
       <input
         name="is-uniform"
         type="checkbox"
-        @input="isUniform = !isUniform"
+        @input="_isUniform = !_isUniform"
+        :checked="_isUniform"
       />
     </div>
     <ColorSelector
@@ -28,11 +29,12 @@
       v-model="_fontColor"
     ></ColorSelector>
     <div class="input">
-      <label for="is-rounded"></label
+      <label for="is-rounded">arrondi:</label
       ><input
         name="is-rounded"
         type="checkbox"
         @input="_isSquared = !_isSquared"
+        :checked="!_isSquared"
       />
     </div>
   </div>
@@ -44,7 +46,7 @@ import ColorSelector from "./ColorSelector.vue";
 import { Color } from "@/models/color";
 
 export default defineComponent({
-  name: "ColorManager",
+  name: "ColorLine",
   components: {
     ColorSelector,
   },
@@ -74,6 +76,10 @@ export default defineComponent({
       default: false,
       required: true,
     },
+    isUniform: {
+      default: false,
+      required: true,
+    },
   },
   emits: [
     "update:borderColor",
@@ -88,7 +94,7 @@ export default defineComponent({
       },
       set(value: string) {
         this.$emit("update:borderColor", value);
-        if (this.isUniform) {
+        if (this._isUniform) {
           this._backgroundColor = value;
         } else {
           this._backgroundColor = Color.fromHex(value)
@@ -129,7 +135,7 @@ export default defineComponent({
     },
   },
   watch: {
-    isUniform: {
+    _isUniform: {
       immediate: true,
       handler(value: boolean) {
         if (value) {
@@ -141,10 +147,16 @@ export default defineComponent({
         }
       },
     },
+    isUniform: {
+      immediate: true,
+      handler(value: boolean) {
+        this._isUniform = value;
+      },
+    },
   },
   data() {
     return {
-      isUniform: false as Boolean,
+      _isUniform: false as boolean,
     };
   },
 });
