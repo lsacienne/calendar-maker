@@ -129,6 +129,7 @@ export default defineComponent({
                 colorPalette.at(index)?.lightenColor(0.8) ?? Color.white
               ).toHexString(),
               fontColor: Color.black.toHexString(),
+              isSquared: false,
             });
           });
         }
@@ -147,6 +148,8 @@ export default defineComponent({
             fontColor: Color.fromHex(
               scheduleColorsManager.timeSlotColorManagers.at(index)!.fontColor
             ),
+            isSquared:
+              scheduleColorsManager.timeSlotColorManagers.at(index)!.isSquared,
           });
         });
         return uvCourses;

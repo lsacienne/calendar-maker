@@ -68,7 +68,7 @@
         :font-color="uv.fontColor.toIColor()"
         :fill-color="uv.fillColor.toIColor()"
         :height="computeHeight(uv.duration)"
-        :isSquared="false"
+        :isSquared="uv.isSquared"
       ></SVGTimeSlot>
     </svg>
   </div>
@@ -163,6 +163,7 @@ export default defineComponent({
               fillColor: uv.fillColor,
               strokeColor: uv.strokeColor,
               fontColor: uv.fontColor,
+              isSquared: uv.isSquared,
               ...course,
             });
           });

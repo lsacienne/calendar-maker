@@ -1,20 +1,21 @@
 import { reactive } from "vue";
-import { Color, TimeSlotColorManager, TimeSlotColorManagerString } from "./color";
+import { Color, TimeSlotUIManager, TimeSlotUIManagerString } from "./color";
 
 export const scheduleColorsManager = reactive({
-    timeSlotColorManagers: [] as TimeSlotColorManagerString[],
+    timeSlotColorManagers: [] as TimeSlotUIManagerString[],
     initialized: false as Boolean,
-    addTimeSlotColorManager(timeSlotColorManager: TimeSlotColorManagerString) {
+    addTimeSlotColorManager(timeSlotColorManager: TimeSlotUIManagerString) {
         this.timeSlotColorManagers.push(timeSlotColorManager);
         this.initialized = true;
     },
-    toColorManagers(): TimeSlotColorManager[] {
+    toColorManagers(): TimeSlotUIManager[] {
         return this.timeSlotColorManagers.map((timeSlotColorManager) => {
             return {
                 uvName: timeSlotColorManager.uvName,
                 backgroundColor: Color.fromHex(timeSlotColorManager.backgroundColor),
                 mainColor: Color.fromHex(timeSlotColorManager.mainColor),
                 fontColor: Color.fromHex(timeSlotColorManager.fontColor),
+                isSquared: timeSlotColorManager.isSquared
             }
         });
     }

@@ -1,20 +1,22 @@
 export interface AllTimeSlotColorManagers {
-    timeSlotColorManagers: TimeSlotColorManager[];
+    timeSlotColorManagers: TimeSlotUIManager[];
     initialized: boolean;
 }
 
-export interface TimeSlotColorManager {
+export interface TimeSlotUIManager {
     uvName: string;
     mainColor: Color;
     backgroundColor: Color;
     fontColor: Color;
+    isSquared: boolean;
 }
 
-export interface TimeSlotColorManagerString {
+export interface TimeSlotUIManagerString {
     uvName: string;
     mainColor: string;
     backgroundColor: string;
     fontColor: string;
+    isSquared: boolean;
 } 
 
 export interface IColor {

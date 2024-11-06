@@ -23,7 +23,8 @@ export type SVGUvCourse = {
   group: string,
   fillColor: Color,
   strokeColor: Color,
-  fontColor: Color
+  fontColor: Color,
+  isSquared: boolean
 }
 
 export type UVCourses = {
@@ -31,7 +32,8 @@ export type UVCourses = {
   courses: Array<Course>,
   fillColor: Color,
   strokeColor: Color,
-  fontColor: Color
+  fontColor: Color,
+  isSquared: boolean,
 }
 
 export type Course = {

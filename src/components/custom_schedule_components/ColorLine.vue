@@ -6,7 +6,7 @@
         borderColor: _borderColor,
         backgroundColor: _backgroundColor,
         color: _fontColor,
-        borderRadius: '0.5rem',
+        borderRadius: _isSquared ? '0' : '0.5rem',
       }"
     >
       {{ uvName }}
@@ -27,6 +27,14 @@
       picker-name="font color:"
       v-model="_fontColor"
     ></ColorSelector>
+    <div class="input">
+      <label for="is-rounded"></label
+      ><input
+        name="is-rounded"
+        type="checkbox"
+        @input="_isSquared = !_isSquared"
+      />
+    </div>
   </div>
 </template>
 
@@ -61,8 +69,18 @@ export default defineComponent({
       default: "#000000",
       required: true,
     },
+    isSquared: {
+      type: Boolean,
+      default: false,
+      required: true,
+    },
   },
-  emits: ["update:borderColor", "update:backgroundColor", "update:fontColor"],
+  emits: [
+    "update:borderColor",
+    "update:backgroundColor",
+    "update:fontColor",
+    "update:isSquared",
+  ],
   computed: {
     _borderColor: {
       get(): string {
@@ -99,6 +117,14 @@ export default defineComponent({
         } else {
           this._fontColor = "#ffffff";
         }
+      },
+    },
+    _isSquared: {
+      get(): boolean {
+        return this.isSquared;
+      },
+      set(value: boolean) {
+        this.$emit("update:isSquared", value);
       },
     },
   },
@@ -142,6 +168,7 @@ export default defineComponent({
   padding: 0.5rem;
   border-width: 2px;
   border-style: solid;
+  transition: border-radius 0.2s;
 }
 
 .input input:hover {

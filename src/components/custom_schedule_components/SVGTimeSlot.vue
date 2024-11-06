@@ -1,6 +1,7 @@
 <template>
   <g>
     <rect
+      class="uv-rect"
       :x="computedX"
       :y="y"
       :width="computedWidth"
@@ -178,3 +179,8 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.uv-rect {
+  transition: rx 0.2s, ry 0.2s;
+}
+</style>

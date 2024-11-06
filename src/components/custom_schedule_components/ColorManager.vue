@@ -14,6 +14,9 @@
       v-model:background-color="
         scheduleColorsManager.timeSlotColorManagers[index].backgroundColor
       "
+      v-model:is-squared="
+        scheduleColorsManager.timeSlotColorManagers[index].isSquared
+      "
     ></ColorLine>
   </div>
 </template>
@@ -25,7 +28,7 @@ import { VColorPicker } from "vuetify/components/VColorPicker";
 import ColorSelector from "./ColorSelector.vue";
 import ColorLine from "./ColorLine.vue";
 import { scheduleColorsManager } from "@/models/scheduleColorsManager";
-import { TimeSlotColorManager } from "@/models/color";
+import { TimeSlotUIManager } from "@/models/color";
 
 export default defineComponent({
   name: "ColorManager",
@@ -36,7 +39,7 @@ export default defineComponent({
   },
   props: {
     modelValue: {
-      type: Array as PropType<Array<TimeSlotColorManager>>,
+      type: Array as PropType<Array<TimeSlotUIManager>>,
       default: () => [],
       required: true,
     },
