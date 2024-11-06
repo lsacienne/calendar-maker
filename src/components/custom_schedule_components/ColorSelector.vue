@@ -22,6 +22,7 @@
         class="color-picker"
         v-model="color"
         hide-inputs
+        rounded="true"
         v-click-outside="() => (dotClicked = false)"
       ></v-color-picker>
     </transition>

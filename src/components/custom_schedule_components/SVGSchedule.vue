@@ -72,7 +72,7 @@
       ></SVGTimeSlot>
     </svg>
   </div>
-  <button @click="pngSchedule"></button>
+  <SubmitButton @click="pngSchedule" text="Télécharges en PNG 🖼️" />
 </template>
 
 <script lang="ts">
@@ -82,11 +82,13 @@ import { defineComponent, Prop, PropType } from "vue";
 import SVGTimeSlot from "./SVGTimeSlot.vue";
 import { frenchDays, SVGUvCourse, UVCourses } from "@/models/types";
 import { Side } from "@/models/svg-utils";
+import SubmitButton from "../form_components/SubmitButton.vue";
 
 export default defineComponent({
   name: "SVGSchedule",
   components: {
     SVGTimeSlot,
+    SubmitButton,
   },
   props: {
     schedule: Array<object>,
