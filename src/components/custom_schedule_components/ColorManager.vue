@@ -71,7 +71,9 @@ export default defineComponent({
 <style scoped>
 .control-panel {
   height: auto;
-  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 
   background: #f5f5f5;
   border-radius: 1rem;

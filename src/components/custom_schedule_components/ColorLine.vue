@@ -1,6 +1,7 @@
 <template>
   <div class="control-line">
     <div
+      style="grid-area: a"
       class="uv-rect"
       :style="{
         borderColor: _borderColor,
@@ -12,10 +13,11 @@
       {{ uvName }}
     </div>
     <ColorSelector
+      style="grid-area: b"
       picker-name="border color:"
       v-model="_borderColor"
     ></ColorSelector>
-    <div class="input">
+    <div class="input" style="grid-area: c">
       <label for="is-uniform">uniforme:</label>
       <input
         name="is-uniform"
@@ -25,10 +27,11 @@
       />
     </div>
     <ColorSelector
+      style="grid-area: d"
       picker-name="font color:"
       v-model="_fontColor"
     ></ColorSelector>
-    <div class="input">
+    <div class="input" style="grid-area: e">
       <label for="is-rounded">arrondi:</label
       ><input
         name="is-rounded"
@@ -164,11 +167,11 @@ export default defineComponent({
 
 <style scoped>
 .control-line {
-  display: inline-flex;
-  justify-content: start;
-  align-items: center;
+  display: grid;
+  grid-template-areas: "a b c d e";
+  grid-template-rows: auto;
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
-  padding: 0.5rem;
   width: 100%;
 }
 
@@ -177,7 +180,6 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem;
   border-width: 2px;
   border-style: solid;
   transition: border-radius 0.2s;
