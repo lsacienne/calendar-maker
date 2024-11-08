@@ -24,8 +24,9 @@
       font-weight="bold"
       font-family="Avenir, Helvetica, Arial, sans-serif"
       xmlns="http://www.w3.org/2000/svg"
-      >{{ uvName }}</text
     >
+      {{ uvName }}
+    </text>
     <text
       :x="textRoomPosition.x"
       :y="textRoomPosition.y"
@@ -158,20 +159,27 @@ export default defineComponent({
       };
     },
     computedFontSizeUV(): number {
+      let fontSizeUVLocal = this.fontSizeUV;
       switch (this.side) {
         case Side.NONE: {
-          return this.fontSizeUV;
+          break;
         }
         case Side.LEFT: {
-          return this.fontSizeUV * 0.8;
+          fontSizeUVLocal = this.fontSizeUV * 0.8;
+          break;
         }
         case Side.RIGHT: {
-          return this.fontSizeUV * 0.8;
+          fontSizeUVLocal = this.fontSizeUV * 0.8;
+          break;
         }
         default: {
-          return this.fontSizeUV;
+          break;
         }
       }
+      while (fontSizeUVLocal / this.computedWidth > 0.156) {
+        fontSizeUVLocal *= 0.8;
+      }
+      return fontSizeUVLocal;
     },
     fontSizeRoom(): number {
       return this.computedFontSizeUV * 0.8;

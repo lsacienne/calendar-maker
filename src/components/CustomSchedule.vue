@@ -6,7 +6,7 @@
       :class="{ invisible: !isSVGScheduleDisplayed }"
     >
       <ColorManager></ColorManager>
-      <SVGSchedule :uv-courses="SVGUvCourse"></SVGSchedule>
+      <SVGSchedule :uv-courses="SVGUvCourse" :nb-days="nbDays"></SVGSchedule>
     </div>
 
     <div class="ics-container" :class="{ invisible: icsData === undefined }">
@@ -50,6 +50,18 @@ export default defineComponent({
     };
   },
   computed: {
+    nbDays(): number {
+      if (this.SVGUvCourse !== undefined) {
+        for (let uv of this.SVGUvCourse) {
+          for (let course of uv.courses) {
+            if (course.dayIdx === 5) {
+              return 6;
+            }
+          }
+        }
+      }
+      return 5;
+    },
     filenameComp() {
       if (this.filename.endsWith(".ics")) {
         return this.filename;
