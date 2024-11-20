@@ -1,3 +1,5 @@
+import { scheduleColorsManager } from "@/models/scheduleColorsManager";
+
 export function SVGtoPNG(svg: SVGSVGElement, width: number, height: number): Promise<Blob> {
   return new Promise((resolve) => {
     const canvas = document.createElement('canvas');
@@ -14,7 +16,7 @@ export function SVGtoPNG(svg: SVGSVGElement, width: number, height: number): Pro
       if (ctx) {
           ctx.scale(width / svg.width.baseVal.value, height / svg.height.baseVal.value);
           ctx.drawImage(img, 0, 0, svg.width.baseVal.value, svg.height.baseVal.value);
-        download(canvas.toDataURL("image/png"), 'example.png');
+        download(canvas.toDataURL("image/png"), scheduleColorsManager.generalSettings.scheduleName);
       } else {
         throw new Error('Canvas context is null');
       }

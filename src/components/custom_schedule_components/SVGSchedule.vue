@@ -9,20 +9,22 @@
       xmlns="http://www.w3.org/2000/svg"
     >
       <rect
+        v-if="_scheduleSettings.backgroundEnabled"
         x1="0"
         y1="0"
         :width="svgWidth"
         :height="svgHeight"
-        fill="whitesmoke"
+        :fill="_scheduleSettings.backgroundColor"
       ></rect>
       <line
         v-for="line in hoursConstructionLines"
+        v-if="_scheduleSettings.linesEnabled"
         class="hour-divider"
         :x1="sideMargin + hourLabelsContainerWidth"
         :y1="computeY(line)"
         :x2="svgWidth - 5"
         :y2="computeY(line)"
-        stroke="#4a4646"
+        :stroke="_scheduleSettings.linesColor"
         stroke-width="0.5"
         stroke-linecap="round"
         stroke-dasharray="2 2"
@@ -30,7 +32,7 @@
       ></line>
       <text
         v-for="line in hoursConstructionLines"
-        fill="#4a4646"
+        :fill="_scheduleSettings.hourLabelsColors"
         :x="sideMargin * 2"
         :y="computeY(line)"
         dominant-baseline="middle"
@@ -47,7 +49,7 @@
         :y="verticalMargin"
         dominant-baseline="middle"
         text-anchor="middle"
-        fill="#4a4646"
+        :fill="_scheduleSettings.daysLabelsColors"
         :font-size="verticalMargin * 0.5"
         font-family="Avenir, Helvetica, Arial, sans-serif"
         xmlns="http://www.w3.org/2000/svg"
@@ -83,6 +85,10 @@ import SVGTimeSlot from "./SVGTimeSlot.vue";
 import { frenchDays, SVGUvCourse, UVCourses } from "@/models/types";
 import { Side } from "@/models/svg-utils";
 import SubmitButton from "../form_components/SubmitButton.vue";
+import {
+  GeneralSettings,
+  scheduleColorsManager,
+} from "@/models/scheduleColorsManager";
 
 export default defineComponent({
   name: "SVGSchedule",
@@ -124,6 +130,9 @@ export default defineComponent({
     };
   },
   computed: {
+    _scheduleSettings(): GeneralSettings {
+      return scheduleColorsManager.generalSettings;
+    },
     sideMargin(): number {
       return this.svgWidth / 50;
     },
@@ -220,6 +229,6 @@ export default defineComponent({
 .canvas {
   border-radius: 1rem;
   width: 100%;
-  background-color: whitesmoke;
+  background-color: #f5f5f5;
 }
 </style>
