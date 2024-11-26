@@ -1,7 +1,7 @@
 <template>
   <body>
+    <UserData @formValidated="getData"></UserData>
     <div class="body-content">
-      <UserData @formValidated="getData"></UserData>
       <FirstClassChooser
         :userData="userData"
         @dateChosen="getDate"
@@ -120,7 +120,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  background-color: rgb(46, 46, 116);
+  background-color: #232121;
   display: flex;
   flex-direction: column;
   align-items: center;
