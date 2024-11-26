@@ -1,7 +1,7 @@
 <template>
   <div class="step-folder">
     <div class="folder-title">
-      <div class="left-part" :style="{ background: folderColor }">
+      <div class="left-part" :style="{ background: _folderColor }">
         <h2>{{ title }}</h2>
       </div>
       <svg
@@ -11,13 +11,16 @@
       >
         <path
           d="M50.5162 52.2521L19.4838 9.74793C15.0218 3.63646 7.75336 0 0 0V62H70C62.2466 62 54.9782 58.3635 50.5162 52.2521Z"
-          :fill="folderColor"
+          :fill="_folderColor"
         />
       </svg>
     </div>
     <div
       class="folder-content"
-      :style="{ background: folderColor, boxShadow: `15px 15px 0px #7CA382` }"
+      :style="{
+        background: _folderColor,
+        boxShadow: `15px 15px 0px ${_folderShadow}`,
+      }"
     >
       <slot></slot>
     </div>
@@ -25,7 +28,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { Color, IColor } from "@/models/color";
+import { defineComponent, PropType } from "vue";
 
 export default defineComponent({
   name: "StepFolder",
@@ -36,9 +40,17 @@ export default defineComponent({
       default: "StepFolder",
     },
     folderColor: {
-      type: String,
+      type: Object as PropType<IColor>,
       required: false,
-      default: "#00FF00",
+      default: { r: 255, g: 255, b: 255 },
+    },
+  },
+  computed: {
+    _folderColor(): string {
+      return Color.fromIColor(this.folderColor).toHexString();
+    },
+    _folderShadow(): string {
+      return Color.fromIColor(this.folderColor).darkenColor(0.5).toHexString();
     },
   },
 });
@@ -50,6 +62,10 @@ export default defineComponent({
   flex-direction: column;
   align-items: start;
   gap: 0;
+}
+
+h2 {
+  font-size: 1em;
 }
 
 .folder-title {
@@ -74,6 +90,5 @@ export default defineComponent({
   border-radius: 15px;
   border-top-left-radius: 0;
   width: 100%;
-  min-height: 5rem;
 }
 </style>
