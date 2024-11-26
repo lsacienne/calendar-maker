@@ -1,10 +1,36 @@
 <template>
-  <article>
-    <h1>1. Coller votre emploi du temps</h1>
+  <StepFolder
+    title="Etape 1 : Collez votre emploi du temps"
+    :folder-color="folderColor"
+  >
+    <article class="folder-content">
+      <img src="@/assets/img/masking-tape.svg" alt="" class="tape top-right" />
+      <img
+        src="@/assets/img/masking-tape.svg"
+        alt=""
+        class="tape bottom-left"
+      />
+      <v-textarea
+        class="text-area"
+        ref="scheduleArea"
+        label="Collez votre emploi du temps ici"
+        variant="outlined"
+        :noResize="true"
+        rows="15"
+        :bgColor="textAreaBgColor"
+        :rounded="true"
+        :base-color="textAreaBgColor"
+        density="comfortable"
+        :autoGrow="true"
+      >
+      </v-textarea>
+      <SubmitButton text="J'ai fini 😎" v-on:click="sendData"></SubmitButton>
+    </article>
+  </StepFolder>
+  <!-- <article>
     <form action="">
       <textarea
         name="schedule-handler"
-        ref="scheduleArea"
         id="schedule-handler"
         placeholder="Coller votre emploi du temps ici"
       ></textarea>
@@ -49,18 +75,17 @@
             ref="endRest2"
           ></DateField>
         </DateContainer>
-        <!-- <v-date-input
+         <v-date-input
           label="Select range"
           max-width="368"
           multiple="range"
           variant="outlined"
           placeholder="jj/mm/aaaa"
           theme="dark"
-        ></v-date-input> -->
+        ></v-date-input>
       </div>
-      <SubmitButton text="J'ai fini 😎" v-on:click="sendData"></SubmitButton>
     </form>
-  </article>
+  </article> -->
 </template>
 
 <script lang="ts">
@@ -71,12 +96,35 @@ import SubmitButton from "./form_components/SubmitButton.vue";
 import { createToaster } from "@meforma/vue-toaster";
 import { ScheduleItem, frenchDays } from "@/models/types";
 import { VDateInput } from "vuetify/lib/labs/components.mjs";
+import { Color } from "@/models/color";
+import { VTextarea } from "vuetify/lib/components/index.mjs";
+import StepFolder from "./containers/StepFolder.vue";
 
 const toaster = createToaster();
 
 export default defineComponent({
   name: "UserData",
-  components: { DateField, DateContainer, SubmitButton, VDateInput },
+  components: {
+    DateField,
+    DateContainer,
+    SubmitButton,
+    VDateInput,
+    VTextarea,
+    StepFolder,
+  },
+  data() {
+    return {
+      folderColor: Color.fromHex("BCF6C5").toIColor(),
+    };
+  },
+  computed: {
+    textAreaBgColor(): string {
+      return Color.fromIColor(this.folderColor).lightenColor(0.5).toHexString();
+    },
+    textAreaColor(): string {
+      return Color.fromIColor(this.folderColor).darkenColor(0.8).toHexString();
+    },
+  },
   methods: {
     handleCoursesStart() {
       const startCourses = this.$refs.startCourses as typeof DateField;
@@ -153,25 +201,25 @@ export default defineComponent({
       rests: Array<{ start: string; end: string }>;
     } | null {
       const scheduleArea = this.$refs.scheduleArea as HTMLTextAreaElement;
-      const startCourses = this.$refs.startCourses as typeof DateField;
-      const endCourses = this.$refs.endCourses as typeof DateField;
-      const startRest1 = this.$refs.startRest1 as typeof DateField;
-      const endRest1 = this.$refs.endRest1 as typeof DateField;
-      const startRest2 = this.$refs.startRest2 as typeof DateField;
-      const endRest2 = this.$refs.endRest2 as typeof DateField;
+      // const startCourses = this.$refs.startCourses as typeof DateField;
+      // const endCourses = this.$refs.endCourses as typeof DateField;
+      // const startRest1 = this.$refs.startRest1 as typeof DateField;
+      // const endRest1 = this.$refs.endRest1 as typeof DateField;
+      // const startRest2 = this.$refs.startRest2 as typeof DateField;
+      // const endRest2 = this.$refs.endRest2 as typeof DateField;
 
       const courses = {
-        start: startCourses.getValue(),
-        end: endCourses.getValue(),
+        start: "",
+        end: "",
       };
-      const rest1 = {
-        start: startRest1.getValue(),
-        end: endRest1.getValue(),
-      };
-      const rest2 = {
-        start: startRest2.getValue(),
-        end: endRest2.getValue(),
-      };
+      // const rest1 = {
+      //   start: startRest1.getValue(),
+      //   end: endRest1.getValue(),
+      // };
+      // const rest2 = {
+      //   start: startRest2.getValue(),
+      //   end: endRest2.getValue(),
+      // };
 
       const scheduleStr = scheduleArea.value;
       const schedule = scheduleStr
@@ -242,23 +290,24 @@ export default defineComponent({
         );
         this.$emit("formValidated", null);
         return null;
-      } else if (courses.start !== "" && courses.end === "") {
-        toaster.show("Tu oublierais pas la date de fin ? 🙃", {
-          position: "bottom",
-          duration: 2000,
-          queue: true,
-        });
-        this.$emit("formValidated", null);
-        return null;
       }
+      // else if (courses.start !== "" && courses.end === "") {
+      //   toaster.show("Tu oublierais pas la date de fin ? 🙃", {
+      //     position: "bottom",
+      //     duration: 2000,
+      //     queue: true,
+      //   });
+      //   this.$emit("formValidated", null);
+      //   return null;
+      // }
 
-      const restArray = [];
-      if (rest1.start !== "") {
-        restArray.push(rest1);
-      }
-      if (rest2.start !== "") {
-        restArray.push(rest2);
-      }
+      const restArray: never[] = [];
+      // if (rest1.start !== "") {
+      //   restArray.push(rest1);
+      // }
+      // if (rest2.start !== "") {
+      //   restArray.push(rest2);
+      // }
       this.$emit("formValidated", {
         schedule: scheduleTable,
         courses: courses,
@@ -276,46 +325,41 @@ export default defineComponent({
 </script>
 
 <style scoped>
-article {
+.folder-content {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background-color: rgba(255, 216, 59, 0.5);
-  padding: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-radius: 1rem;
-}
-
-h1 {
-  margin-left: 4rem;
-  align-self: flex-start;
-}
-
-article form {
-  display: flex;
-  width: 80%;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-form textarea {
-  border-radius: 1rem;
-  width: 91%;
-  height: 30vh;
-  padding: 4%;
-  resize: none;
-  background-color: rgb(255, 255, 255);
-  border: solid rgb(121, 121, 209) 0.2rem;
-  /*border: solid rgb(252, 204, 12) 0.2rem;*/
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-top: min(5rem, 10vw);
+  position: relative;
+  padding-bottom: 2rem;
 }
 
 .date-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  gap: 0.5rem;
   border-radius: 1rem;
   background-color: rgb(121, 121, 209, 0.6);
+}
+
+.tape {
+  position: absolute;
+  margin: auto;
+  width: 13%;
+  z-index: 10;
+  aspect-ratio: 1 / 2;
+}
+
+.tape.top-right {
+  top: min(5rem, 10vw);
+  right: -1%;
+  transform: translateX(-50%) translateY(-50%) rotate(40deg);
+}
+
+.tape.bottom-left {
+  top: 80%;
+  left: 10%;
+  transform: translateX(-50%) translateY(-50%) rotate(50deg);
 }
 </style>
