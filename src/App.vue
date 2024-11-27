@@ -1,7 +1,8 @@
 <template>
   <body>
-    <UserData @formValidated="getData"></UserData>
     <div class="body-content">
+      <PageTitleContainer></PageTitleContainer>
+      <UserData @formValidated="getData"></UserData>
       <FirstClassChooser
         :userData="userData"
         @dateChosen="getDate"
@@ -27,6 +28,7 @@ import {
   icsEvent,
 } from "./models/types";
 import { generateCorrectDates, generateICSObjects } from "./models/dateTools";
+import PageTitleContainer from "./components/containers/PageTitleContainer.vue";
 
 export default defineComponent({
   name: "App",
@@ -34,6 +36,7 @@ export default defineComponent({
     UserData,
     FirstClassChooser,
     CustomSchedule,
+    PageTitleContainer,
   },
   data() {
     return {
@@ -114,8 +117,14 @@ export default defineComponent({
 </script>
 
 <style>
+@font-face {
+  font-family: "JosefinSans";
+  src: local("Trickster"),
+    url("@/assets/fonts/Josefin_Sans/JosefinSans-VariableFont_wght.ttf");
+}
+
 body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "JosefinSans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -125,18 +134,16 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: 2em;
 }
 
 .body-content {
-  width: 50vw;
-  background-color: rgba(240, 248, 255, 0.8);
-  border-radius: 1.5rem;
-  padding: 1rem;
+  width: 60vw;
   min-height: 50vh;
 
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 4em;
 }
 
 .c-toast.c-toast--default {
