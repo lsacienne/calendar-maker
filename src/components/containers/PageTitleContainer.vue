@@ -15,12 +15,13 @@
     >
       <p>
         Bienvenue sur Calendar Maker. Ici, vous allez pouvoir visualiser
-        facilement et rapidement votre emploi du temps de vos cours à l’UTBM.
-        L’application va vous permettre dans un premier temps de visualiser
-        votre emploi du temps au format PNG. Si ça vous intéresse, vous pourrez
-        ensuite convertir cet emploi du temps en fichier ICS pour que vous
-        puissiez directement le voir dans votre application d’agenda préférée
-        (Outlook, Google Agenda, etc.).
+        <strong>facilement</strong> et <strong>rapidement</strong> votre emploi
+        du temps de vos cours à l’<strong>UTBM</strong>. L’application va vous
+        permettre dans un premier temps de visualiser votre emploi du temps au
+        format <strong>PNG</strong>. Si ça vous intéresse, vous pourrez ensuite
+        convertir cet emploi du temps en fichier <strong>ICS</strong> pour que
+        vous puissiez directement le voir dans votre application d’agenda
+        préférée (Outlook, Google Agenda, etc.).
       </p>
       <p>
         Quand vous êtes prêt, commencez à coller votre emploi du temps
