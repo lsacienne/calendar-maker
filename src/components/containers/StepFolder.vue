@@ -2,7 +2,7 @@
   <div class="step-folder">
     <div class="folder-title">
       <div class="left-part" :style="{ background: _folderColor }">
-        <h2>{{ title }}</h2>
+        <h2 :style="{ background: _titleBackground }">{{ title }}</h2>
       </div>
       <svg
         class="right-part"
@@ -52,6 +52,9 @@ export default defineComponent({
     _folderShadow(): string {
       return Color.fromIColor(this.folderColor).darkenColor(0.5).toHexString();
     },
+    _titleBackground(): string {
+      return Color.fromIColor(this.folderColor).darkenColor(0.2).toHexString();
+    },
   },
 });
 </script>
@@ -65,7 +68,14 @@ export default defineComponent({
 }
 
 h2 {
-  font-size: 1em;
+  font-weight: normal;
+  font-size: 1.2em;
+  color: #232121;
+  padding: 0.1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  vertical-align: bottom;
+  border-radius: 5px;
 }
 
 .folder-title {
@@ -76,7 +86,7 @@ h2 {
 
 .left-part {
   display: inline-flex;
-  align-items: center;
+  align-items: end;
   padding-left: 1rem;
   padding-right: 1rem;
   border-top-left-radius: 15px;
