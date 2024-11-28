@@ -1,84 +1,95 @@
 <template>
   <article class="class-chooser">
-    <h1>{{subject}} - {{group}} ✏️</h1>
-    <form action="">
-      <div class="date-container">
-        <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-1" @click="$emit('date1Change')">
-        <label for="date-1">{{date1Computed}}</label>
-      </div>
-      <div class="date-container">
-        <input type="radio" :name="`date-chooser-${subject.toLowerCase()}`" id="date-2" @click="$emit('date2Change')">
-        <label for="date-2">{{date2Computed}}</label>
-      </div>
-    </form>
+    <h1>📌 {{ subject }} - {{ group }}</h1>
+    <h2>Semaine</h2>
+    <div class="date-container">
+      <v-btn
+        class="week-button"
+        rounded="xl"
+        :color="selectedDate === 'A' ? 'orange-darken-3' : 'orange-lighten-4'"
+        density="comfortable"
+        @click="selectDate('A')"
+        >A</v-btn
+      >
+      <p>ou</p>
+      <v-btn
+        class="week-button"
+        rounded="xl"
+        :color="selectedDate === 'B' ? 'orange-darken-3' : 'orange-lighten-4'"
+        density="comfortable"
+        @click="selectDate('B')"
+        >B</v-btn
+      >
+    </div>
   </article>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
+import { VBtn } from "vuetify/lib/components/index.mjs";
 
 export default defineComponent({
-  name: 'ClassChooser',
+  name: "ClassChooser",
+  components: {
+    VBtn,
+  },
   props: {
     subject: {
       type: String,
-      required: true
+      required: true,
     },
     group: {
       type: String,
-      required: true
+      required: true,
     },
-    date1: {
-      type: Date,
-      default: undefined
-    },
-    date2: {
-      type: Date,
-      default: undefined
-    }
   },
-  computed: {
-    date1Computed () {
-      if (this.date1 === undefined) {
-        return 'Semaine Impaire'
-      } else {
-        return this.convertFrDate(this.date1)
-      }
-    },
-    date2Computed () {
-      if (this.date2 === undefined) {
-        return 'Semaine Paire'
-      } else {
-        return this.convertFrDate(this.date2)
-      }
-    }
+  data() {
+    return {
+      selectedDate: undefined as "A" | "B" | undefined,
+    };
   },
   methods: {
-    convertFrDate (date: Date): string {
-      return date.toLocaleDateString('fr-FR', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: '2-digit'
-      })
-    }
-  }
-})
+    convertFrDate(date: Date): string {
+      return date.toLocaleDateString("fr-FR", {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "2-digit",
+      });
+    },
+    selectDate(week: "A" | "B") {
+      this.$emit(`date${week}Change`);
+      this.selectedDate = week;
+    },
+  },
+});
 </script>
 
 <style scoped>
-
 article.class-chooser {
+  padding-top: 1em;
+  padding-bottom: 1em;
   display: flex;
   flex-direction: column;
-  gap: 0.8rem;
+  gap: 0.2rem;
+  background-color: whitesmoke;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.week-button {
+  transition: color 0.3s, background-color 0.3s;
 }
 
 h1 {
-  margin-top:0;
+  margin-top: 0;
   margin-bottom: 0;
-  font-size: 1.5rem;
-  align-self: flex-start;
+  font-size: 1.2rem;
+}
+h2 {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 1.2em;
+  font-weight: normal;
 }
 form {
   display: flex;

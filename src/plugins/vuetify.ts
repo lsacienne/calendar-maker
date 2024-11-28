@@ -2,7 +2,7 @@ import { createVuetify } from "vuetify";
 import { VColorPicker } from "vuetify/components/VColorPicker";
 import { ClickOutside, Ripple } from "vuetify/directives";
 import { VDateInput } from "vuetify/labs/VDateInput";
-import { VTextarea } from "vuetify/lib/components/index.mjs";
+import { VBtn, VTextarea } from "vuetify/lib/components/index.mjs";
 import 'vuetify/styles'
 
 const vuetify = createVuetify({
@@ -13,7 +13,8 @@ const vuetify = createVuetify({
   components: {
     VColorPicker,
     VDateInput,
-    VTextarea
+    VTextarea,
+    VBtn
   },
   directives: {
     Ripple,

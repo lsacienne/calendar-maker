@@ -1,23 +1,31 @@
 <template>
-  <article v-if="isUserData">
-    <h1>2. Choisis la date de ton premier cours (en fonction de ton groupe)</h1>
-    <div class="class-chooser">
-      <ClassChooser
-        v-for="obj in userData_"
-        :key="obj.id"
-        :subject="obj.uv"
-        :group="obj.type"
-        :date1="obj.date1"
-        :date2="obj.date2"
-        @date1Change="obj.chosenDate = obj.date1 ? obj.date1 : 1"
-        @date2Change="obj.chosenDate = obj.date2 ? obj.date2 : 2"
-      ></ClassChooser>
-    </div>
-    <SubmitButton
-      text="J'ai fini pour de vrai ! 😅"
-      @click="sendData"
-    ></SubmitButton>
-  </article>
+  <StepFolder
+    :folderColor="folderColor"
+    title="Etape 2 : Choisis la date de ton premier cours (en fonction de ton groupe)"
+    v-if="isUserData"
+  >
+    <header>
+      Choisissez le type de semaine où vous avez les cours suivants
+    </header>
+    <article>
+      <div class="class-chooser">
+        <ClassChooser
+          v-for="obj in userData_"
+          :key="obj.id"
+          :subject="obj.uv"
+          :group="obj.type"
+          :date1="obj.date1"
+          :date2="obj.date2"
+          @dateAChange="obj.chosenDate = obj.date1 ? obj.date1 : 1"
+          @dateBChange="obj.chosenDate = obj.date2 ? obj.date2 : 2"
+        ></ClassChooser>
+      </div>
+      <SubmitButton
+        text="J'ai fini pour de vrai ! 😅"
+        @click="sendData"
+      ></SubmitButton>
+    </article>
+  </StepFolder>
 </template>
 
 <script lang="ts">
@@ -26,14 +34,17 @@ import ClassChooser from "@/components/class_chooser_components/ClassChooser.vue
 import SubmitButton from "@/components/form_components/SubmitButton.vue";
 import { createToaster } from "@meforma/vue-toaster";
 import { DateChooser, ScheduleItem } from "@/models/types";
+import StepFolder from "../containers/StepFolder.vue";
+import { Color } from "@/models/color";
 
 const toaster = createToaster();
 
 export default defineComponent({
   name: "FirstClassChooser",
-  components: { ClassChooser, SubmitButton },
+  components: { ClassChooser, SubmitButton, StepFolder },
   data() {
     return {
+      folderColor: Color.fromHex("F3F6BC").toIColor(),
       week: new Map([
         ["lundi", 1],
         ["mardi", 2],
@@ -203,13 +214,20 @@ export default defineComponent({
 });
 </script>
 <style scoped>
+header {
+  margin-top: 1em;
+  margin-left: 1.3em;
+  align-self: flex-start;
+  text-align: start;
+  font-size: 1.2em;
+  color: #727448;
+}
+
 article {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 216, 59, 0.5);
   padding: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-radius: 1rem;
   gap: 1.5rem;
 }
