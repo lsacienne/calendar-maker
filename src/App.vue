@@ -17,18 +17,18 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import CustomSchedule from "./components/CustomSchedule.vue";
-import FirstClassChooser from "./components/FirstClassChooser.vue";
-import UserData from "./components/UserData.vue";
+import CustomSchedule from "@/components/steps/CustomSchedule.vue";
+import FirstClassChooser from "@/components/steps/FirstClassChooser.vue";
+import UserData from "@/components/steps/UserData.vue";
 import {
   DateChooser,
   ScheduleWithChoice,
   ScheduleItem,
   Schedule,
   icsEvent,
-} from "./models/types";
-import { generateCorrectDates, generateICSObjects } from "./models/dateTools";
-import PageTitleContainer from "./components/containers/PageTitleContainer.vue";
+} from "@/models/types";
+import { generateCorrectDates, generateICSObjects } from "@/models/dateTools";
+import PageTitleContainer from "@/components/steps/PageTitleContainer.vue";
 
 export default defineComponent({
   name: "App",

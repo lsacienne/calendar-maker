@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
-import SVGSchedule from "./custom_schedule_components/SVGSchedule.vue";
+import SVGSchedule from "@/components/custom_schedule_components/SVGSchedule.vue";
 import { scheduleColorsManager } from "@/models/scheduleColorsManager";
 import {
   Course,
@@ -34,7 +34,7 @@ import {
 import { createEvents } from "ics";
 import { diffHours, getWeek, hourToDecimal } from "@/models/dateTools";
 import { Color } from "@/models/color";
-import ColorManager from "./custom_schedule_components/ColorManager.vue";
+import ColorManager from "@/components/custom_schedule_components/ColorManager.vue";
 import { Side } from "@/models/svg-utils";
 
 export default defineComponent({

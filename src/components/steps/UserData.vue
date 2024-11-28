@@ -90,15 +90,15 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import DateContainer from "./form_components/DateContainer.vue";
-import DateField from "./form_components/DateField.vue";
-import SubmitButton from "./form_components/SubmitButton.vue";
+import DateContainer from "@/components/form_components/DateContainer.vue";
+import DateField from "@/components/form_components/DateField.vue";
+import SubmitButton from "@/components/form_components/SubmitButton.vue";
 import { createToaster } from "@meforma/vue-toaster";
 import { ScheduleItem, frenchDays } from "@/models/types";
 import { VDateInput } from "vuetify/lib/labs/components.mjs";
 import { Color } from "@/models/color";
 import { VTextarea } from "vuetify/lib/components/index.mjs";
-import StepFolder from "./containers/StepFolder.vue";
+import StepFolder from "@/components/containers/StepFolder.vue";
 
 const toaster = createToaster();
 

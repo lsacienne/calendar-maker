@@ -22,8 +22,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ClassChooser from "./class_chooser_components/ClassChooser.vue";
-import SubmitButton from "./form_components/SubmitButton.vue";
+import ClassChooser from "@/components/class_chooser_components/ClassChooser.vue";
+import SubmitButton from "@/components/form_components/SubmitButton.vue";
 import { createToaster } from "@meforma/vue-toaster";
 import { DateChooser, ScheduleItem } from "@/models/types";
 
