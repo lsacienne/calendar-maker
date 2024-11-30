@@ -1,23 +1,27 @@
 <template>
-  <article :class="{ invisible: !isDisplayed }">
-    <h1>3. Personnalises 🎨 & Télécharges 💾 !</h1>
-    <div
-      class="svg-schedule-container"
-      :class="{ invisible: !isSVGScheduleDisplayed }"
-    >
-      <ColorManager></ColorManager>
-      <SVGSchedule :uv-courses="SVGUvCourse" :nb-days="nbDays"></SVGSchedule>
-    </div>
+  <StepFolder
+    v-if="isDisplayed"
+    title="Etape 3 : Personnalises 🎨 & Télécharges 💾 !"
+    :folder-color="folderColor"
+  >
+    <article>
+      <div
+        class="svg-schedule-container"
+        :class="{ invisible: !isSVGScheduleDisplayed }"
+      >
+        <SVGSchedule :uv-courses="SVGUvCourse" :nb-days="nbDays"></SVGSchedule>
+        <ColorManager></ColorManager>
+      </div>
 
-    <div class="ics-container" :class="{ invisible: icsData === undefined }">
-      <p>💾 Télécharges ton fichier ICS et importes le sur ton agenda !</p>
-      <input type="text" name="" id="" v-model="filename" />
-      <a :href="icsURL" :download="filenameComp">
-        <button>ICS File 📆</button>
-      </a>
-    </div>
-    <!-- CanvasSchedule></CanvasSchedule -->
-  </article>
+      <div class="ics-container" :class="{ invisible: icsData === undefined }">
+        <p>💾 Télécharges ton fichier ICS et importes le sur ton agenda !</p>
+        <input type="text" name="" id="" v-model="filename" />
+        <a :href="icsURL" :download="filenameComp">
+          <button>ICS File 📆</button>
+        </a>
+      </div>
+    </article>
+  </StepFolder>
 </template>
 
 <script lang="ts">
@@ -36,17 +40,20 @@ import { diffHours, getWeek, hourToDecimal } from "@/models/dateTools";
 import { Color } from "@/models/color";
 import ColorManager from "@/components/custom_schedule_components/ColorManager.vue";
 import { Side } from "@/models/svg-utils";
+import StepFolder from "../containers/StepFolder.vue";
 
 export default defineComponent({
   name: "CustomSchedule",
   components: {
     SVGSchedule,
     ColorManager,
+    StepFolder,
   },
   data() {
     return {
       icsURL: "#",
       filename: "agenda.ics",
+      folderColor: Color.fromHex("#D8BCF6").toIColor(),
     };
   },
   computed: {
@@ -222,27 +229,13 @@ article {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 216, 59, 0.5);
-  padding: 1.5rem;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  row-gap: 1rem;
-  border-radius: 1rem;
-}
-
-article.invisible {
-  display: none;
-}
-
-h1 {
-  margin-left: 4rem;
-  align-self: flex-start;
+  padding: 2rem;
+  padding-top: 4rem;
 }
 
 .ics-container,
 .svg-schedule-container {
-  width: 95%;
-  padding: 1rem;
-  background-color: rgb(230, 195, 116);
+  width: 100%;
   border-radius: inherit;
 }
 .ics-container {
