@@ -1,3 +1,9 @@
+
+export enum ColorSelectorType {
+    DOT,
+    BORDER,
+    FONT
+}
 export interface AllTimeSlotColorManagers {
     timeSlotColorManagers: TimeSlotUIManager[];
     initialized: boolean;
