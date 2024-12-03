@@ -1,6 +1,5 @@
 <template>
   <div class="color-selector">
-    <p>{{ pickerName ?? "" }}</p>
     <svg
       v-if="isDotType"
       class="clickable-dot"
@@ -21,6 +20,7 @@
       v-else-if="isBorderType"
       @click="dotClicked = !dotClicked"
       color="grey-lighten-2"
+      size="small"
     >
       <svg
         width="25"
@@ -38,11 +38,15 @@
         />
       </svg>
       <img src="@/assets/img/icons/develop-arrow.svg" />
+      <v-tooltip activator="parent" location="bottom"
+        >Changer la couleur des bordures</v-tooltip
+      >
     </v-btn>
     <v-btn
       v-else-if="isFontType"
       @click="dotClicked = !dotClicked"
       color="grey-lighten-2"
+      size="small"
     >
       <svg
         width="23"
@@ -61,6 +65,9 @@
         />
       </svg>
       <img src="@/assets/img/icons/develop-arrow.svg" />
+      <v-tooltip activator="parent" location="bottom"
+        >Changer la couleur de la police</v-tooltip
+      >
     </v-btn>
     <transition name="slide-down">
       <v-color-picker
@@ -79,13 +86,14 @@
 import { ColorSelectorType } from "@/models/color";
 import { defineComponent, PropType } from "vue";
 import { VColorPicker } from "vuetify/components/VColorPicker";
-import { VBtn } from "vuetify/lib/components/index.mjs";
+import { VBtn, VTooltip } from "vuetify/lib/components/index.mjs";
 
 export default defineComponent({
   name: "ColorManager",
   components: {
     VColorPicker,
     VBtn,
+    VTooltip,
   },
   props: {
     pickerName: {
@@ -160,6 +168,10 @@ export default defineComponent({
   align-items: center;
   justify-content: start;
   gap: 0.8rem;
+}
+
+.v-btn {
+  min-width: 0;
 }
 
 p {

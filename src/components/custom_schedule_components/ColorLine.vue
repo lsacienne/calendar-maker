@@ -1,40 +1,53 @@
 <template>
   <div class="control-line">
-    <div
-      style="grid-area: a"
-      class="uv-rect"
-      :style="{
-        borderColor: _borderColor,
-        backgroundColor: _backgroundColor,
-        color: _fontColor,
-        borderRadius: _isSquared ? '0' : '0.5rem',
-      }"
-    >
-      {{ uvName }}
+    <div class="first-line">
+      <div
+        class="uv-rect"
+        :style="{
+          borderColor: _borderColor,
+          backgroundColor: _backgroundColor,
+          color: _fontColor,
+          borderRadius: _isSquared ? '0' : '0.5rem',
+        }"
+      >
+        {{ uvName }}
+      </div>
     </div>
-    <ColorSelector
-      style="grid-area: b"
-      :input-type="borderType"
-      picker-name="border color:"
-      v-model="_borderColor"
-    ></ColorSelector>
-    <div class="input" style="grid-area: c">
-      <v-btn @click="_isUniform = !_isUniform" color="grey-lighten-2">
-        <img src="@/assets/img/icons/empty-background.svg" v-if="!_isUniform" />
-        <img src="@/assets/img/icons/filled-background.svg" v-if="_isUniform" />
-      </v-btn>
-    </div>
-    <ColorSelector
-      style="grid-area: d"
-      :input-type="fontType"
-      picker-name="font color:"
-      v-model="_fontColor"
-    ></ColorSelector>
-    <div class="input" style="grid-area: e">
-      <v-btn @click="_isSquared = !_isSquared" color="grey-lighten-2">
+    <div class="second-line">
+      <v-btn
+        @click="_isSquared = !_isSquared"
+        color="grey-lighten-2"
+        size="small"
+        :slim="true"
+      >
         <img src="@/assets/img/icons/rounded-corner.svg" v-if="!_isSquared" />
         <img src="@/assets/img/icons/squared-corner.svg" v-if="_isSquared" />
+        <v-tooltip activator="parent" location="bottom">
+          Changer type de coins
+        </v-tooltip>
       </v-btn>
+      <ColorSelector
+        :input-type="borderType"
+        picker-name="border color:"
+        v-model="_borderColor"
+      ></ColorSelector>
+      <v-btn
+        @click="_isUniform = !_isUniform"
+        color="grey-lighten-2"
+        size="small"
+        :slim="true"
+      >
+        <img src="@/assets/img/icons/empty-background.svg" v-if="!_isUniform" />
+        <img src="@/assets/img/icons/filled-background.svg" v-if="_isUniform" />
+        <v-tooltip activator="parent" location="bottom">
+          Appliquer la couleur au fond
+        </v-tooltip>
+      </v-btn>
+      <ColorSelector
+        :input-type="fontType"
+        picker-name="font color:"
+        v-model="_fontColor"
+      ></ColorSelector>
     </div>
   </div>
 </template>
@@ -43,13 +56,14 @@
 import { defineComponent, PropType } from "vue";
 import ColorSelector from "./ColorSelector.vue";
 import { Color, ColorSelectorType } from "@/models/color";
-import { VBtn } from "vuetify/lib/components/index.mjs";
+import { VBtn, VTooltip } from "vuetify/lib/components/index.mjs";
 
 export default defineComponent({
   name: "ColorLine",
   components: {
     ColorSelector,
     VBtn,
+    VTooltip,
   },
   props: {
     uvName: {
@@ -168,19 +182,37 @@ export default defineComponent({
 
 <style scoped>
 .control-line {
-  display: grid;
-  grid-template-areas: "a b c d e";
-  grid-template-rows: auto;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  background-color: #595959;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.first-line {
+  display: inline-flex;
+  align-items: flex-start;
+}
+
+.second-line {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.2rem;
+}
+
+.v-btn {
+  min-width: 0;
 }
 
 .uv-rect {
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 0.2rem;
+  padding-bottom: 0.2rem;
+  width: 50%;
   border-width: 2px;
   border-style: solid;
   transition: border-radius 0.2s;

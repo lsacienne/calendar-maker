@@ -1,25 +1,27 @@
 <template>
   <div class="control-panel">
     <TopColorLine @update-uniform="updateIsUniform"></TopColorLine>
-    <ColorLine
-      v-for="(
-        colorManager, index
-      ) in scheduleColorsManager.timeSlotColorManagers"
-      :uv-name="colorManager.uvName"
-      v-model:border-color="
-        scheduleColorsManager.timeSlotColorManagers[index].mainColor
-      "
-      v-model:font-color="
-        scheduleColorsManager.timeSlotColorManagers[index].fontColor
-      "
-      v-model:background-color="
-        scheduleColorsManager.timeSlotColorManagers[index].backgroundColor
-      "
-      v-model:is-squared="
-        scheduleColorsManager.timeSlotColorManagers[index].isSquared
-      "
-      :is-uniform="uniform"
-    ></ColorLine>
+    <div class="color-line-container">
+      <ColorLine
+        v-for="(
+          colorManager, index
+        ) in scheduleColorsManager.timeSlotColorManagers"
+        :uv-name="colorManager.uvName"
+        v-model:border-color="
+          scheduleColorsManager.timeSlotColorManagers[index].mainColor
+        "
+        v-model:font-color="
+          scheduleColorsManager.timeSlotColorManagers[index].fontColor
+        "
+        v-model:background-color="
+          scheduleColorsManager.timeSlotColorManagers[index].backgroundColor
+        "
+        v-model:is-squared="
+          scheduleColorsManager.timeSlotColorManagers[index].isSquared
+        "
+        :is-uniform="uniform"
+      ></ColorLine>
+    </div>
   </div>
 </template>
 
@@ -77,5 +79,14 @@ export default defineComponent({
 
   background: #f5f5f5;
   border-radius: 1rem;
+}
+
+.color-line-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem;
 }
 </style>
