@@ -1,32 +1,44 @@
 <template>
   <div class="control-line">
-    <ColorSelector
-      style="grid-area: a"
-      picker-name="border color:"
-      v-model="_mainColor"
-    ></ColorSelector>
-    <div class="input" style="grid-area: b">
-      <label for="is-uniform">uniforme:</label>
-      <input
-        name="is-uniform"
-        type="checkbox"
-        @input="_isUniform = !_isUniform"
-      />
+    <h2>GLOBAL</h2>
+    <div class="items">
+      <v-btn @click="_isSquared = !_isSquared" color="grey-lighten-2">
+        <img src="@/assets/img/icons/rounded-corner.svg" v-if="!_isSquared" />
+        <img
+          src="@/assets/img/icons/squared-corner.svg"
+          v-else-if="_isSquared"
+        />
+        <v-tooltip activator="parent" location="bottom">
+          Changer type de coins globalement
+        </v-tooltip>
+      </v-btn>
+      <ColorSelector
+        :input-type="borderType"
+        picker-name="Changer la couleur des bordures globale"
+        v-model="_mainColor"
+      ></ColorSelector>
+      <v-btn @click="_isUniform = !_isUniform" color="grey-lighten-2">
+        <img src="@/assets/img/icons/empty-background.svg" v-if="!_isUniform" />
+        <img
+          src="@/assets/img/icons/filled-background.svg"
+          v-else-if="_isUniform"
+        />
+        <v-tooltip activator="parent" location="bottom">
+          Appliquer la couleur au fond globalement
+        </v-tooltip>
+      </v-btn>
+      <ColorSelector
+        :input-type="fontType"
+        picker-name="Changer la couleur de police globale"
+        v-model="_fontColor"
+      ></ColorSelector>
     </div>
-    <ColorSelector
-      style="grid-area: c"
-      picker-name="font color:"
-      v-model="_fontColor"
-    ></ColorSelector>
-    <div class="input" style="grid-area: d">
-      <label for="is-rounded">arrondi:</label
-      ><input
-        name="is-rounded"
-        type="checkbox"
-        @input="_isSquared = !_isSquared"
-        :checked="!_isSquared"
-      />
-    </div>
+    <v-btn
+      icon="mdi-history"
+      density="comfortable"
+      elevation="12"
+      color="grey-darken-1"
+    ></v-btn>
   </div>
 </template>
 
@@ -34,12 +46,14 @@
 import { defineComponent } from "vue";
 import ColorSelector from "./ColorSelector.vue";
 import { scheduleColorsManager } from "@/models/scheduleColorsManager";
-import { Color } from "@/models/color";
+import { Color, ColorSelectorType } from "@/models/color";
+import { VBtn } from "vuetify/lib/components/index.mjs";
 
 export default defineComponent({
   name: "TopColorLine",
   components: {
     ColorSelector,
+    VBtn,
   },
   emits: ["updateUniform"],
   computed: {
@@ -127,6 +141,9 @@ export default defineComponent({
     return {
       isUniform: false as Boolean,
       isSquared: false as Boolean,
+      dotType: ColorSelectorType.DOT as ColorSelectorType,
+      borderType: ColorSelectorType.BORDER as ColorSelectorType,
+      fontType: ColorSelectorType.FONT as ColorSelectorType,
     };
   },
 });
@@ -134,12 +151,25 @@ export default defineComponent({
 
 <style scoped>
 .control-line {
-  display: grid;
-  grid-template-areas: ". a b c d";
-  grid-template-rows: auto;
-  grid-template-columns: repeat(5, 1fr);
+  background-color: #595959;
+  padding: 1rem;
+  margin: auto;
+  display: inline-flex;
+  justify-content: space-between;
+  border-radius: 1rem;
   gap: 1rem;
-  width: 100%;
+  width: 60%;
+}
+
+.items {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+h2 {
+  color: white;
+  font-weight: normal;
 }
 
 .input input:hover {

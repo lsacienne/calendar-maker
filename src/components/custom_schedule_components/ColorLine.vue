@@ -1,5 +1,6 @@
 <template>
   <div class="control-line">
+    <div class="background-rectangle"></div>
     <div class="first-line">
       <div
         class="uv-rect"
@@ -12,6 +13,14 @@
       >
         {{ uvName }}
       </div>
+
+      <v-btn
+        :style="{ marginTop: '0.4rem' }"
+        icon="mdi-history"
+        density="comfortable"
+        elevation="12"
+        color="grey-darken-1"
+      ></v-btn>
     </div>
     <div class="second-line">
       <v-btn
@@ -21,13 +30,17 @@
         :slim="true"
       >
         <img src="@/assets/img/icons/rounded-corner.svg" v-if="!_isSquared" />
-        <img src="@/assets/img/icons/squared-corner.svg" v-if="_isSquared" />
+        <img
+          src="@/assets/img/icons/squared-corner.svg"
+          v-else-if="_isSquared"
+        />
         <v-tooltip activator="parent" location="bottom">
           Changer type de coins
         </v-tooltip>
       </v-btn>
       <ColorSelector
         :input-type="borderType"
+        size="small"
         picker-name="border color:"
         v-model="_borderColor"
       ></ColorSelector>
@@ -38,13 +51,17 @@
         :slim="true"
       >
         <img src="@/assets/img/icons/empty-background.svg" v-if="!_isUniform" />
-        <img src="@/assets/img/icons/filled-background.svg" v-if="_isUniform" />
+        <img
+          src="@/assets/img/icons/filled-background.svg"
+          v-else-if="_isUniform"
+        />
         <v-tooltip activator="parent" location="bottom">
           Appliquer la couleur au fond
         </v-tooltip>
       </v-btn>
       <ColorSelector
         :input-type="fontType"
+        size="small"
         picker-name="font color:"
         v-model="_fontColor"
       ></ColorSelector>
@@ -182,18 +199,29 @@ export default defineComponent({
 
 <style scoped>
 .control-line {
+  position: relative;
   display: flex;
   flex-direction: column;
-  row-gap: 1rem;
+  row-gap: 1.2rem;
 
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.background-rectangle {
+  position: absolute;
+  top: 20%;
+  left: 0;
+  height: 80%;
+  width: 100%;
   background-color: #595959;
   border-radius: 1rem;
-  padding: 1rem;
 }
 
 .first-line {
   display: inline-flex;
   align-items: flex-start;
+  gap: 2rem;
 }
 
 .second-line {
@@ -210,12 +238,14 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 0.2rem;
-  padding-bottom: 0.2rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
   width: 50%;
   border-width: 2px;
   border-style: solid;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
   transition: border-radius 0.2s;
+  transform: rotateX(15deg) rotateY(-30deg);
 }
 
 .input input:hover {

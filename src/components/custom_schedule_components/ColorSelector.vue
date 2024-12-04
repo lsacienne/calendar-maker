@@ -20,7 +20,7 @@
       v-else-if="isBorderType"
       @click="dotClicked = !dotClicked"
       color="grey-lighten-2"
-      size="small"
+      :size="size"
     >
       <svg
         width="25"
@@ -46,7 +46,7 @@
       v-else-if="isFontType"
       @click="dotClicked = !dotClicked"
       color="grey-lighten-2"
-      size="small"
+      :size="size"
     >
       <svg
         width="23"
@@ -108,6 +108,11 @@ export default defineComponent({
     inputType: {
       type: Object as PropType<ColorSelectorType>,
       default: ColorSelectorType.DOT,
+      required: false,
+    },
+    size: {
+      type: String,
+      default: "default",
       required: false,
     },
   },

@@ -1,6 +1,5 @@
 <template>
   <div class="control-panel">
-    <TopColorLine @update-uniform="updateIsUniform"></TopColorLine>
     <div class="color-line-container">
       <ColorLine
         v-for="(
@@ -22,6 +21,7 @@
         :is-uniform="uniform"
       ></ColorLine>
     </div>
+    <TopColorLine @update-uniform="updateIsUniform"></TopColorLine>
   </div>
 </template>
 
@@ -76,15 +76,13 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   width: 100%;
-
-  background: #f5f5f5;
-  border-radius: 1rem;
 }
 
 .color-line-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
   width: 100%;
   padding: 1rem;
