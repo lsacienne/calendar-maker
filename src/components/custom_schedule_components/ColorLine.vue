@@ -235,6 +235,7 @@ export default defineComponent({
 }
 
 .uv-rect {
+  font-size: 1.3em;
   display: flex;
   align-items: center;
   justify-content: center;
