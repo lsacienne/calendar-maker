@@ -9,8 +9,13 @@
         class="svg-schedule-container"
         :class="{ invisible: !isSVGScheduleDisplayed }"
       >
-        <SVGSchedule :uv-courses="SVGUvCourse" :nb-days="nbDays"></SVGSchedule>
+        <SVGSchedule
+          ref="svgSchedule"
+          :uv-courses="SVGUvCourse"
+          :nb-days="nbDays"
+        ></SVGSchedule>
         <ColorManager></ColorManager>
+        <SubmitButton @click="handleExportPng" text="Télécharges en PNG 🖼️" />
       </div>
 
       <div class="ics-container" :class="{ invisible: icsData === undefined }">
@@ -41,6 +46,7 @@ import { Color } from "@/models/color";
 import ColorManager from "@/components/custom_schedule_components/ColorManager.vue";
 import { Side } from "@/models/svg-utils";
 import StepFolder from "../containers/StepFolder.vue";
+import SubmitButton from "../form_components/SubmitButton.vue";
 
 export default defineComponent({
   name: "CustomSchedule",
@@ -48,6 +54,7 @@ export default defineComponent({
     SVGSchedule,
     ColorManager,
     StepFolder,
+    SubmitButton,
   },
   data() {
     return {
@@ -195,6 +202,12 @@ export default defineComponent({
     },
   },
   methods: {
+    handleExportPng() {
+      const svgSchedule = this.$refs.svgSchedule as InstanceType<
+        typeof SVGSchedule
+      >;
+      svgSchedule.pngSchedule();
+    },
     async generateURL() {
       if (this.icsData !== undefined) {
         const filename = "agenda.ics";

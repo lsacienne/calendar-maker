@@ -74,7 +74,6 @@
       ></SVGTimeSlot>
     </svg>
   </div>
-  <SubmitButton @click="pngSchedule" text="Télécharges en PNG 🖼️" />
 </template>
 
 <script lang="ts">
@@ -182,9 +181,8 @@ export default defineComponent({
       return uvSlots;
     },
   },
-  mounted() {},
   methods: {
-    pngSchedule(event: MouseEvent): void {
+    pngSchedule(): void {
       const canvas: SVGSVGElement = this.$refs.canvas as SVGSVGElement;
       SVGtoPNG(canvas, this.svgWidth * 5, this.svgHeight * 5);
     },
