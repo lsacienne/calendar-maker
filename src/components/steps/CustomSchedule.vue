@@ -151,6 +151,7 @@ export default defineComponent({
               isSquared: false,
             });
           });
+          scheduleColorsManager.setInitialColorManager();
         }
 
         uvMap.keys().forEach((key, index) => {

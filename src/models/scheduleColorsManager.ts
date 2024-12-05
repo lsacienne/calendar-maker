@@ -13,6 +13,7 @@ export interface GeneralSettings {
 
 export const scheduleColorsManager = reactive({
     timeSlotColorManagers: [] as TimeSlotUIManagerString[],
+    initialTimeSlotColorManagers: [] as TimeSlotUIManagerString[],
     generalSettings: {
         scheduleName: "agenda.png",
         linesColor: "#4a4646",
@@ -37,5 +38,34 @@ export const scheduleColorsManager = reactive({
                 isSquared: timeSlotColorManager.isSquared
             }
         });
+    },
+    setInitialColorManager(): void {
+        this.initialTimeSlotColorManagers = this.timeSlotColorManagers
+            .map((timeSlotColorManager: TimeSlotUIManagerString) => {
+                return {...timeSlotColorManager}
+            });
+    },
+    resetAllColorManagers(): void {
+        this.timeSlotColorManagers = this.initialTimeSlotColorManagers
+            .map((timeSlotColorManager: TimeSlotUIManagerString) => {
+                return {...timeSlotColorManager}
+            });
+    },
+    resetColorManager(uvName: string): void {
+        const index = this.timeSlotColorManagers.findIndex((timeSlotColorManager) => {
+            return timeSlotColorManager.uvName === uvName;
+        });
+        if (index !== -1) {
+            this.timeSlotColorManagers[index] = {...this.initialTimeSlotColorManagers[index]};
+        }
+    },
+    getTimeSlotColorManager(uvName: string): TimeSlotUIManagerString | undefined {
+        const index = this.timeSlotColorManagers.findIndex((timeSlotColorManager) => {
+            return timeSlotColorManager.uvName === uvName;
+        });
+        if (index !== -1) {
+            return this.timeSlotColorManagers[index];
+        }
+        return undefined;
     }
 });

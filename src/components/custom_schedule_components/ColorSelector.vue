@@ -38,9 +38,13 @@
         />
       </svg>
       <img src="@/assets/img/icons/develop-arrow.svg" />
-      <v-tooltip activator="parent" location="bottom"
-        >Changer la couleur des bordures</v-tooltip
+      <v-tooltip
+        v-if="pickerTooltip !== undefined"
+        activator="parent"
+        location="bottom"
       >
+        {{ pickerTooltip }}
+      </v-tooltip>
     </v-btn>
     <v-btn
       v-else-if="isFontType"
@@ -65,9 +69,13 @@
         />
       </svg>
       <img src="@/assets/img/icons/develop-arrow.svg" />
-      <v-tooltip activator="parent" location="bottom"
-        >Changer la couleur de la police</v-tooltip
+      <v-tooltip
+        v-if="pickerTooltip !== undefined"
+        activator="parent"
+        location="bottom"
       >
+        {{ pickerTooltip }}
+      </v-tooltip>
     </v-btn>
     <transition name="slide-down">
       <v-color-picker
@@ -96,7 +104,7 @@ export default defineComponent({
     VTooltip,
   },
   props: {
-    pickerName: {
+    pickerTooltip: {
       type: String,
       required: false,
     },

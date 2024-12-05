@@ -2,7 +2,7 @@
   <div class="control-line">
     <div class="lines-appearance">
       <ColorSelector
-        picker-name="Couleur des lignes"
+        pickerTooltip="Couleur des lignes"
         :v-model="_generalSettings.linesColor"
       ></ColorSelector>
       <label for="is-lines-displayed">Afficher les lignes</label>
@@ -15,17 +15,17 @@
     </div>
     <div class="labels-appearance">
       <ColorSelector
-        picker-name="Heures:"
+        pickerTooltip="Heures:"
         :v-model="_generalSettings.hourLabelsColors"
       ></ColorSelector>
       <ColorSelector
-        picker-name="Jours:"
+        pickerTooltip="Jours:"
         :v-model="_generalSettings.daysLabelsColors"
       ></ColorSelector>
     </div>
     <div class="background-appearance">
       <ColorSelector
-        picker-name="Couleur du fond:"
+        pickerTooltip="Couleur du fond:"
         :v-model="_generalSettings.backgroundColor"
       ></ColorSelector>
       <label for="is-background-displayed">Afficher le fond</label>

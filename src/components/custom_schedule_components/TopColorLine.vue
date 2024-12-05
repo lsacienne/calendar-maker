@@ -14,7 +14,7 @@
       </v-btn>
       <ColorSelector
         :input-type="borderType"
-        picker-name="Changer la couleur des bordures globale"
+        picker-tooltip="Changer la couleur des bordures globale"
         v-model="_mainColor"
       ></ColorSelector>
       <v-btn @click="_isUniform = !_isUniform" color="grey-lighten-2">
@@ -29,16 +29,23 @@
       </v-btn>
       <ColorSelector
         :input-type="fontType"
-        picker-name="Changer la couleur de police globale"
+        picker-tooltip="Changer la couleur de police globale"
         v-model="_fontColor"
       ></ColorSelector>
     </div>
-    <v-btn
-      icon="mdi-history"
-      density="comfortable"
-      elevation="12"
-      color="grey-darken-1"
-    ></v-btn>
+    <v-tooltip location="bottom">
+      <template v-slot:activator="{ props }">
+        <v-btn
+          icon="mdi-history"
+          v-bind="props"
+          density="comfortable"
+          elevation="12"
+          color="grey-darken-1"
+          @click="resetAllUV"
+        ></v-btn>
+      </template>
+      Réinitialiser toutes les UV
+    </v-tooltip>
   </div>
 </template>
 
@@ -56,6 +63,18 @@ export default defineComponent({
     VBtn,
   },
   emits: ["updateUniform"],
+  methods: {
+    resetAllUV() {
+      scheduleColorsManager.resetAllColorManagers();
+      const newValue: boolean =
+        scheduleColorsManager.timeSlotColorManagers.reduce(
+          (acc, timeSlot) =>
+            acc && timeSlot.backgroundColor === timeSlot.mainColor,
+          true
+        );
+      this._isUniform = newValue;
+    },
+  },
   computed: {
     _mainColor: {
       get(): string {

@@ -14,13 +14,21 @@
         {{ uvName }}
       </div>
 
-      <v-btn
-        :style="{ marginTop: '0.4rem' }"
-        icon="mdi-history"
-        density="comfortable"
-        elevation="12"
-        color="grey-darken-1"
-      ></v-btn>
+      <v-tooltip location="bottom">
+        <template v-slot:activator="{ props }">
+          <v-btn
+            :style="{ marginTop: '0.4rem' }"
+            v-bind="props"
+            icon="mdi-history"
+            density="comfortable"
+            elevation="12"
+            color="grey-darken-1"
+            @click="resetConfig"
+          >
+          </v-btn>
+        </template>
+        Réinitialiser les paramètres
+      </v-tooltip>
     </div>
     <div class="second-line">
       <v-btn
@@ -35,13 +43,13 @@
           v-else-if="_isSquared"
         />
         <v-tooltip activator="parent" location="bottom">
-          Changer type de coins
+          Changer le type de coins
         </v-tooltip>
       </v-btn>
       <ColorSelector
         :input-type="borderType"
         size="small"
-        picker-name="border color:"
+        picker-tooltip="Changer la couleur des bordures"
         v-model="_borderColor"
       ></ColorSelector>
       <v-btn
@@ -62,7 +70,7 @@
       <ColorSelector
         :input-type="fontType"
         size="small"
-        picker-name="font color:"
+        picker-tooltip="Changer la couleur de la police"
         v-model="_fontColor"
       ></ColorSelector>
     </div>
@@ -70,10 +78,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { defineComponent } from "vue";
 import ColorSelector from "./ColorSelector.vue";
 import { Color, ColorSelectorType } from "@/models/color";
 import { VBtn, VTooltip } from "vuetify/lib/components/index.mjs";
+import { scheduleColorsManager } from "@/models/scheduleColorsManager";
 
 export default defineComponent({
   name: "ColorLine",
@@ -119,6 +128,11 @@ export default defineComponent({
     "update:fontColor",
     "update:isSquared",
   ],
+  methods: {
+    resetConfig() {
+      scheduleColorsManager.resetColorManager(this.uvName);
+    },
+  },
   computed: {
     _borderColor: {
       get(): string {
@@ -159,7 +173,8 @@ export default defineComponent({
     },
     _isSquared: {
       get(): boolean {
-        return this.isSquared;
+        return scheduleColorsManager.getTimeSlotColorManager(this.uvName)!
+          .isSquared;
       },
       set(value: boolean) {
         this.$emit("update:isSquared", value);
@@ -170,6 +185,7 @@ export default defineComponent({
     _isUniform: {
       immediate: true,
       handler(value: boolean) {
+        console.log("set uniform");
         if (value) {
           this._backgroundColor = this._borderColor;
         } else {

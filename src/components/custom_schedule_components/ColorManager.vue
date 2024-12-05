@@ -18,7 +18,7 @@
         v-model:is-squared="
           scheduleColorsManager.timeSlotColorManagers[index].isSquared
         "
-        :is-uniform="uniform"
+        :is-uniform="getIsUniform(colorManager.uvName)"
       ></ColorLine>
     </div>
     <TopColorLine @update-uniform="updateIsUniform"></TopColorLine>
@@ -32,7 +32,7 @@ import { VColorPicker } from "vuetify/components/VColorPicker";
 import ColorSelector from "./ColorSelector.vue";
 import ColorLine from "./ColorLine.vue";
 import { scheduleColorsManager } from "@/models/scheduleColorsManager";
-import { TimeSlotUIManager } from "@/models/color";
+import { Color, TimeSlotUIManager } from "@/models/color";
 import TopColorLine from "./TopColorLine.vue";
 
 export default defineComponent({
@@ -57,8 +57,22 @@ export default defineComponent({
     },
   },
   methods: {
+    getIsUniform(uvName: string) {
+      const targetTimeSlot =
+        scheduleColorsManager.getTimeSlotColorManager(uvName);
+      return targetTimeSlot?.backgroundColor === targetTimeSlot?.mainColor;
+    },
     updateIsUniform(value: boolean) {
-      console.log("is uniform");
+      // console.log("is uniform");
+      scheduleColorsManager.timeSlotColorManagers.forEach((timeSlot) => {
+        if (value) {
+          timeSlot.backgroundColor = timeSlot.mainColor;
+        } else {
+          timeSlot.backgroundColor = Color.fromHex(timeSlot.mainColor)
+            .lightenColor(0.8)
+            .toHexString();
+        }
+      });
       this.uniform = value;
     },
   },
