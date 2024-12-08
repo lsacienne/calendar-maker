@@ -6,6 +6,7 @@ export type DateChooser = {
   uv: string,
   type: string,
   day: string,
+  group: string | undefined,
   date1: Date | undefined,
   date2: Date | undefined,
   chosenDate: Date | number | null

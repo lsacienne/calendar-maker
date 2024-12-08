@@ -42,11 +42,22 @@ export default defineComponent({
       type: String,
       required: true,
     },
+    initialDate: {
+      type: String,
+      required: false,
+      validator: (value: string) => ["A", "B", undefined].includes(value),
+    },
   },
   data() {
     return {
       selectedDate: undefined as "A" | "B" | undefined,
     };
+  },
+  mounted() {
+    this.selectedDate = this.initialDate as "A" | "B" | undefined;
+    if (this.selectedDate !== undefined) {
+      this.selectDate(this.selectedDate);
+    }
   },
   methods: {
     convertFrDate(date: Date): string {

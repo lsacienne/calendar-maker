@@ -16,6 +16,7 @@
           :group="obj.type"
           :date1="obj.date1"
           :date2="obj.date2"
+          :initial-date="obj.group"
           @dateAChange="obj.chosenDate = obj.date1 ? obj.date1 : 1"
           @dateBChange="obj.chosenDate = obj.date2 ? obj.date2 : 2"
         ></ClassChooser>
@@ -113,6 +114,7 @@ export default defineComponent({
               id: index++,
               uv: course.uv,
               type: course.type,
+              group: course.group === "" ? undefined : course.group,
               day: course.day,
               date1: date1,
               date2: date2,
@@ -123,6 +125,7 @@ export default defineComponent({
               id: index++,
               uv: course.uv,
               type: course.type,
+              group: course.group === "" ? undefined : course.group,
               day: course.day,
               date1: undefined,
               date2: undefined,
@@ -169,6 +172,7 @@ export default defineComponent({
     ): Array<{
       uv: string;
       type: string;
+      group: string;
       day: string;
       date: string | null;
     }> | null {
@@ -179,27 +183,40 @@ export default defineComponent({
         let freq2choices = [] as Array<{
           uv: string;
           type: string;
+          group: string;
           day: string;
           date: string | null;
         }>;
         if (data.courses.start === "" || data.courses.end === "") {
           freq2choices = freq2uv.map(
-            (course: { uv: string; type: string; day: string }) => {
+            (course: {
+              uv: string;
+              type: string;
+              day: string;
+              group: string;
+            }) => {
               return {
                 uv: course.uv,
                 type: course.type,
                 day: course.day,
+                group: course.group,
                 date: null,
               };
             }
           );
         } else {
           freq2choices = freq2uv.map(
-            (course: { uv: string; type: string; day: string }) => {
+            (course: {
+              uv: string;
+              type: string;
+              day: string;
+              group: string;
+            }) => {
               return {
                 uv: course.uv,
                 type: course.type,
                 day: course.day,
+                group: course.group,
                 date: data.courses.start,
               };
             }
