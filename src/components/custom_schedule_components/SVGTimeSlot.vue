@@ -189,6 +189,10 @@ export default defineComponent({
 </script>
 <style scoped>
 .uv-rect {
-  transition: rx 0.2s, ry 0.2s;
+  transition: rx 0.2s, ry 0.2s, fill 0.2s, stroke 0.2s;
+}
+
+text {
+  transition: all 0.2s;
 }
 </style>

@@ -261,7 +261,8 @@ export default defineComponent({
   border-width: 2px;
   border-style: solid;
   box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.25);
-  transition: border-radius 0.2s;
+  transition: border-radius 0.2s, background-color 0.2s, color 0.2s,
+    border-color 0.2s;
   transform: rotateX(15deg) rotateY(-30deg);
 }
 
