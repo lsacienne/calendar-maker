@@ -118,7 +118,7 @@ export default defineComponent({
   methods: {
     showCourseBegError() {
       toaster.show(
-        "Vous ne pouvez pas choisir une date antérieure au début des cours! 📆",
+        "Vous ne pouvez pas choisir une date antérieure au début des cours ! 📆",
         {
           position: "bottom",
           duration: 2000,
@@ -128,7 +128,7 @@ export default defineComponent({
     },
     showCourseEndError() {
       toaster.show(
-        "Les vacances ne peuvent pas finir après la fin des cours! 📆",
+        "Les vacances ne peuvent pas finir après la fin des cours ! 📆",
         {
           position: "bottom",
           duration: 2000,
@@ -137,7 +137,7 @@ export default defineComponent({
       );
     },
     showHolidaysLengthError() {
-      toaster.show("La période de vacances doit durer au moins 5 jours! 📆", {
+      toaster.show("La période de vacances doit durer au moins 5 jours ! 📆", {
         position: "bottom",
         duration: 2000,
         queue: true,
@@ -155,7 +155,17 @@ export default defineComponent({
     },
     showMissingInputsError() {
       toaster.show(
-        "Veuillez remplir la date de début et de fin des cours! 📆",
+        "Veuillez remplir la date de début et de fin des cours ! 📆",
+        {
+          position: "bottom",
+          duration: 2000,
+          queue: true,
+        }
+      );
+    },
+    showMissingWeekTypeError() {
+      toaster.show(
+        "Veuillez choisir le type de semaine de la première semaine ! 📆",
         {
           position: "bottom",
           duration: 2000,
@@ -166,6 +176,10 @@ export default defineComponent({
     verifyInputsCorrectness() {
       if (this.courseBeginning === null || this.courseEnd === null) {
         this.showMissingInputsError();
+        return false;
+      }
+      if (this.firstWeekType === "") {
+        this.showMissingWeekTypeError();
         return false;
       }
       return true;
