@@ -6,11 +6,19 @@ import { VDateInput } from "vuetify/labs/VDateInput";
 import { VBtn, VTextarea, VTooltip } from "vuetify/lib/components/index.mjs";
 import { aliases, mdi } from 'vuetify/iconsets/mdi'
 import 'vuetify/styles'
+import { en, fr } from 'vuetify/locale'
 
 const vuetify = createVuetify({
   ssr: true,
   locale: {
-    locale: 'fr'
+    locale: 'fr',
+    fallback: 'en',
+    messages: { en ,fr }
+  },
+  date: {
+    locale: {
+      fr: 'fr-FR',
+    },
   },
   components: {
     VColorPicker,
