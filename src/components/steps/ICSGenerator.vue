@@ -1,5 +1,6 @@
 <template>
   <StepFolder
+    v-if="isDisplayed()"
     :folderColor="folderColor"
     title="Etape 4: Générer votre emploi du temps en ICS"
   >
@@ -86,13 +87,14 @@
   </StepFolder>
 </template>
 <script lang="ts">
-import { compileToFunction, defineComponent } from "vue";
+import { compileToFunction, defineComponent, PropType } from "vue";
 import StepFolder from "../containers/StepFolder.vue";
 import { Color } from "@/models/color";
 import { VDateInput } from "vuetify/lib/labs/components.mjs";
 import { createToaster } from "@meforma/vue-toaster";
 import CompactClassChooser from "../class_chooser_components/CompactClassChooser.vue";
 import SubmitButton from "../form_components/SubmitButton.vue";
+import { ScheduleWithChoice } from "@/models/types";
 
 const toaster = createToaster();
 const dayLength = 24 * 60 * 60 * 1000;
@@ -105,6 +107,13 @@ export default defineComponent({
     CompactClassChooser,
     SubmitButton,
   },
+  props: {
+    dateSlots: {
+      required: false,
+      type: Array as PropType<Array<ScheduleWithChoice> | undefined>,
+      default: undefined,
+    },
+  },
   data() {
     return {
       folderColor: Color.fromHex("C2DEF7").toIColor(),
@@ -116,6 +125,17 @@ export default defineComponent({
     };
   },
   methods: {
+    isDisplayed(): boolean {
+      if (this.dateSlots === undefined) {
+        return false;
+      }
+      this.dateSlots.forEach((date) => {
+        if (date.chosenDate === null) {
+          return false;
+        }
+      });
+      return true;
+    },
     showCourseBegError() {
       toaster.show(
         "Vous ne pouvez pas choisir une date antérieure au début des cours ! 📆",
