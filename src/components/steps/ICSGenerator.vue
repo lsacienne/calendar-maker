@@ -94,7 +94,14 @@ import { VDateInput } from "vuetify/lib/labs/components.mjs";
 import { createToaster } from "@meforma/vue-toaster";
 import CompactClassChooser from "../class_chooser_components/CompactClassChooser.vue";
 import SubmitButton from "../form_components/SubmitButton.vue";
-import { ScheduleWithChoice } from "@/models/types";
+import { DateChooser, Schedule, ScheduleWithChoice } from "@/models/types";
+import {
+  daysMap,
+  generateCorrectDates,
+  generateICSObjects,
+  getDateRange,
+} from "@/models/dateTools";
+import moment from "moment";
 
 const toaster = createToaster();
 const dayLength = 24 * 60 * 60 * 1000;
@@ -193,6 +200,27 @@ export default defineComponent({
         }
       );
     },
+    showMissingChosenDateError() {
+      toaster.show(
+        "La semaine de chaque cours n'a pas été correctement définie ! 📆",
+        {
+          position: "bottom",
+          duration: 2000,
+          queue: true,
+        }
+      );
+    },
+    verifyDateChoices(): boolean {
+      if (this.dateSlots === null) {
+        return false;
+      }
+      this.dateSlots!.forEach((dateSlot) => {
+        if (dateSlot.chosenDate === null && dateSlot.frequency !== "1") {
+          return false;
+        }
+      });
+      return true;
+    },
     verifyInputsCorrectness() {
       if (this.courseBeginning === null || this.courseEnd === null) {
         this.showMissingInputsError();
@@ -202,12 +230,130 @@ export default defineComponent({
         this.showMissingWeekTypeError();
         return false;
       }
+      if (!this.verifyDateChoices()) {
+        this.showMissingChosenDateError();
+        return false;
+      }
       return true;
+    },
+    computeFirstWeeks(): [weekA: Array<Date>, weekB: Array<Date>] {
+      if (this.firstWeekType === "") {
+        return [[], []];
+      }
+
+      const firstDayWeekIndex = (this.courseBeginning!.getDay() + 6) % 7;
+      const lastDayWeek = moment(this.courseBeginning!)
+        .add(6 - firstDayWeekIndex, "days")
+        .toDate();
+      const firstWeekRange: Array<Date> = getDateRange(
+        this.courseBeginning!,
+        lastDayWeek
+      );
+      const secondWeekRange: Array<Date> = getDateRange(
+        moment(lastDayWeek).add(1, "days").toDate(),
+        moment(lastDayWeek).add(7, "days").toDate()
+      );
+      if (this.firstWeekType === "A") {
+        return [firstWeekRange, secondWeekRange];
+      } else {
+        return [secondWeekRange, firstWeekRange];
+      }
     },
     computeICSFile() {
       if (!this.verifyInputsCorrectness()) {
         return;
       }
+
+      // Compute week A and B
+      const [firstWeekA, firstWeekB] = this.computeFirstWeeks();
+
+      // Compute rests
+      const rests = [] as Array<{ start: string; end: string }>;
+      if (this.firstHolidays !== null) {
+        rests.push({
+          start: this.firstHolidays.at(0)!.toLocaleDateString(),
+          end: this.firstHolidays.at(-1)!.toLocaleDateString(),
+        });
+      }
+      if (this.secondHolidays !== null) {
+        rests.push({
+          start: this.secondHolidays.at(0)!.toLocaleDateString(),
+          end: this.secondHolidays.at(-1)!.toLocaleDateString(),
+        });
+      }
+
+      // Compute schedule
+      const scheduleWithHolidays: Schedule = {
+        courses: {
+          start: this.courseBeginning!.toLocaleDateString(),
+          end: this.courseEnd!.toLocaleDateString(),
+        },
+        rests,
+        schedule: this.dateSlots!.map((date) => {
+          // Compute correct date
+          if (date.frequency !== "1") {
+            if (date.chosenDate === 1) {
+              // If the date chosen is in week A
+              let dayIndex = daysMap.get(date.day)!;
+              let frenchFirstWeekIndex = (firstWeekA.at(0)!.getDay() + 6) % 7;
+              let frenchDayIndex = (dayIndex + 6) % 7;
+              if (frenchDayIndex < frenchFirstWeekIndex) {
+                // If the course begin after the first time it should occur in the first week
+                let diff = frenchFirstWeekIndex - frenchDayIndex;
+                date.chosenDate = moment(firstWeekA.at(0)!)
+                  .subtract(diff, "days")
+                  .add(14, "days")
+                  .toDate();
+              } else {
+                let diff = frenchDayIndex - frenchFirstWeekIndex;
+                date.chosenDate = firstWeekA[diff];
+              }
+            } else if (date.chosenDate === 2) {
+              // Or in week B
+              let dayIndex = daysMap.get(date.day)!;
+              let frenchFirstWeekIndex = (firstWeekB.at(0)!.getDay() + 6) % 7;
+              let frenchDayIndex = (dayIndex + 6) % 7;
+              if (frenchDayIndex < frenchFirstWeekIndex) {
+                // If the course begin after the first time it should occur in the first week
+                let diff = frenchFirstWeekIndex - frenchDayIndex;
+                date.chosenDate = moment(firstWeekB.at(0)!)
+                  .subtract(diff, "days")
+                  .add(14, "days")
+                  .toDate();
+              } else {
+                let diff = frenchDayIndex - frenchFirstWeekIndex;
+                date.chosenDate = firstWeekB[diff];
+              }
+            }
+          } else {
+            let firstWeek =
+              this.firstWeekType === "A" ? firstWeekA : firstWeekB;
+            let dayIndex = daysMap.get(date.day)!;
+            let frenchFirstWeekIndex = (firstWeek.at(0)!.getDay() + 6) % 7;
+            let frenchDayIndex = (dayIndex + 6) % 7;
+            if (frenchDayIndex < frenchFirstWeekIndex) {
+              // If the course begin after the first time it should occur in the first week
+              let diff = frenchFirstWeekIndex - frenchDayIndex;
+              date.chosenDate = moment(firstWeek.at(0)!)
+                .subtract(diff, "days")
+                .add(7, "days")
+                .toDate();
+            } else {
+              let diff = frenchDayIndex - frenchFirstWeekIndex;
+              date.chosenDate = firstWeek[diff];
+            }
+          }
+          return {
+            ...date,
+          };
+        }),
+      };
+      const dateItems = generateCorrectDates(scheduleWithHolidays);
+      if (dateItems !== null) {
+        const icsData = generateICSObjects(dateItems);
+        console.log(icsData);
+      }
+
       console.log("Computing ICS file");
     },
   },

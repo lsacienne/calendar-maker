@@ -2,6 +2,18 @@ import moment from 'moment'
 import { DateableEvent, Schedule, ScheduleWithChoice, icsEvent } from './types'
 import { RRule } from 'rrule'
 
+export const getDateRange = (firstDate: Date, lastDate: Date): Array<Date> => {
+  if (moment(firstDate, 'YYYY-MM-DD').isSame(moment(lastDate, 'YYYY-MM-DD'), 'day'))
+    return [lastDate];
+  let date = firstDate;
+  const dates = [date];
+  do {
+    date = moment(date).add(1, 'day').toDate();
+    dates.push(date);
+  } while (moment(date).isBefore(lastDate));
+  return dates;
+};
+
 export function generateCorrectDates(schedule: Schedule): Array<DateableEvent> | null {
   if (schedule.courses.start !== '') {
     const eventList = [] as Array<DateableEvent>
@@ -211,7 +223,7 @@ export function getWeek(date: Date) {
   return dateM.week();
 }
 
-const daysMap = new Map(
+export const daysMap = new Map(
   [
     ['lundi', 1],
     ['mardi', 2],

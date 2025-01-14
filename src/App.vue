@@ -11,6 +11,7 @@
         :ics-data="icsData"
         :date-slots="scheduleGenerated?.schedule"
       ></CustomSchedule>
+      <ICSGenerator :date-slots="scheduleGenerated?.schedule"></ICSGenerator>
     </div>
   </body>
 </template>
@@ -29,6 +30,7 @@ import {
 } from "@/models/types";
 import { generateCorrectDates, generateICSObjects } from "@/models/dateTools";
 import PageTitleContainer from "@/components/steps/PageTitleContainer.vue";
+import ICSGenerator from "./components/steps/ICSGenerator.vue";
 
 export default defineComponent({
   name: "App",
@@ -37,6 +39,7 @@ export default defineComponent({
     FirstClassChooser,
     CustomSchedule,
     PageTitleContainer,
+    ICSGenerator,
   },
   data() {
     return {
