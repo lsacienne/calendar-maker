@@ -17,14 +17,6 @@
         <ColorManager></ColorManager>
         <SubmitButton @click="handleExportPng" text="Télécharges en PNG 🖼️" />
       </div>
-
-      <div class="ics-container" :class="{ invisible: icsData === undefined }">
-        <p>💾 Télécharges ton fichier ICS et importes le sur ton agenda !</p>
-        <input type="text" name="" id="" v-model="filename" />
-        <a :href="icsURL" :download="filenameComp">
-          <button>ICS File 📆</button>
-        </a>
-      </div>
     </article>
   </StepFolder>
 </template>
@@ -58,7 +50,6 @@ export default defineComponent({
   },
   data() {
     return {
-      icsURL: "#",
       filename: "agenda.ics",
       folderColor: Color.fromHex("#D8BCF6").toIColor(),
     };
@@ -76,14 +67,8 @@ export default defineComponent({
       }
       return 5;
     },
-    filenameComp() {
-      if (this.filename.endsWith(".ics")) {
-        return this.filename;
-      }
-      return this.filename + ".ics";
-    },
     isDisplayed(): boolean {
-      return this.icsData !== undefined || this.isSVGScheduleDisplayed;
+      return this.isSVGScheduleDisplayed;
     },
     isSVGScheduleDisplayed(): boolean {
       if (this.dateSlots === undefined) {
@@ -185,20 +170,10 @@ export default defineComponent({
     },
   },
   props: {
-    icsData: {
-      required: false,
-      type: Array as PropType<Array<icsEvent>>,
-      default: undefined,
-    },
     dateSlots: {
       required: false,
       type: Array as PropType<Array<ScheduleWithChoice> | undefined>,
       default: undefined,
-    },
-  },
-  watch: {
-    icsData() {
-      this.generateURL();
     },
   },
   methods: {
@@ -207,15 +182,6 @@ export default defineComponent({
         typeof SVGSchedule
       >;
       svgSchedule.pngSchedule();
-    },
-    async generateURL() {
-      if (this.icsData !== undefined) {
-        const filename = "agenda.ics";
-        const file = await this.createFilePromise(filename, this.icsData);
-        this.icsURL = URL.createObjectURL(file);
-      } else {
-        this.icsURL = "#";
-      }
     },
     createFilePromise(
       filename: string,

@@ -8,7 +8,6 @@
         @dateChosen="getDate"
       ></FirstClassChooser>
       <CustomSchedule
-        :ics-data="icsData"
         :date-slots="scheduleGenerated?.schedule"
       ></CustomSchedule>
       <ICSGenerator :date-slots="scheduleGenerated?.schedule"></ICSGenerator>
@@ -49,7 +48,6 @@ export default defineComponent({
         rests: Array<{ start: string; end: string }>;
       } | null,
       dateSlots: null as Array<DateChooser> | null,
-      icsData: undefined as Array<icsEvent> | undefined,
     };
   },
   computed: {
@@ -108,12 +106,6 @@ export default defineComponent({
     },
     getDate(content: Array<DateChooser> | null) {
       this.dateSlots = content;
-      if (content !== null && this.scheduleGenerated !== null) {
-        const dateItems = generateCorrectDates(this.scheduleGenerated);
-        if (dateItems !== null) {
-          this.icsData = generateICSObjects(dateItems);
-        }
-      }
     },
   },
 });
