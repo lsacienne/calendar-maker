@@ -1,6 +1,6 @@
 import moment from 'moment'
 import { DateableEvent, Schedule, ScheduleWithChoice, icsEvent } from './types'
-import { RRule } from 'rrule'
+import { datetime, RRule } from 'rrule'
 
 export const getDateRange = (firstDate: Date, lastDate: Date): Array<Date> => {
   if (moment(firstDate, 'YYYY-MM-DD').isSame(moment(lastDate, 'YYYY-MM-DD'), 'day'))
@@ -17,23 +17,23 @@ export const getDateRange = (firstDate: Date, lastDate: Date): Array<Date> => {
 export function generateCorrectDates(schedule: Schedule): Array<DateableEvent> | null {
   if (schedule.courses.start !== '') {
     const eventList = [] as Array<DateableEvent>
-    const startSemester = new Date(schedule.courses.start)
-    const endSemester = new Date(schedule.courses.end)
+    const startSemester = new Date(schedule.courses.start);
+    const endSemester = new Date(schedule.courses.end);
     if (Object.keys(schedule.rests).length === 0 || schedule.rests.length === 0) {
-      eventList.push(...generateDateForPeriod(startSemester, endSemester, schedule.schedule, true))
+      eventList.push(...computePeriodsDates(startSemester, endSemester, schedule.schedule, true))
     } else if (schedule.rests.length === 1) {
       const startRest = new Date(schedule.rests[0].start)
       const endRest = new Date(schedule.rests[0].end)
-      eventList.push(...generateDateForPeriod(startSemester, startRest, schedule.schedule, true))
-      eventList.push(...generateDateForPeriod(endRest, endSemester, schedule.schedule))
+      eventList.push(...computePeriodsDates(startSemester, startRest, schedule.schedule, true))
+      eventList.push(...computePeriodsDates(endRest, endSemester, schedule.schedule))
     } else if (schedule.rests.length === 2) {
       const startRest1 = new Date(schedule.rests[0].start)
       const startRest2 = new Date(schedule.rests[1].start)
       const endRest1 = new Date(schedule.rests[0].end)
       const endRest2 = new Date(schedule.rests[1].end)
-      eventList.push(...generateDateForPeriod(startSemester, startRest1, schedule.schedule, true))
-      eventList.push(...generateDateForPeriod(endRest1, startRest2, schedule.schedule))
-      eventList.push(...generateDateForPeriod(endRest2, endSemester, schedule.schedule))
+      eventList.push(...computePeriodsDates(startSemester, startRest1, schedule.schedule, true))
+      eventList.push(...computePeriodsDates(endRest1, startRest2, schedule.schedule))
+      eventList.push(...computePeriodsDates(endRest2, endSemester, schedule.schedule))
     }
     return eventList
   }
@@ -54,11 +54,12 @@ export function generateICSObjects(events: Array<DateableEvent>) {
       location: '',
       recurrenceRule: ''
     }
+    console.log('dates : ', event.firstDate, event.lastDate);
     const recurrenceRule = new RRule({
       freq: RRule.WEEKLY,
       interval: event.frequency === 2 ? 2 : 1,
-      dtstart: new Date(event.firstDate),
-      until: new Date(event.lastDate)
+      wkst: RRule.MO,
+      until: moment(event.lastDate).add(1, 'day').toDate(),
     })
     const dateStart = moment(new Date(event.firstDate)).format('YYYY-M-D-H-m').split('-').map((elem) => parseInt(elem))
     newEvent.start = [dateStart[0], dateStart[1], dateStart[2], dateStart[3], dateStart[4]]
@@ -66,21 +67,21 @@ export function generateICSObjects(events: Array<DateableEvent>) {
     newEvent.location = event.classroom
     newEvent.title = event.uv + ' - ' + event.type + event.group
     newEvent.description = 'Cours en ' + event.mode
-    newEvent.recurrenceRule = recurrenceRule.toString()
+    newEvent.recurrenceRule = recurrenceRule.toString().replace('RRULE:', '');
     icsEvents.push(newEvent)
   }
   return icsEvents
 }
 
-function generateDateForPeriod(
+function computePeriodsDates(
   beginPeriod: Date,
   endPeriod: Date,
   coursesList: Array<ScheduleWithChoice>,
   isFirstPeriod = false
 ): Array<DateableEvent> {
   const eventList = [] as Array<DateableEvent>
-  for (const item of coursesList) {
-    let firstDate: moment.Moment
+  for (const scheduleItem of coursesList) {
+    let firstDate: moment.Moment;
     const newEvent: DateableEvent = {
       uv: '',
       type: '',
@@ -92,29 +93,31 @@ function generateDateForPeriod(
       classroom: '',
       mode: ''
     }
-    if (item.chosenDate !== null && typeof item.chosenDate !== 'number') {
-      const chosenDate = new Date(item.chosenDate)
+    if (scheduleItem.chosenDate !== null && typeof scheduleItem.chosenDate !== 'number') {
+      const chosenDate = new Date(scheduleItem.chosenDate)
       if (isFirstPeriod) {
-        firstDate = setHourToDate(item.chosenDate, item.startHour)
+        firstDate = setHourToDate(scheduleItem.chosenDate, scheduleItem.startHour)
       } else {
-        firstDate = findFirstDateDesync(beginPeriod, chosenDate)
-        firstDate = setHourToDateM(firstDate, item.startHour)
+        firstDate = findFirstDateDesync(beginPeriod, chosenDate, parseInt(scheduleItem.frequency) as 1 | 2)
+        firstDate = setHourToDateM(firstDate, scheduleItem.startHour)
       }
     } else {
-      firstDate = findFirstDate(beginPeriod, item.day)
-      firstDate = setHourToDateM(firstDate, item.startHour)
+      console.error('it should never happen!');
+      firstDate = findFirstDate(beginPeriod, scheduleItem.day)
+      firstDate = setHourToDateM(firstDate, scheduleItem.startHour)
     }
-    const lastDate = findLastDate(endPeriod, item.day)
+    const lastDate = findLastDate(endPeriod, scheduleItem.day);
+    console.log('first date: ',firstDate);
 
-    newEvent.uv = item.uv
-    newEvent.type = item.type
-    newEvent.group = item.group
+    newEvent.uv = scheduleItem.uv
+    newEvent.type = scheduleItem.type
+    newEvent.group = scheduleItem.group
     newEvent.firstDate = firstDate.format()
     newEvent.lastDate = lastDate.format()
-    newEvent.frequency = parseInt(item.frequency)
-    newEvent.classroom = item.classroom
-    newEvent.mode = item.mode
-    newEvent.duration = diffHours(item.startHour, item.endHour)
+    newEvent.frequency = parseInt(scheduleItem.frequency)
+    newEvent.classroom = scheduleItem.classroom
+    newEvent.mode = scheduleItem.mode
+    newEvent.duration = diffHours(scheduleItem.startHour, scheduleItem.endHour)
     eventList.push(newEvent)
   }
   return eventList
@@ -178,35 +181,58 @@ function findFirstDate(beginDate: Date, day: string) {
   return moment()
 }
 
-function findFirstDateDesync(beginDate: Date, originDate: Date) {
-  const beginDateM = moment(beginDate)
-  const originDateM = moment(originDate)
-  if (Math.abs(beginDateM.week() - originDateM.week()) < 2) {
-    return originDateM
+function computeMonday(date: Date): moment.Moment {
+  // return the monday of the week of the date
+  if (moment(date).day() === 0) {
+    // If the date is a sunday, we need to get the monday of the previous week
+    return moment(date).day(-6).startOf('day');
   } else {
-    let firstMonday: moment.Moment
-    if (beginDateM.day() >= 5) {
-      firstMonday = beginDateM.day(1 + 7)
-    } else {
-      firstMonday = beginDateM.day(1)
-    }
-    const nbWeeks = findNbWeeks(originDateM, firstMonday)
-    if (nbWeeks % 2 === 0) {
-      const firstDate = originDateM
-      firstDate.week(firstMonday.week() + 1)
+    // Else we take the monday of the current week
+    return moment(date).day(1).startOf('day');
+  }
+}
+
+function findFirstDateDesync(periodsBeginning: Date, firstOccurrenceDayDate: Date, freq: 1 | 2) {
+  const periodsBeginning_M = moment(periodsBeginning);
+  const firstOccurrenceDayDate_M = moment(firstOccurrenceDayDate);
+
+  const periodsBeginningMonday = computeMonday(periodsBeginning);
+  const firstOccurrenceDayDateMonday = computeMonday(firstOccurrenceDayDate);
+
+  if (Math.abs(periodsBeginningMonday.week() - firstOccurrenceDayDateMonday.week()) < 2) {
+    return firstOccurrenceDayDate_M
+  } else {
+    const nbWeeks = findNbWeeks(firstOccurrenceDayDateMonday, periodsBeginningMonday);
+    // Discuss on the type of week (A or B)
+    if (nbWeeks % 2 === 0 && freq === 2) {
+      const firstDate = firstOccurrenceDayDate_M
+      firstDate.week(periodsBeginningMonday.week() + 1)
       return firstDate
     } else {
-      const firstDate = originDateM
-      firstDate.week(firstMonday.week())
+      const firstDate = firstOccurrenceDayDate_M;
+      // Additional check to see if the day of the course is after or before the periods beginning day
+      if (
+        !periodsBeginning_M.endOf('day').isBefore(periodsBeginningMonday.day(5).endOf('day')) ||
+        (periodsBeginning_M.startOf('day').day()+6) % 7 < (firstOccurrenceDayDate_M.startOf('day').day()+6) % 7
+      ) {
+        if (freq === 2) {
+          firstDate.week(periodsBeginningMonday.week() + 2);
+        } else {
+          firstDate.week(periodsBeginningMonday.week() + 1);
+        }
+      } else {
+        firstDate.week(periodsBeginningMonday.week())
+      }
+
       return firstDate
     }
   }
 }
 
 function findLastDate(endDate: Date, day: string) {
-  const dayOfWeek = daysMap.get(day)
-  const endDateM = moment(endDate)
-  const endDateDay = endDateM.day()
+  const dayOfWeek = daysMap.get(day);
+  const endDateM = moment(endDate);
+  const endDateDay = endDateM.day();
   if (dayOfWeek !== undefined) {
     if (endDateDay <= dayOfWeek) {
       endDateM.day(dayOfWeek - 7)

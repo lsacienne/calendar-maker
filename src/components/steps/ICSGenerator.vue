@@ -94,7 +94,12 @@ import { VDateInput } from "vuetify/lib/labs/components.mjs";
 import { createToaster } from "@meforma/vue-toaster";
 import CompactClassChooser from "../class_chooser_components/CompactClassChooser.vue";
 import SubmitButton from "../form_components/SubmitButton.vue";
-import { DateChooser, Schedule, ScheduleWithChoice } from "@/models/types";
+import {
+  DateChooser,
+  icsEvent,
+  Schedule,
+  ScheduleWithChoice,
+} from "@/models/types";
 import {
   daysMap,
   generateCorrectDates,
@@ -102,6 +107,7 @@ import {
   getDateRange,
 } from "@/models/dateTools";
 import moment from "moment";
+import { createEvents } from "ics";
 
 const toaster = createToaster();
 const dayLength = 24 * 60 * 60 * 1000;
@@ -259,7 +265,7 @@ export default defineComponent({
         return [secondWeekRange, firstWeekRange];
       }
     },
-    computeICSFile() {
+    async computeICSFile() {
       if (!this.verifyInputsCorrectness()) {
         return;
       }
@@ -352,9 +358,29 @@ export default defineComponent({
       if (dateItems !== null) {
         const icsData = generateICSObjects(dateItems);
         console.log(icsData);
+        const filename = "agenda.ics";
+        const file = await this.createFilePromise(filename, icsData);
+        const icsURL = URL.createObjectURL(file);
+        window.location.href = icsURL;
       }
 
       console.log("Computing ICS file");
+    },
+    createFilePromise(
+      filename: string,
+      icsData: Array<icsEvent>
+    ): Promise<File> {
+      return new Promise((resolve, reject) => {
+        const returnObject = createEvents(icsData);
+        if (returnObject.error) {
+          reject(returnObject.error);
+        }
+        if (returnObject.value !== undefined) {
+          resolve(
+            new File([returnObject.value], filename, { type: "text/calendar" })
+          );
+        }
+      });
     },
   },
   computed: {
