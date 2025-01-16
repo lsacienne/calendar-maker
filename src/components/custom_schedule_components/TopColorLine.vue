@@ -175,9 +175,10 @@ export default defineComponent({
   margin: auto;
   display: inline-flex;
   justify-content: space-between;
+  flex-basis: auto;
   border-radius: 1rem;
   gap: 1rem;
-  width: 60%;
+  min-width: 60%;
 }
 
 .items {
