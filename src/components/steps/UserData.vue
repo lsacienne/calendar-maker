@@ -76,7 +76,7 @@
           ></DateField>
         </DateContainer>
          <v-date-input
-          label="Select range"
+          ="Select range"
           max-width="368"
           multiple="range"
           variant="outlined"

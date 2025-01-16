@@ -143,13 +143,14 @@ body {
 }
 
 .c-toast.c-toast--default {
-  color: white;
+  color: rgb(133, 35, 35);
+  font-weight: bold;
   font-size: 1.4rem;
   padding: 2rem;
   padding-top: 0;
   padding-bottom: 0;
-  border: solid 3px rgb(114, 75, 255);
-  background-color: rgb(139, 107, 255);
+  border: solid 3px rgb(133, 35, 35);
+  background-color: rgb(255, 107, 107);
   border-radius: 1rem;
   transition: all 0.2s;
 }

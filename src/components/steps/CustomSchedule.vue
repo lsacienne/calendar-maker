@@ -15,7 +15,11 @@
           :nb-days="nbDays"
         ></SVGSchedule>
         <ColorManager></ColorManager>
-        <SubmitButton @click="handleExportPng" text="Télécharges en PNG 🖼️" />
+        <SubmitButton
+          class="download-png"
+          @click="handleExportPng"
+          text="Télécharges en PNG 🖼️"
+        />
       </div>
     </article>
   </StepFolder>
@@ -264,5 +268,9 @@ button:active {
   border: solid rgb(125, 110, 139) 0.2rem;
   background-color: rgb(125, 110, 139);
   color: aliceblue;
+}
+
+.download-png {
+  margin-top: 1rem;
 }
 </style>
