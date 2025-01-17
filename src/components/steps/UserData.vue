@@ -27,65 +27,6 @@
       <SubmitButton text="J'ai fini 😎" v-on:click="sendData"></SubmitButton>
     </article>
   </StepFolder>
-  <!-- <article>
-    <form action="">
-      <textarea
-        name="schedule-handler"
-        id="schedule-handler"
-        placeholder="Coller votre emploi du temps ici"
-      ></textarea>
-      <div class="date-grid">
-        <DateContainer title="Début des cours :">
-          <DateField
-            labeltext=""
-            ref="startCourses"
-            v-on:dateChange="handleCoursesStart()"
-          ></DateField>
-        </DateContainer>
-
-        <DateContainer title="Date de fin des cours">
-          <DateField labeltext="" :disabled="true" ref="endCourses"></DateField>
-        </DateContainer>
-
-        <DateContainer title="Période de vacances 1 :">
-          <DateField
-            labeltext="Début :"
-            :disabled="true"
-            ref="startRest1"
-            v-on:dateChange="handleStart1()"
-          ></DateField>
-          <DateField
-            labeltext="Fin :"
-            :disabled="true"
-            ref="endRest1"
-            v-on:dateChange="handleEnd1()"
-          ></DateField>
-        </DateContainer>
-
-        <DateContainer title="Période de vacances 2 :">
-          <DateField
-            labeltext="Début :"
-            :disabled="true"
-            ref="startRest2"
-            v-on:dateChange="handleStart2()"
-          ></DateField>
-          <DateField
-            labeltext="Fin :"
-            :disabled="true"
-            ref="endRest2"
-          ></DateField>
-        </DateContainer>
-         <v-date-input
-          ="Select range"
-          max-width="368"
-          multiple="range"
-          variant="outlined"
-          placeholder="jj/mm/aaaa"
-          theme="dark"
-        ></v-date-input>
-      </div>
-    </form>
-  </article> -->
 </template>
 
 <script lang="ts">
@@ -126,100 +67,17 @@ export default defineComponent({
     },
   },
   methods: {
-    handleCoursesStart() {
-      const startCourses = this.$refs.startCourses as typeof DateField;
-      const endCourses = this.$refs.endCourses as typeof DateField;
-      const startRest1 = this.$refs.startRest1 as typeof DateField;
-      const endRest1 = this.$refs.endRest1 as typeof DateField;
-
-      let endCoursesMin = new Date(startCourses.getValue()) as Date;
-      endCoursesMin = this.addDay(endCoursesMin, 1);
-
-      let startRest1Min = new Date(startCourses.getValue()) as Date;
-      startRest1Min = this.addDay(startRest1Min, 1);
-
-      let endRest1Min = new Date(startCourses.getValue()) as Date;
-      endRest1Min = this.addDay(endRest1Min, 7);
-
-      endCourses.setMin(endCoursesMin);
-      startRest1.setMin(startRest1Min);
-      endRest1.setMin(endRest1Min);
-
-      endCourses.enable();
-      startRest1.enable();
-      endRest1.enable();
-    },
-    handleStart1() {
-      const startRest1 = this.$refs.startRest1 as typeof DateField;
-      const endRest1 = this.$refs.endRest1 as typeof DateField;
-      let endRestMinDate = new Date(startRest1.getValue()) as Date;
-      endRestMinDate = this.addDay(endRestMinDate, 6);
-      endRest1.setMin(endRestMinDate);
-      endRest1.setValue(endRestMinDate);
-      this.enableDate2();
-    },
-    handleEnd1() {
-      const startRest1 = this.$refs.startRest1 as typeof DateField;
-      const endRest1 = this.$refs.endRest1 as typeof DateField;
-      let startNewDate = new Date(endRest1.getValue()) as Date;
-      startNewDate = this.addDay(startNewDate, -6);
-      startRest1.setValue(startNewDate);
-      this.enableDate2();
-    },
-    handleStart2() {
-      const startRest2 = this.$refs.startRest1 as typeof DateField;
-      const endRest2 = this.$refs.endRest1 as typeof DateField;
-      let endRestMinDate = new Date(startRest2.getValue()) as Date;
-      endRestMinDate = this.addDay(endRestMinDate, 6);
-      endRest2.setMin(endRestMinDate);
-      endRest2.setValue(endRestMinDate);
-    },
-    enableDate2() {
-      const endRest1 = this.$refs.endRest1 as typeof DateField;
-      const startRest2 = this.$refs.startRest2 as typeof DateField;
-      const endRest2 = this.$refs.endRest2 as typeof DateField;
-
-      let startRest2Min = new Date(endRest1.getValue()) as Date;
-      let endRest2Min = new Date(endRest1.getValue()) as Date;
-      startRest2Min = this.addDay(startRest2Min, 1);
-      endRest2Min = this.addDay(endRest2Min, 7);
-
-      startRest2.setMin(startRest2Min);
-      endRest2.setMin(endRest2Min);
-
-      startRest2.enable();
-      endRest2.enable();
-    },
-    addDay(date: Date, days: number): Date {
-      const resultDate = new Date(date);
-      resultDate.setDate(resultDate.getDate() + days);
-      return resultDate;
-    },
     sendData(): {
       courses: { start: string; end: string };
       schedule: Array<object>;
       rests: Array<{ start: string; end: string }>;
     } | null {
       const scheduleArea = this.$refs.scheduleArea as HTMLTextAreaElement;
-      // const startCourses = this.$refs.startCourses as typeof DateField;
-      // const endCourses = this.$refs.endCourses as typeof DateField;
-      // const startRest1 = this.$refs.startRest1 as typeof DateField;
-      // const endRest1 = this.$refs.endRest1 as typeof DateField;
-      // const startRest2 = this.$refs.startRest2 as typeof DateField;
-      // const endRest2 = this.$refs.endRest2 as typeof DateField;
 
       const courses = {
         start: "",
         end: "",
       };
-      // const rest1 = {
-      //   start: startRest1.getValue(),
-      //   end: endRest1.getValue(),
-      // };
-      // const rest2 = {
-      //   start: startRest2.getValue(),
-      //   end: endRest2.getValue(),
-      // };
 
       const scheduleStr = scheduleArea.value;
       const schedule = scheduleStr
@@ -228,9 +86,6 @@ export default defineComponent({
       const scheduleTable = [] as Array<ScheduleItem>;
 
       for (const line of schedule) {
-        // let mode = '' as string
-        // let classroom = '' as string
-        // let hasGroup = false
         let startHourSet = false;
         const resultObject: ScheduleItem = {
           uv: "",
@@ -291,23 +146,8 @@ export default defineComponent({
         this.$emit("formValidated", null);
         return null;
       }
-      // else if (courses.start !== "" && courses.end === "") {
-      //   toaster.show("Tu oublierais pas la date de fin ? 🙃", {
-      //     position: "bottom",
-      //     duration: 2000,
-      //     queue: true,
-      //   });
-      //   this.$emit("formValidated", null);
-      //   return null;
-      // }
 
       const restArray: never[] = [];
-      // if (rest1.start !== "") {
-      //   restArray.push(rest1);
-      // }
-      // if (rest2.start !== "") {
-      //   restArray.push(rest2);
-      // }
       this.$emit("formValidated", {
         schedule: scheduleTable,
         courses: courses,
