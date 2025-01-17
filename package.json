@@ -27,8 +27,8 @@
     "@typescript-eslint/parser": "^8.10.0",
     "@vitejs/plugin-vue": "^5.1.4",
     "lint-staged": "^15.2.10",
-    "typescript": "5.7.2",
-    "vite": "^5.4.9"
+    "typescript": "5.7.3",
+    "vite": "^6.0.7"
   },
   "browserslist": [
     "> 1%",
