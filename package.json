@@ -1,0 +1,42 @@
+{
+  "name": "calendar-maker",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@meforma/vue-toaster": "^1.3.0",
+    "@types/moment": "^2.11.29",
+    "@types/rrule": "^2.1.7",
+    "eslint": "^9.13.0",
+    "eslint-plugin-vue": "^9.29.0",
+    "ics": "^3.8.1",
+    "moment": "^2.30.1",
+    "rrule": "^2.8.1",
+    "vite-plugin-vuetify": "^2.0.4",
+    "vue": "^3.2.13",
+    "vuetify": "^3.7.4"
+  },
+  "devDependencies": {
+    "@mdi/font": "^7.4.47",
+    "@typescript-eslint/eslint-plugin": "^8.10.0",
+    "@typescript-eslint/parser": "^8.10.0",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "lint-staged": "^15.2.10",
+    "typescript": "5.7.3",
+    "vite": "^6.0.7"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  }
+}
