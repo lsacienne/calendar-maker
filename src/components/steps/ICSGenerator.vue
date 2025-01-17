@@ -80,7 +80,7 @@
         </div>
       </div>
       <SubmitButton
-        text="📅 Générer le fichier ICS"
+        text="Générer le fichier ICS 📅"
         v-on:click="computeICSFile"
       ></SubmitButton>
     </article>

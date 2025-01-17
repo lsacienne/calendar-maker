@@ -21,10 +21,7 @@
           @dateBChange="obj.chosenDate = obj.date2 ? obj.date2 : 2"
         ></ClassChooser>
       </div>
-      <SubmitButton
-        text="J'ai fini pour de vrai ! 😅"
-        @click="sendData"
-      ></SubmitButton>
+      <SubmitButton text="C'est validé ! ​🚀​" @click="sendData"></SubmitButton>
     </article>
   </StepFolder>
 </template>
