@@ -11,6 +11,6 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-    base: "/calendar-maker/",
   },
+  base: "/calendar-maker/",
 });
