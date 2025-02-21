@@ -14,23 +14,28 @@ export const getDateRange = (firstDate: Date, lastDate: Date): Array<Date> => {
   return dates;
 };
 
+function convertFrenchDateStringToDate(date: string): Date {
+  const dateArray = date.split('/');
+  return new Date(parseInt(dateArray[2]), parseInt(dateArray[1]) - 1, parseInt(dateArray[0]));
+}
+
 export function generateCorrectDates(schedule: Schedule): Array<DateableEvent> | null {
   if (schedule.courses.start !== '') {
     const eventList = [] as Array<DateableEvent>
-    const startSemester = new Date(schedule.courses.start);
-    const endSemester = new Date(schedule.courses.end);
+    const startSemester = new Date(convertFrenchDateStringToDate(schedule.courses.start));
+    const endSemester = new Date(convertFrenchDateStringToDate(schedule.courses.end));
     if (Object.keys(schedule.rests).length === 0 || schedule.rests.length === 0) {
-      eventList.push(...computePeriodsDates(startSemester, endSemester, schedule.schedule, true))
+      eventList.push(...computePeriodsDates(startSemester, endSemester, schedule.schedule, true));
     } else if (schedule.rests.length === 1) {
-      const startRest = new Date(schedule.rests[0].start)
-      const endRest = new Date(schedule.rests[0].end)
-      eventList.push(...computePeriodsDates(startSemester, startRest, schedule.schedule, true))
-      eventList.push(...computePeriodsDates(endRest, endSemester, schedule.schedule))
+      const startRest = new Date(convertFrenchDateStringToDate(schedule.rests[0].start));
+      const endRest = new Date(convertFrenchDateStringToDate(schedule.rests[0].end));
+      eventList.push(...computePeriodsDates(startSemester, startRest, schedule.schedule, true));
+      eventList.push(...computePeriodsDates(endRest, endSemester, schedule.schedule));
     } else if (schedule.rests.length === 2) {
-      const startRest1 = new Date(schedule.rests[0].start)
-      const startRest2 = new Date(schedule.rests[1].start)
-      const endRest1 = new Date(schedule.rests[0].end)
-      const endRest2 = new Date(schedule.rests[1].end)
+      const startRest1 = new Date(convertFrenchDateStringToDate(schedule.rests[0].start));
+      const startRest2 = new Date(convertFrenchDateStringToDate(schedule.rests[1].start));
+      const endRest1 = new Date(convertFrenchDateStringToDate(schedule.rests[0].end));
+      const endRest2 = new Date(convertFrenchDateStringToDate(schedule.rests[1].end));
       eventList.push(...computePeriodsDates(startSemester, startRest1, schedule.schedule, true))
       eventList.push(...computePeriodsDates(endRest1, startRest2, schedule.schedule))
       eventList.push(...computePeriodsDates(endRest2, endSemester, schedule.schedule))
@@ -107,7 +112,7 @@ function computePeriodsDates(
       firstDate = setHourToDateM(firstDate, scheduleItem.startHour)
     }
     const lastDate = findLastDate(endPeriod, scheduleItem.day);
-    console.log('first date: ',firstDate);
+    // console.log('first date: ',firstDate);
 
     newEvent.uv = scheduleItem.uv
     newEvent.type = scheduleItem.type
@@ -239,9 +244,10 @@ function findLastDate(endDate: Date, day: string) {
     } else {
       endDateM.day(dayOfWeek)
     }
+    // console.log('end date: ', endDateM);
     return endDateM
   }
-  return moment()
+  return moment(new Date());
 }
 
 export function getWeek(date: Date) {
