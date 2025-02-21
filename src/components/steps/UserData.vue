@@ -126,6 +126,11 @@ export default defineComponent({
             resultObject.classroom = value;
           }
         });
+        // Because sometimes a clever professor thinks it's funny to put a letter in the frequency column!
+        // Thank you professor, very cool!
+        if (resultObject.group !== "" && resultObject.frequency === "") {
+          resultObject.frequency = "2";
+        }
 
         scheduleTable.push(resultObject);
       }
