@@ -82,7 +82,7 @@ export default defineComponent({
       const scheduleStr = scheduleArea.value;
       const schedule = scheduleStr
         .split("\n")
-        .map((line) => line.split(/\t+/)) as Array<Array<string>>;
+        .map((line) => line.split(/ *\t+/)) as Array<Array<string>>;
       const scheduleTable = [] as Array<ScheduleItem>;
 
       for (const line of schedule) {
@@ -100,7 +100,11 @@ export default defineComponent({
         };
         line.forEach((value, i) => {
           if (i === 0) {
-            resultObject.uv = value;
+            if (value.includes("+")) {
+              resultObject.uv = value.split("+")[0];
+            } else {
+              resultObject.uv = value;
+            }
           } else if (/(TD|TP|CM)[0-9]/.test(value)) {
             resultObject.type = value;
           } else if (frenchDays.includes(value)) {
